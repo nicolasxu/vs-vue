@@ -16,10 +16,13 @@
 </script>
 
 <style lang="sass" scoped>
+  @import '../../scss/reusable.scss';
   .working-area {
 
     background-color: Wheat;
     min-width: 320px;
     overflow: hidden;
+    border-left: 1px solid $border-color;
+    height: 100vh;
   }
 </style>
