@@ -17,6 +17,9 @@
 
 <style lang="sass" scoped>
   .working-area {
-    
+
+    background-color: Wheat;
+    min-width: 320px;
+    overflow: hidden;
   }
 </style>

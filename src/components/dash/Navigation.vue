@@ -17,6 +17,9 @@
 
 <style lang="sass" scoped>
   .navigation {
-
+    background-color: LightCyan;
+    height: 100vh;
+    width: 260px;
+    float: left;
   }
 </style>
