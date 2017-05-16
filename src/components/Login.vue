@@ -5,23 +5,31 @@
       <legend class="uk-legend">Login</legend>
 
       <div class="uk-margin">
-          <label class="uk-form-label" for="form-email">Email</label>
-          <div class="uk-form-controls">
-              <input class="uk-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
-          </div>
+        <label class="uk-form-label" for="form-email">Email</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
+        </div>
       </div>
       <div class="uk-margin">
-          <label class="uk-form-label" for="form-password">Password</label>
-          <div class="uk-form-controls">
-              <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="password">
-          </div>
-      </div>  
+        <label class="uk-form-label" for="form-password">Password</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="password">
+        </div>
+      </div>
+      <div class="uk-margin">
+        <div class="uk-alert-danger" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p v-if="errorCode==4002">Email is invalid</p>
+            <p v-if="errorCode==4007">Wrong password</p>
+        </div>        
+      </div>      
+
       <div class="uk-margin">
           <div class="uk-form-controls">
-            <button class="uk-button uk-button-primary" @click.prevent="register">Login</button>
-            <!-- <a class="uk-link-muted reset-link" href="">Reset Password</a> -->
-            <router-link class="reset-link" :to="{ name: 'ResetPassword', params: { userId: 123 }}">Reset Password</router-link>
-
+            <button class="uk-button uk-button-primary" @click.prevent="login">Login</button>
+            <router-link class="reset-link" :to="{ name: 'ResetPassword', params: { userId: 123 }}">
+              Reset Password
+            </router-link>
           </div>
       </div>
     </form>    
@@ -30,13 +38,26 @@
 </template>
 
 <script>
+import api from '../util/api.js'
 export default {
   name: 'login',
   data () {
     return {
       msg: 'this is login',
       email: '',
-      password: ''
+      password: '',
+      errorCode: ''
+    }
+  },
+  methods: {
+    login() {
+      // todo: a bit of data validation 
+      let thisComponent = this
+      api.user.login({email: this.email, password: this.password})
+        .then((result) => {
+          console.log(result)
+          thisComponent.errorCode = result.code
+        })
     }
   }
 }
@@ -48,7 +69,13 @@ export default {
   @extend %login-register-container;
   .reset-link {
     margin-left: 6%;
-  }  
+  }
+  .uk-alert-danger {
+    p {
+      margin: 0;
+      padding: 15px 29px 15px 15px;
+    }
+  }
 }
   
 </style>
