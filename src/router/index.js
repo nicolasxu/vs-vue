@@ -6,10 +6,12 @@ import Register from '@/components/Register'
 import ResetPassword from '@/components/ResetPassword'
 import Navigation from '@/components/dash/Navigation'
 import WorkingArea from '@/components/dash/WorkingArea'
+import beforeEachRoute from './globalGuard.js'
 
 Vue.use(Router)
 
-export default new Router({
+ 
+let theRouter = new Router({
   routes: [
     {
       path: '/',
@@ -37,3 +39,7 @@ export default new Router({
     }
   ]
 })
+
+theRouter.beforeEach(beforeEachRoute)
+
+export default theRouter
