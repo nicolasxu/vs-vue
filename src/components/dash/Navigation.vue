@@ -3,17 +3,17 @@
     <div class="logo">
       
     </div>
-    <h4>Invoices</h4>
+    <h2 class="section-title">Invoices</h2>
     <menu class="menu">
       <menuitem>received</menuitem>
       <menuitem>sent</menuitem>
     </menu>
-    <h4>My network</h4>
-    <menu>
+    <h2 class="section-title">My network</h2>
+    <menu class="menu">
       <menuitem>client</menuitem>
       <menuitem>vendor</menuitem>
     </menu>
-    <h4>More</h4>
+    <h2 class="section-title">More</h2>
   </nav>
 </template>
 
@@ -29,19 +29,32 @@
 </script>
 
 <style lang="sass" scoped>
+  @import '../../scss/reusable.scss';
   .navigation {
+    box-sizing: border-box;
     padding-top: 30px;
+    padding-left: 10px;
+    height: 100vh;
+    width: 200px;
+    float: left;
     .logo {
       width: 50px;
       height: 50px;
-      background-color: yellow;
+      background-color: orange;
       margin-left: auto;
       margin-right: auto;
+      margin-bottom: 1em;
     }
-    background-color: LightCyan;
-    height: 100vh;
-    width: 260px;
-    float: left;
+    .section-title {
+      font-size: 12.8px;
+      color: $grey-text-color;
+      margin-bottom: 0.6em;
+      margin-top: 0.6em;
+    }
+    .menu {
+      padding-left: 0;
+      margin-top: 0;
+    }
     menuitem {
       display: block; // by default, menuitem is in-line element
     }

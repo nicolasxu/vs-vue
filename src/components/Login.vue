@@ -25,12 +25,12 @@
       </div>      
 
       <div class="uk-margin">
-          <div class="uk-form-controls">
-            <button class="uk-button uk-button-primary" @click.prevent="login">Login</button>
-            <router-link class="reset-link" :to="{ name: 'ResetPassword', params: { userId: 123 }}">
-              Reset Password
-            </router-link>
-          </div>
+        <div class="uk-form-controls">
+          <button class="uk-button uk-button-primary" @click.prevent="login">Login</button>
+          <router-link class="reset-link" :to="{ name: 'ResetPassword', params: { userId: 123 }}">
+            Reset Password
+          </router-link>
+        </div>
       </div>
     </form>    
 
@@ -39,6 +39,8 @@
 
 <script>
 import api from '../util/api.js'
+import store from './Store.js'
+
 export default {
   name: 'login',
   data () {
@@ -56,7 +58,16 @@ export default {
       api.user.login({email: this.email, password: this.password})
         .then((result) => {
           console.log(result)
-          thisComponent.errorCode = result.code
+          if (result.code === 2000) {
+            // login success
+            store.user = result.data.user
+            store.company = result.data.company
+            store.isLogin = true
+            thisComponent.$router.push({name: 'Dash'})
+
+          } else {
+            thisComponent.errorCode = result.code
+          }
         })
     }
   }
