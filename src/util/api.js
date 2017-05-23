@@ -22,6 +22,12 @@ export default {
       let url = baseUrl + '/user'
       return request.get(url)
     }
+  },
+  company: {
+    getMyCompany () {
+      let url = baseUrl + '/company'
+      return request.get(url)
+    }
   }
 }
 

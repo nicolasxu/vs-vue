@@ -1,15 +1,14 @@
 import store from '../components/Store.js'
 import api from '../util/api.js'
 
-export default beforeEachRoute
+export default beforeEachRouteCheckLogin
 
-function beforeEachRoute(to, from, next) {
+function beforeEachRouteCheckLogin(to, from, next) {
   if (store.user) {
     next()
   }
 
   if (to.name === 'Login' || to.name === 'Register') {
-    alert('login route')
     next()
   }
   // 1. call api to get user 

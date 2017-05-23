@@ -14,6 +14,10 @@
       <menuitem>vendor</menuitem>
     </menu>
     <h2 class="section-title">More</h2>
+    <menu class="menu">
+      <menuitem>Settings</menuitem>
+      <menuitem>Logout</menuitem>
+    </menu>
   </nav>
 </template>
 

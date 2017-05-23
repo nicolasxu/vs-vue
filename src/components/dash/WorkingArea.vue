@@ -1,6 +1,7 @@
 <template>
   <main class="working-area">
     <h2>{{msg}}</h2>
+      <router-view></router-view>
   </main>
 </template>
 
