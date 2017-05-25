@@ -5,18 +5,47 @@
     </div>
     <h2 class="section-title">Invoices</h2>
     <menu class="menu">
-      <menuitem>received</menuitem>
-      <menuitem>sent</menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Create', params: { userId: 123 }}">
+          Create
+        </router-link>
+      </menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Received', params: { userId: 123 }}">
+          Received
+        </router-link>        
+      </menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Sent', params: { userId: 123 }}">
+          Sent
+        </router-link> 
+      </menuitem>
     </menu>
     <h2 class="section-title">My network</h2>
     <menu class="menu">
-      <menuitem>client</menuitem>
-      <menuitem>vendor</menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Client', params: { userId: 123 }}">
+          Client
+        </router-link> 
+      </menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Vendor', params: { userId: 123 }}">
+          Vendor
+        </router-link>         
+      </menuitem>
     </menu>
     <h2 class="section-title">More</h2>
     <menu class="menu">
-      <menuitem>Settings</menuitem>
-      <menuitem>Logout</menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Setting.Account', params: { userId: 123 }}">
+          Settings
+        </router-link>         
+      </menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Create', params: { userId: 123 }}">
+          Logout
+        </router-link>         
+      </menuitem>
     </menu>
   </nav>
 </template>

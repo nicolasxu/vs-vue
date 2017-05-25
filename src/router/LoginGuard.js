@@ -6,16 +6,17 @@ export default beforeEachRouteCheckLogin
 function beforeEachRouteCheckLogin(to, from, next) {
   if (store.user) {
     next()
+    return
   }
 
   if (to.name === 'Login' || to.name === 'Register') {
     next()
+    return
   }
   // 1. call api to get user 
   api.user.getDetail()
     .then((result)=>{
-      console.log('before guard..')
-      console.log(result)
+      console.log('login guard, user detail', result)
       if (result.code === 2000) {
         store.user = result.data.user
         next()
