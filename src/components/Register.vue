@@ -47,7 +47,18 @@ export default {
   methods: {
     register: function (e) {
       console.log('register called...')
-      api.register.register('https://www.google.com')
+      if (this.password !== this.passwordRepeat) {
+        console.log('password repeat is not the same')
+        return
+      }
+
+      if(this.email === '') {
+        console.log('email is empty')
+        return
+      }
+
+      console.log({email: this.email, password: this.password})
+      api.user.register({email: this.email, password: this.password})
     }
   }
 }
