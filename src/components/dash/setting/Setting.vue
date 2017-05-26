@@ -1,6 +1,6 @@
 <template>
   <div class="setting">
-    Setting
+    <h3>Setting</h3>
     <router-view></router-view>
   </div>
 </template>
@@ -18,6 +18,6 @@
 
 <style lang="sass" scoped>
   .setting {
-    background-color: yellow;
+    // background-color: yellow;
   }
 </style>

@@ -20,7 +20,7 @@
   @import '../../scss/reusable.scss';
   .working-area {
 
-    background-color: Wheat;
+    background-color: white;
     min-width: 320px;
     overflow: hidden;
     border-left: 1px solid $border-color;

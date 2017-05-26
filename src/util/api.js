@@ -24,6 +24,12 @@ export default {
     getMyCompany () {
       let url = baseUrl + '/company'
       return request.get(url)
+    },
+    create() {
+
+    },
+    update () {
+      
     }
   }
 }
