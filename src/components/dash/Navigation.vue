@@ -33,6 +33,11 @@
           Vendor
         </router-link>         
       </menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Vendor', params: { userId: 123 }}">
+          Product
+        </router-link>         
+      </menuitem>      
     </menu>
     <h2 class="section-title">More</h2>
     <menu class="menu">

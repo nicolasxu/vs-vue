@@ -25,11 +25,13 @@ export default {
       let url = baseUrl + '/company'
       return request.get(url)
     },
-    create() {
-
+    create(company) {
+      let url = baseUrl + '/company'
+      return request.post(url, company)
     },
     update () {
-      
+      let url = baseUrl + '/company'
+      return request.put(url, company)
     }
   }
 }

@@ -41,8 +41,35 @@
 
 <script>
   import store from '../../Store.js'
+  import api from '../../../util/api.js'
   export default {
-    name: 'mycompany', 
+    name: 'mycompany',
+    created () {
+      if (store.company) {
+        // this.name = store.company.name
+        // this.address1 = store.company.addressLine1
+        // this.address2 = store.company.addressLine2
+        // this.city = store.company.city
+        // this.state = store.company.state
+        // this.tel = store.company.tel
+        // this.country = store.company.country
+        this.copyFromStore()
+      } else {
+        let thisComponent = this
+        api.company.getMyCompany()
+          .then(res => {
+            if (res.code === 2000) {
+              store.company = res.data.company
+              thisComponent.copyFromStore()
+            } else {
+              throw new Error("getting my company detail error")
+            }
+          })
+          .catch(e=> {
+            console.log(e)
+          })
+      }
+    },
     data() {
       return {
         name: '',
@@ -51,7 +78,8 @@
         city: '',
         state: '',
         zip: '',
-        country: ''
+        country: '',
+        tel: ''
       }
     },
     computed: {
@@ -64,13 +92,41 @@
       }
     },
     methods: {
+      copyFromStore () {
+        this.name = store.company.name
+        this.address1 = store.company.addressLine1
+        this.address2 = store.company.addressLine2
+        this.city = store.company.city
+        this.state = store.company.state
+        this.zip = store.company.zip
+        this.tel = store.company.tel
+        this.country = store.company.country        
+      },
+
       save() {
         console.log('save...')
 
         if (store.company) {
           // call update company api
+
         } else {
           // call create company api
+          let companyJson = {
+            name: this.name,
+            address1: this.address1,
+            address2: this.address2,
+            city: this.city,
+            state: this.state,
+            zip: this.zip,
+            country: this.country,
+            tel:'',
+            eid: ''
+          }
+          api.company.create(companyJson)
+            .then(res => {
+              console.log(res)
+              store.company = res.data.company
+            })
         }
       }
     }
