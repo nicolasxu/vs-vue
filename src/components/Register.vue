@@ -34,6 +34,8 @@
 
 <script>
 import api from '@/util/api.js'
+import store from './Store.js'
+
 export default {
   name: 'login',
   data () {
@@ -46,7 +48,6 @@ export default {
   },
   methods: {
     register: function (e) {
-      console.log('register called...')
       if (this.password !== this.passwordRepeat) {
         console.log('password repeat is not the same')
         return
@@ -56,9 +57,17 @@ export default {
         console.log('email is empty')
         return
       }
-
-      console.log({email: this.email, password: this.password})
+      let thisComponent = this
+      console.log('registering user...')
       api.user.register({email: this.email, password: this.password})
+        .then((result) => {
+          if (result.code === 2000) {
+            // register succeed
+            store.user = result.data.user
+            console.log("store.user: ", store.user)
+            thisComponent.$router.push({name: 'Dash.Received'})
+          }
+        })
     }
   }
 }

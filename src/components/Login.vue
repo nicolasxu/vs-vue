@@ -63,7 +63,7 @@ export default {
             store.user = result.data.user
             store.company = result.data.company
             store.isLogin = true
-            thisComponent.$router.push({name: 'Dash.received'})
+            thisComponent.$router.push({name: 'Dash.Received'})
 
           } else {
             thisComponent.errorCode = result.code

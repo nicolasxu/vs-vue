@@ -17,7 +17,7 @@ function companyCreated(to, from, next) {
 
   api.company.getMyCompany()
     .then(result => {
-      if (result.code === 2000) {
+      if (result.code === 2000 && result.data.company !== null) {
         console.log('company created guard', result)
         store.company = result.data.company
         next()
