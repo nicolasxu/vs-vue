@@ -40,19 +40,13 @@
 </template>
 
 <script>
-  import store from '../../Store.js'
-  import api from '../../../util/api.js'
+  import store from '../../store.js'
+  import {api} from '../../../util/api'
   export default {
     name: 'mycompany',
     created () {
       if (store.company) {
-        // this.name = store.company.name
-        // this.address1 = store.company.addressLine1
-        // this.address2 = store.company.addressLine2
-        // this.city = store.company.city
-        // this.state = store.company.state
-        // this.tel = store.company.tel
-        // this.country = store.company.country
+   
         this.copyFromStore()
       } else {
         let thisComponent = this

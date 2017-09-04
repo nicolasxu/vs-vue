@@ -1,11 +1,7 @@
 // this is request js
 
-// module.exports = {
-//   get: getFn,
-//   post: postFn,
-//   put: putFn,
-//   delete: deleteFn
-// }
+import store from '../../src/components/store.js'
+let token = store.token
 
 export default {
   get: getFn,
@@ -17,8 +13,13 @@ export default {
 // TODO: http://www.html5rocks.com/en/tutorials/cors/
 
 function postFn(url, payload) {
+  let token = store.token
+  console.log('token', token)
   return $.ajax({
     method: 'POST',
+    headers: {
+      'x-access-token': token
+    },
     url: url,
     xhrFields: {
       withCredentials: true
@@ -30,6 +31,9 @@ function postFn(url, payload) {
 function getFn(urlWithQueryString) {
   return $.ajax({
     method: 'GET',
+    headers: {
+      'x-access-token': token
+    },    
     xhrFields: {
       withCredentials: true
     },
@@ -40,6 +44,9 @@ function getFn(urlWithQueryString) {
 function putFn(url, payload) {
   return $.ajax({
     method: 'PUT',
+    headers: {
+      'x-access-token': token
+    },    
     url: url,
     xhrFields: {
       withCredentials: true
@@ -51,6 +58,9 @@ function putFn(url, payload) {
 function deleteFn(url, payload) {
   return $.ajax({
     method: 'DELETE',
+    headers: {
+      'x-access-token': token
+    },    
     url: url,
     xhrFields: {
       withCredentials: true

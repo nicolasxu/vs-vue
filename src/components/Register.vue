@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import api from '@/util/api.js'
-import store from './Store.js'
+import {api} from '@/util/api'
+import store from './store.js'
 
 export default {
   name: 'login',

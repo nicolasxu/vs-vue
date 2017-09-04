@@ -1,5 +1,5 @@
-import store from '../components/Store.js'
-import api from '../util/api.js'
+import store from '../components/store.js'
+import {api} from '../util/api'
 
 export default companyCreated
 
@@ -24,7 +24,5 @@ function companyCreated(to, from, next) {
       } else {
         next({name: 'Setting.MyCompany'})
       }
-      
     })
-
 }

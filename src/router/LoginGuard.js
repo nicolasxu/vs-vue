@@ -1,5 +1,5 @@
-import store from '../components/Store.js'
-import api from '../util/api.js'
+import store from '../components/store.js'
+import { api } from '../util/api'
 
 export default beforeEachRouteCheckLogin
 
@@ -13,6 +13,7 @@ function beforeEachRouteCheckLogin(to, from, next) {
     next()
     return
   }
+
   // 1. call api to get user 
   api.user.getDetail()
     .then((result)=>{
@@ -24,6 +25,12 @@ function beforeEachRouteCheckLogin(to, from, next) {
         // redirect ...
         next({name: 'Login'})
         // next()
+      }
+    })
+    .catch(err=> {
+      console.log(err)
+      if (err.status === 403) {
+        next({name: 'Login'})
       }
     })
     // 2. if API return login required, then redirect to login

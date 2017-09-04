@@ -20,7 +20,7 @@
         <div class="uk-alert-danger" uk-alert>
             <a class="uk-alert-close" uk-close></a>
             <p v-if="errorCode==4002">Email is invalid</p>
-            <p v-if="errorCode==4007">Wrong password</p>
+            <p v-if="errorCode==3001">Wrong password</p>
         </div>        
       </div>      
 
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import api from '../util/api.js'
-import store from './Store.js'
+import {api} from '../util/api'
+import store from './store.js'
 
 export default {
   name: 'login',
@@ -55,19 +55,19 @@ export default {
     login() {
       // todo: a bit of data validation 
       let thisComponent = this
-      api.user.login({email: this.email, password: this.password})
+      api.user.createToken({email: this.email, password: this.password})
         .then((result) => {
-          console.log(result)
           if (result.code === 2000) {
-            // login success
-            store.user = result.data.user
-            store.company = result.data.company
-            store.isLogin = true
-            thisComponent.$router.push({name: 'Dash.Received'})
-
+            store.token = result.data.token
+            // redirect to dash
+            this.$router.push({name: 'Dash.Received'})
           } else {
-            thisComponent.errorCode = result.code
+            // show err
+            this.errorCode = result.code
           }
+        })
+        .catch((err)=> {
+          console.log('err', err)
         })
     }
   }
