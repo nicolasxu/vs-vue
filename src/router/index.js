@@ -78,31 +78,33 @@ let theRouter = new Router({
           beforeEnter: companyCreatedGuard
         },
         {
-          path: 'setting',
+          path: 'setting/:category',
+          name: 'Dash.Setting',
           component: Setting,
-          children: [
-            {
-              path: '',
-              component: Account
-            },
-            {
-              path: 'account',
-              name: 'Setting.Account',
-              component: Account
-            }, {
-              path: 'mycompany',
-              name: 'Setting.MyCompany',
-              component: MyCompany
-            }, {
-              path: 'plan',
-              name: 'Setting.Plan',
-              component: Plan
-            }, {
-              path: 'RolePrivilege',
-              name: 'Setting.RolePrivilege',
-              component: RolePrivilege
-            }
-          ]
+          beforeEnter: companyCreatedGuard
+          // children: [
+          //   {
+          //     path: '',
+          //     component: Account
+          //   },
+          //   {
+          //     path: 'account',
+          //     name: 'Setting.Account',
+          //     component: Account
+          //   }, {
+          //     path: 'mycompany',
+          //     name: 'Setting.MyCompany',
+          //     component: MyCompany
+          //   }, {
+          //     path: 'plan',
+          //     name: 'Setting.Plan',
+          //     component: Plan
+          //   }, {
+          //     path: 'RolePrivilege',
+          //     name: 'Setting.RolePrivilege',
+          //     component: RolePrivilege
+          //   }
+          // ]
         }
       ]
     }

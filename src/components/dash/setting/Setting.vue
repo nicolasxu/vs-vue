@@ -1,7 +1,8 @@
 <template>
   <div class="setting">
     <h3>Setting</h3>
-    <router-view></router-view>
+    
+    <!-- a tab goes here -->
   </div>
 </template>
 
@@ -11,6 +12,11 @@
     data() {
       return {
 
+      }
+    },
+    watch: {
+      '$route': function (to, from) {
+        console.log('to', to)
       }
     }
   }

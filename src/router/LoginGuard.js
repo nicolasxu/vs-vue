@@ -4,7 +4,7 @@ import { api } from '../util/api'
 export default beforeEachRouteCheckLogin
 
 function beforeEachRouteCheckLogin(to, from, next) {
-  if (store.user) {
+  if (store.token) {
     next()
     return
   }

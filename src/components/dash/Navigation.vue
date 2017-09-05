@@ -39,10 +39,10 @@
         </router-link>         
       </menuitem>      
     </menu>
-    <h2 class="section-title">More</h2>
-    <menu class="menu">
+    <h2 class="section-title">Settings</h2>
+    <menu class="menu">   
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Setting.Account', params: { userId: 123 }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Setting', params: { category: 'company' }}">
           Settings
         </router-link>         
       </menuitem>
