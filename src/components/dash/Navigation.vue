@@ -42,7 +42,7 @@
     <h2 class="section-title">Settings</h2>
     <menu class="menu">   
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Setting', params: { category: 'company' }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Setting', params: { category: 'mycompany' }}">
           Settings
         </router-link>         
       </menuitem>
