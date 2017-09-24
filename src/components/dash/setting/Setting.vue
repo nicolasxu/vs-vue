@@ -3,6 +3,7 @@
     <h3>Setting</h3>
     
     <!-- a tab goes here -->
+    
   </div>
 </template>
 

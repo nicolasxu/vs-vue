@@ -1,16 +1,16 @@
 <template>
   <div class="login">
   
-    <form class="uk-form-stacked">
+    <form class="uk-form uk-width-medium-2-3">
       <legend class="uk-legend">Login</legend>
 
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label" for="form-email">Email</label>
         <div class="uk-form-controls">
             <input class="uk-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
         </div>
       </div>
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label" for="form-password">Password</label>
         <div class="uk-form-controls">
             <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="password">
@@ -24,7 +24,7 @@
         </div>        
       </div>      
 
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <div class="uk-form-controls">
           <button class="uk-button uk-button-primary" @click.prevent="login">Login</button>
           <router-link class="reset-link" :to="{ name: 'ResetPassword', params: { userId: 123 }}">
@@ -56,9 +56,12 @@ export default {
       // todo: a bit of data validation 
       let thisComponent = this
       api.user.createToken({email: this.email, password: this.password})
-        .then((result) => {
+        .then(async (result) => {
           if (result.code === 2000) {
             store.token = result.data.token
+            // get user
+            store.user = (await api.user.getDetail()).data.user
+
             // redirect to dash
             this.$router.push({name: 'Dash.Received'})
           } else {

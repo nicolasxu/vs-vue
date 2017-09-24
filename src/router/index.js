@@ -4,6 +4,8 @@ import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import ResetPassword from '@/components/ResetPassword'
+import CreateMyCompany from '@/components/CreateMyCompany'
+
 import Navigation from '@/components/dash/Navigation'
 import WorkingArea from '@/components/dash/WorkingArea'
 
@@ -43,7 +45,6 @@ let theRouter = new Router({
       component: ResetPassword
     }, {
       path: '/dash',
-      
       components: {
         nav: Navigation,
         workingArea: WorkingArea
@@ -53,6 +54,10 @@ let theRouter = new Router({
           path: '',
           
           component: Received
+        }, {
+          path: 'createMyCompany',
+          name: 'Dash.CreateMyCompany',
+          component: CreateMyCompany
         }, {
           path: 'received',
           name:'Dash.Received',
@@ -82,29 +87,6 @@ let theRouter = new Router({
           name: 'Dash.Setting',
           component: Setting,
           beforeEnter: companyCreatedGuard
-          // children: [
-          //   {
-          //     path: '',
-          //     component: Account
-          //   },
-          //   {
-          //     path: 'account',
-          //     name: 'Setting.Account',
-          //     component: Account
-          //   }, {
-          //     path: 'mycompany',
-          //     name: 'Setting.MyCompany',
-          //     component: MyCompany
-          //   }, {
-          //     path: 'plan',
-          //     name: 'Setting.Plan',
-          //     component: Plan
-          //   }, {
-          //     path: 'RolePrivilege',
-          //     name: 'Setting.RolePrivilege',
-          //     component: RolePrivilege
-          //   }
-          // ]
         }
       ]
     }

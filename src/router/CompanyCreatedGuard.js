@@ -14,15 +14,21 @@ function companyCreated(to, from, next) {
     next()
     return
   }
-
-  api.company.getMyCompany()
+  console.log('api', api)
+  api.company.getDetail()
     .then(result => {
-      if (result.code === 2000 && result.data.company !== null) {
+      if (result.data.myCompany && result.data.myCompany._id) {
         console.log('company created guard', result)
-        store.company = result.data.company
+        store.company = result.data.myCompany
         next()
       } else {
-        next({name: 'Setting.MyCompany'})
+        console.log('myCompany doesn\'t exist' )
+        console.log('result', result)
+        next({name: 'Dash.CreateMyCompany'})
       }
+    })
+    .catch((err)=> {
+      console.error('CompanyCreatedGuard api call error...')
+      console.error(err.responseText)
     })
 }

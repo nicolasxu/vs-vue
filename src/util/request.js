@@ -1,7 +1,7 @@
 // this is request js
 
 import store from '../../src/components/store.js'
-let token = store.token
+
 
 export default {
   get: getFn,
@@ -14,13 +14,14 @@ export default {
 
 function postFn(url, payload) {
   let token = store.token
-  console.log('token', token)
+  console.log('token', token, 'url: ', url)
   return $.ajax({
+    url: url,
     method: 'POST',
     headers: {
       'x-access-token': token
     },
-    url: url,
+    
     xhrFields: {
       withCredentials: true
     },
@@ -29,6 +30,7 @@ function postFn(url, payload) {
 }
 
 function getFn(urlWithQueryString) {
+  let token = store.token
   return $.ajax({
     method: 'GET',
     headers: {
@@ -42,6 +44,7 @@ function getFn(urlWithQueryString) {
 }
 
 function putFn(url, payload) {
+  let token = store.token
   return $.ajax({
     method: 'PUT',
     headers: {
@@ -56,6 +59,7 @@ function putFn(url, payload) {
 }
 
 function deleteFn(url, payload) {
+  let token = store.token  
   return $.ajax({
     method: 'DELETE',
     headers: {

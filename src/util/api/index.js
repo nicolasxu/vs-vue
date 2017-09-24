@@ -5,6 +5,6 @@ let company = require('./company.js')
 let api = {
   user, company
 }
-export  {
+export {
   api
 }

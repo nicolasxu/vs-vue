@@ -52,11 +52,12 @@
         let thisComponent = this
         api.company.getMyCompany()
           .then(res => {
-            if (res.code === 2000) {
+            
+            if (res.data.myCompany !== null) {
               store.company = res.data.company
               thisComponent.copyFromStore()
             } else {
-              throw new Error("getting my company detail error")
+              throw new Error("my company detail is empty")
             }
           })
           .catch(e=> {

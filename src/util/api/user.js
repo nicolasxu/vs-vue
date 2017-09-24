@@ -8,6 +8,10 @@ let token = store.token
 const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
+export {
+  register, createToken, getDetail
+}
+
 function getDetail () {
   let query = `
     query myQuery {
@@ -44,6 +48,3 @@ function createToken(user) {
 
 }
 
-export {
-  register, createToken, getDetail
-}
