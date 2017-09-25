@@ -1,38 +1,64 @@
 <template>
   <div class="my-company">
  
-<form class="uk-form-horizontal uk-margin-large">
-
-    <div class="uk-margin">
-        <label class="uk-form-label" for="company-name">Company Name</label>
-        <div class="uk-form-controls">
-          <input class="uk-input uk-form-width-large uk-form-small" id="company-name" type="text" placeholder="Company name" v-model="name">
+<form class="uk-form uk-form-stacked uk-width-medium-2-3">
+  <fieldset>
+    <legend>Your company setting</legend>
+      <div class="uk-form-row">
+          <label class="uk-form-label" for="company-name">Company Name</label>
+          <div class="uk-form-controls">
+              <input type="text" id="company-name" placeholder="name" class="uk-form-width-large" v-model="myCompany.name">
+          </div>
+      </div>
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">Address Line 1</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="address line 1" class="uk-form-width-large" v-model="myCompany.addressLine1">
+            </div>
         </div>
-    </div>
-
-    <div class="uk-margin address">
-        <label class="uk-form-label" for="company-address1">Address</label>
-        <div class="uk-form-controls">
-            <input class="uk-input uk-form-small uk-form-width-large" id="company-address1" type="text" placeholder="Address line 1" v-model="address1">
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">Address Line 2</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="address line 2" class="uk-form-width-large" v-model="myCompany.addressLine2">
+            </div>
         </div>
-        <div class="uk-form-controls">
-          <input class="uk-input  uk-form-small uk-form-width-large" id="company-address2" type="text" placeholder="Address line 2" v-model="address2">
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">City</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="city" class="uk-form-width-large" v-model="myCompany.city">
+            </div>
         </div>
-        <div class="uk-form-controls">
-          <input class="uk-input uk-form-small uk-form-width-small" id="company-address-city" type="text" placeholder="City" v-model="city"> 
-          <input class="uk-input uk-form-small uk-form-width-small" id="company-address-state" type="text" placeholder="State" v-model="state"> 
-          <input class="uk-input uk-form-small uk-form-width-small" id="company-address-zip " type="text" placeholder="Zip" v-model="zip"> <br/>
-          <input class="uk-input uk-form-small uk-form-width-medium" id="company-address-country " type="text" placeholder="Country" v-model="country"> 
-
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">State</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="state" class="uk-form-width-large" v-model="myCompany.state">
+            </div>
         </div>
-    </div>
-
-    <div class="uk-margin">
-        <div class="uk-form-controls">
-          <button class="uk-button uk-button-primary uk-button-small" @click.prevent="save">{{updateBtnText}}</button>
-          <router-link class="reset-link" :to="{ name: 'Dash.Received', params: { userId: 123 }}">Cancel</router-link>
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">Zip</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="zip" class="uk-form-width-large" v-model="myCompany.zip">
+            </div>
         </div>
-    </div>
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">Country</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="country" class="uk-form-width-large" v-model="myCompany.country">
+            </div>
+        </div>
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">EID</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="eid" class="uk-form-width-large" v-model="myCompany.eid">
+            </div>
+        </div>
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="company-name">Invoice Receiving Email</label>
+            <div class="uk-form-controls">
+                <input type="text" id="company-name" placeholder="emails" class="uk-form-width-large" v-model="myCompany.invoiceEmails">
+            </div>
+        </div>         
+  </fieldset>
 
 </form>
 
@@ -67,14 +93,17 @@
     },
     data() {
       return {
-        name: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zip: '',
-        country: '',
-        tel: ''
+        myCompany: {
+          name: '',
+          addressLine1: '',
+          addressLine2: '',
+          city: '',
+          state: '',
+          zip: '',
+          country: '',
+          eid: '',
+          invoiceEmails: ''        
+        }
       }
     },
     computed: {
@@ -88,14 +117,8 @@
     },
     methods: {
       copyFromStore () {
-        this.name = store.company.name
-        this.address1 = store.company.addressLine1
-        this.address2 = store.company.addressLine2
-        this.city = store.company.city
-        this.state = store.company.state
-        this.zip = store.company.zip
-        this.tel = store.company.tel
-        this.country = store.company.country        
+        this.myCompany = $.extend({}, store.company)
+       
       },
 
       save() {

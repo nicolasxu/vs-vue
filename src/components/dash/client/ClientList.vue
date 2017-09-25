@@ -1,16 +1,14 @@
 <template>
-  <div class="client">
-    Client
-  </div>
+  <div class="client-list">
+    client list
+  </div>  
 </template>
 
 <script>
   export default {
-    name: 'client', 
+    name: 'clientList',
     data() {
-      return {
-
-      }
+      return {}
     }
   }
 </script>
