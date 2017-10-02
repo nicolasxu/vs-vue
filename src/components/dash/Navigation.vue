@@ -6,8 +6,8 @@
     <h2 class="section-title">Invoices</h2>
     <menu class="menu">
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Create', params: { userId: 123 }}">
-          Create
+        <router-link class="uk-button uk-button-primary nav-link new-invoice-btn" :to="{ name: 'Dash.Create', params: { userId: 123 }}">
+          New
         </router-link>
       </menuitem>
       <menuitem>
@@ -75,6 +75,12 @@
     height: 100vh;
     width: 200px;
     float: left;
+    .new-invoice-btn {
+      width: 100px;
+      font-weight: bold;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
     .logo {
       width: 50px;
       height: 50px;

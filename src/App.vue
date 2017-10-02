@@ -13,13 +13,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="sass">
+
+@import './scss/global.scss';
 #app {
   position: relative;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 16px;
+ 
   color: #2c3e50;
 
   /*margin-top: 60px;*/

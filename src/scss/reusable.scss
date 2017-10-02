@@ -9,3 +9,16 @@
 $border-color: #EAEDF0;
 $grey-text-color: rgba(127, 127, 127, 0.8);
 
+%dash-component-margin-padding {
+  padding-left: 1em;
+  margin-bottom: 1em;
+}
+%list-pagination {
+  text-align: left;
+      .prev {
+        float:none;
+      }
+      .next {
+        float: none;
+      }
+}
