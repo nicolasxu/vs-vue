@@ -19,7 +19,7 @@ function getDetail() {
       myCompany {
         _id
         name
-        isPrivate
+        public
         creator
         active
         invoiceEmails

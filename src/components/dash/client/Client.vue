@@ -2,7 +2,6 @@
   <div class="client">
     <div class="header-bar">
       <form class="uk-form">
-        
         <input type="text" name="search" placeholder="search" class="uk-width-2-3">
         <div class="profile">
           <div class="profile-box box-1">
@@ -16,7 +15,7 @@
     </div>
     <div class="command-bar">
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="newClient">Create</button>
-      <button type="button" class="uk-button uk-button-primary uk-button-small" >Connect</button>
+      <button type="button" class="uk-button uk-button-primary uk-button-small" @click="goToConnect">Connect</button>
       <ul class="uk-pagination list-pagination">
         <li class="uk-pagination-previous prev"><a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a></li>
         <li class="uk-pagination-next next"><a href="#">Next<i class="uk-icon-angle-double-right"></i></a></li>      
@@ -42,6 +41,9 @@
       newClient() {
     
         this.$router.push({name: 'Dash.Client.New'})
+      },
+      goToConnect() {
+        this.$router.push({name: 'Dash.Client.Connect', query:{q1: 'q1'}, params: {email: 'abc'} })
       }
     }
   }

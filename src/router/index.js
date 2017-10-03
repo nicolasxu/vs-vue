@@ -17,6 +17,8 @@ import Sent from '../components/dash/Sent'
 import Create from '../components/dash/Create'
 import Client from '../components/dash/client/Client.vue'
 import NewClient from '../components/dash/client/NewClient.vue'
+import ConnectClient from '../components/dash/client/ConnectClient.vue'
+
 import Vendor from '../components/dash/Vendor'
 import Setting from '../components/dash/setting/Setting'
 import Account from '../components/dash/setting/Account'
@@ -82,7 +84,12 @@ let theRouter = new Router({
           name: 'Dash.Client.New',
           component: NewClient,
           beforeEach: companyCreatedGuard
-        }, 
+        }, {
+          path: 'client/connect',
+          name: 'Dash.Client.Connect',
+          component: ConnectClient,
+          beforeEach: companyCreatedGuard
+        },
         {
           path: 'vendor',
           name: 'Dash.Vendor',
