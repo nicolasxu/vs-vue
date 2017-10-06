@@ -5,11 +5,11 @@
         <input type="text" name="search" placeholder="search" class="uk-width-2-3">
         <div class="profile">
           <div class="profile-box box-1">
-            Notification
+
+            <Notification></Notification>
+
           </div>
-          <div class="profile-box box-2">
-            Profile
-          </div>
+  
         </div>
       </form>
     </div>
@@ -30,9 +30,10 @@
 
 <script>
   import ClientList from './ClientList.vue'
+  import Notification from '../Notification.vue'
   export default {
     name: 'client',
-    components: {ClientList},
+    components: {ClientList, Notification},
     data() {
       return {
       }
@@ -60,14 +61,14 @@
         .profile-box {
           display: inline-block;
           min-width: 30px;
-          padding: 0 20px;
+          // padding: 0 20px;
           line-height: 30px;
           height: 30px;
           text-align: center;
         }
         .box-1 {
-          padding: 0 20px;
-          background-color: pink;
+          
+          
         }
         .box-2 {
           
