@@ -1,14 +1,25 @@
 <template>
-  <div class="client-item">
-    client item
-  </div>  
+  <tr class="client-item">
+   
+    <td><router-link :to="{name: 'Dash.Client.Detail', params: {id: client._id}}">{{client.name}}</router-link>  </td>
+    <td>static data</td>
+    <td>static data</td>
+    <td>static data</td>
+    <td>{{client.public}}</td>
+
+  </tr>  
 </template>
 
 <script>
+  import api from '../../../util/api'
   export default {
     name: 'clientItem',
     data() {
       return {}
+    },
+    props: ['client'],
+    created() {
+      console.log(this.client) 
     }
   }
 </script>

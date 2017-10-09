@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import {api} from '@/util/api'
+import api from '@/util/api'
 import store from './store.js'
 
 export default {

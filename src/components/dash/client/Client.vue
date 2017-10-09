@@ -16,10 +16,7 @@
     <div class="command-bar">
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="newClient">Create</button>
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="goToConnect">Connect</button>
-      <ul class="uk-pagination list-pagination">
-        <li class="uk-pagination-previous prev"><a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a></li>
-        <li class="uk-pagination-next next"><a href="#">Next<i class="uk-icon-angle-double-right"></i></a></li>      
-      </ul>      
+    
     </div>
     <div class="list">
       <!-- client list -->
@@ -36,6 +33,7 @@
     components: {ClientList, Notification},
     data() {
       return {
+     
       }
     },
     methods: {
@@ -81,13 +79,7 @@
       position: relative;
       @extend %dash-component-margin-padding;
 
-      .list-pagination {
-        float: right;
-        @extend %list-pagination;
-        margin: 0;
-        margin-top: 5px;
 
-      }
     }
     .list {
       @extend %dash-component-margin-padding;

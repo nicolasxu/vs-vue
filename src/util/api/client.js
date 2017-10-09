@@ -8,7 +8,7 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  create, connect, update, deleteExisting
+  create, connect, update, deleteExisting, getList, getDetail
 }
 
 function create(newClient) {
@@ -90,7 +90,22 @@ function getList() {
   let query = `
     query myQuery {
       clients {
-        docs
+        docs {
+          _id
+          name
+          public
+          creator
+          active
+          addressLine1
+          addressLine2
+          city
+          state
+          zip
+          country
+          tel
+          createdAt
+          updatedAt          
+        }
         total
         offset
         limit
@@ -118,5 +133,40 @@ function connect(id) {
     query: query,
     variables: JSON.stringify(variables)
   }
+  return request.post(graphqlEndpoint, payload)
+}
+
+function getDetail(id) {
+
+  let query = `
+    query myQuery($id: String) {
+      clientDetail(id: $id) {
+        _id
+        name
+        public
+        creator
+        active
+        invoiceEmails
+        
+        addressLine1
+        addressLine2
+        city
+        state
+        zip
+        country
+        tel        
+      }
+    }
+  `
+
+  let variables = {
+    id: id
+  }
+
+  let payload = {
+    query: query,
+    variables: JSON.stringify(variables)
+  }
+
   return request.post(graphqlEndpoint, payload)
 }

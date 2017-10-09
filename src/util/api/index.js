@@ -6,6 +6,4 @@ let api = {
   user, company, client
 }
 
-export {
-  api
-}
+export default api

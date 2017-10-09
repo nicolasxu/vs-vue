@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import {api} from '../util/api'
+  import api from '../util/api'
   import store from '../components/store.js'
 
   export default {

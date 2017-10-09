@@ -67,7 +67,7 @@
 
 <script>
   import store from '../../store.js'
-  import {api} from '../../../util/api'
+  import api from '../../../util/api'
   export default {
     name: 'mycompany',
     created () {
