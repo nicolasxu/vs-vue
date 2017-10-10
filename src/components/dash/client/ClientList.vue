@@ -1,9 +1,9 @@
 <template>
   <div class="client-list">
-      <ul class="uk-pagination list-pagination">
-        <li class="uk-pagination-previous prev"><a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a></li>
-        <li class="uk-pagination-next next"><a href="#">Next<i class="uk-icon-angle-double-right"></i></a></li>      
-      </ul>      
+    <ul class="uk-pagination list-pagination">
+      <li class="uk-pagination-previous prev"><a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a></li>
+      <li class="uk-pagination-next next"><a href="#">Next<i class="uk-icon-angle-double-right"></i></a></li>      
+    </ul>      
     <table class="uk-table uk-table-hover uk-table-striped client-list-table">
         <thead>
           <tr>
@@ -52,14 +52,8 @@
   .client-list {
     position: relative;
     .list-pagination {
-      position:absolute;
-      top: -35px;
-      right: 0;
-      float: right;
-      @extend %list-pagination;
-      margin: 0;
-      
 
+      @extend %list-pagination;
     }    
     .client-list-table th, .client-list-table td {
       padding: 8px 8px;

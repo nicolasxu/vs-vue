@@ -1,7 +1,9 @@
 <template>
   <div class="client-detail">
     <h3 class="title">Client: {{client.name}}</h3>
-    <button class="uk-button" @click="goBack">Back</button>
+    <div class="button-container">
+      <button class="uk-button" @click="goBack">Back</button>
+    </div>
     <form class="uk-form-horizontal uk-margin-large client-detail-form">
 
       <div class="uk-margin">
@@ -90,10 +92,14 @@
 </script>
 
 <style lang="sass" scoped>
+  @import '../../../scss/reusable.scss';
   .client-detail {
     .title {
-      border-left: 3px solid #1FA2D6;
-      padding-left: 10px;
+      @extend %dash-component-margin-padding;
+      
+    }
+    .button-container {
+      @extend %dash-component-margin-padding;
 
     }
     .client-detail-form {

@@ -13,7 +13,7 @@
           <div><a href="#">Client Request 3</a></div>
           <div><a href="#">Client Request 4</a></div>
           <li class="uk-nav-divider"></li>
-          <li><a href="#">More</a></li>
+          <li> <router-link :to="{name: 'Dash.Requests'}">See All</router-link> </li>
         </ul>
       </div>
     </div>

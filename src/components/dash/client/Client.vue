@@ -19,7 +19,7 @@
     
     </div>
     <div class="list">
-      <!-- client list -->
+      
       <client-list></client-list>
     </div>
   </div>

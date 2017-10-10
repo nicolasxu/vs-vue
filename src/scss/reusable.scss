@@ -14,11 +14,18 @@ $grey-text-color: rgba(127, 127, 127, 0.8);
   margin-bottom: 1em;
 }
 %list-pagination {
-  text-align: left;
+        position:absolute;
+      top: -35px;
+      right: 0;
+      
+      text-align: left;
       .prev {
         float:none;
       }
       .next {
         float: none;
       }
+      
+      
 }
+

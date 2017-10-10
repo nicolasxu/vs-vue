@@ -28,6 +28,8 @@ import MyCompany from '../components/dash/setting/MyCompany'
 import Plan from '../components/dash/setting/Plan'
 import RolePrivilege from '../components/dash/setting/RolePrivilege'
 
+import Requests from '../components/dash/requests/Requests.vue'
+
 Vue.use(Router)
 
 let theRouter = new Router({
@@ -108,6 +110,12 @@ let theRouter = new Router({
           path: 'setting/:category',
           name: 'Dash.Setting',
           component: Setting,
+          beforeEnter: companyCreatedGuard
+        },
+        {
+          path: 'requests',
+          name: 'Dash.Requests',
+          component: Requests,
           beforeEnter: companyCreatedGuard
         }
       ]
