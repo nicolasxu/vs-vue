@@ -17,18 +17,29 @@
         </thead>
      
         <tbody>
-                         
+          {{type}}                 
         </tbody>
     </table>    
   </div>
 </template>
 
 <script>
+  import api from '../../../util/api'
   export default {
     name: 'requestList',
+    props: ['type'],
     data() {
       return {
 
+      }
+    },
+    created() {
+      if (this.type === 'received') {
+        // get received
+      } 
+
+      if (this.type === 'sent') {
+        // get sent
       }
     },
     methods: {

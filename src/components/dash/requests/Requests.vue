@@ -2,18 +2,18 @@
   <div class="requests">
     <h3>Requests to establish client ro vendor relationship with your company</h3>
     <div class="command-bar">
-      <button type="button" class="uk-button uk-button-primary uk-button-small">Back</button>      
+      <button type="button" class="uk-button uk-button-primary uk-button-small" @click="goBack">Back</button>      
     </div>
     <div class="list">
 
       <ul class="uk-tab" >
-        <li :class="{'uk-active': selectedTab == 'received'}"><a href="javascript:void(0)" @click="received">Received</a></li>
-        <li :class="{'uk-active': selectedTab == 'sent'}"><a href="javascript:void(0)" @click="sent">Sent</a></li>
+        <li :class="{'uk-active': selectedTab == 'received'}"><a href="javascript:void(0)" @click.prevent="received">Received</a></li>
+        <li :class="{'uk-active': selectedTab == 'sent'}"><a href="javascript:void(0)" @click.prevent="sent">Sent</a></li>
       </ul>
       
       <ul class="uk-switcher">
-        <li :class="{'uk-active': selectedTab == 'received'}"><request-list></request-list></li>
-        <li :class="{'uk-active': selectedTab == 'sent'}"><request-list></request-list></li>
+        <li :class="{'uk-active': selectedTab == 'received'}"><request-list type="received"></request-list></li>
+        <li :class="{'uk-active': selectedTab == 'sent'}"><request-list type="sent"></request-list></li>
       </ul>
       
     </div>    
@@ -26,18 +26,20 @@
   export default {
     name: 'requests',
     components: { RequestList },
+    
     data() {
       return {
         selectedTab: 'received'
       }
     },
     methods: {
+      goBack() {
+        this.$router.go(-1)
+      },
       received() {
-        console.log('received requests')
         this.selectedTab = 'received'
       },
       sent() {
-        console.log('sent requests')
         this.selectedTab = 'sent'
       }
     }
