@@ -7,13 +7,13 @@
     <div class="list">
 
       <ul class="uk-tab" >
-        <li class="uk-active"><a href="javascript:void(0)" @click="received">Received</a></li>
-        <li><a href="javascript:void(0)" @click="sent">Sent</a></li>
+        <li :class="{'uk-active': selectedTab == 'received'}"><a href="javascript:void(0)" @click="received">Received</a></li>
+        <li :class="{'uk-active': selectedTab == 'sent'}"><a href="javascript:void(0)" @click="sent">Sent</a></li>
       </ul>
       
       <ul class="uk-switcher">
-        <li ><request-list></request-list></li>
-        <li class="uk-active"><request-list></request-list></li>
+        <li :class="{'uk-active': selectedTab == 'received'}"><request-list></request-list></li>
+        <li :class="{'uk-active': selectedTab == 'sent'}"><request-list></request-list></li>
       </ul>
       
     </div>    
@@ -28,15 +28,17 @@
     components: { RequestList },
     data() {
       return {
-
+        selectedTab: 'received'
       }
     },
     methods: {
       received() {
         console.log('received requests')
+        this.selectedTab = 'received'
       },
       sent() {
         console.log('sent requests')
+        this.selectedTab = 'sent'
       }
     }
   }
