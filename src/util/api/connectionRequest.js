@@ -128,13 +128,17 @@ function getReceived(offset = 0, limit = 50) {
           from_user_name
           to_company_id
           to_company_name
+          client_company_id
+          vendor_company_id
+          count
+
           status
-          created
-          updated
+          createdAt
+          updatedAt
         }
         total
-        limit
         offset
+        limit
       }
     }
   `
@@ -147,7 +151,8 @@ function getReceived(offset = 0, limit = 50) {
     query: query,
     variables: JSON.stringify(variables)
   }
-
+  console.log('offset', offset)
+  console.log('limit', limit)
   return request.post(graphqlEndpoint, payload)
 }
 
@@ -162,13 +167,17 @@ function getSent(offset = 0, limit = 50) {
           from_user_name
           to_company_id
           to_company_name
+          client_company_id
+          vendor_company_id
+          count          
           status
-          created
-          updated
+          createdAt
+          updatedAt
         }
         total
-        limit
         offset
+        limit
+ 
       }
     }
   `

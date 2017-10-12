@@ -2,7 +2,7 @@
   <div class="notification">
     <div class="uk-button-dropdown"  data-uk-dropdown="{mode:'click', pos:'bottom-right'}">
       <div class="uk-button">
-        Notification <i class="fa fa-handshake-o" aria-hidden="true"></i>
+        Requests <i class="fa fa-handshake-o" aria-hidden="true"></i>
       </div>
       <div class="uk-dropdown">
 

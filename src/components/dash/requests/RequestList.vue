@@ -17,7 +17,8 @@
         </thead>
      
         <tbody>
-          {{type}}                 
+          {{type}}
+          <request-item v-for="(request, index) in requests" :key="index" :request="request"></request-item>                
         </tbody>
     </table>    
   </div>
@@ -25,21 +26,33 @@
 
 <script>
   import api from '../../../util/api'
+  import RequestItem from './RequestItem.vue'
   export default {
     name: 'requestList',
     props: ['type'],
+    components: { RequestItem },
     data() {
       return {
-
+        requests: [],
+        total: 0,
+        offset: 0,
+        limit: 50
       }
     },
-    created() {
+    async created() {
       if (this.type === 'received') {
         // get received
+        let res = await api.request.getReceived()
+        console.log('received requests res', res)
+        this.requests = res.data.receivedRequests.docs
+        this.total = res.data.receivedRequests.total
+        this.limit = res.data.receivedRequests.limit
+        this.offset = res.data.receivedRequests.offset
       } 
 
       if (this.type === 'sent') {
         // get sent
+        //let res = await api.request.getSent()
       }
     },
     methods: {
