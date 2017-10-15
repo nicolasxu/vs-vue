@@ -43,7 +43,6 @@
       if (this.type === 'received') {
         // get received
         let res = await api.request.getReceived()
-        console.log('received requests res', res)
         this.requests = res.data.receivedRequests.docs
         this.total = res.data.receivedRequests.total
         this.limit = res.data.receivedRequests.limit
@@ -52,7 +51,13 @@
 
       if (this.type === 'sent') {
         // get sent
-        //let res = await api.request.getSent()
+        let res = await api.request.getSent()
+        console.log('sent request')
+        this.requests = res.data.sentRequests.docs
+        this.total = res.data.sentRequests.total
+        this.limit = res.data.sentRequests.limit
+        this.offset = res.data.sentRequests.offset
+
       }
     },
     methods: {

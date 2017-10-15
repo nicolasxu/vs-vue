@@ -7,9 +7,9 @@
     <td>{{request.createdAt}}</td>
     <td>{{request.status}}</td>
     <td>
-      <button class="uk-button uk-button-small uk-button-danger" v-show="showDelete" @click="deleteRequest">Delete</button>
-      <button class="uk-button uk-button-small uk-button-success" @click="accept">Accept</button> 
-      <a href="javascript:void(0)" @click.prevent="reject">Reject</a> 
+      <button class="uk-button uk-button-mini uk-button-danger btn-delete" v-show="showDelete" @click="deleteRequest">Delete</button>
+      <button class="uk-button uk-button-mini uk-button-success btn-accept" v-show="showAccept" @click="accept">Accept</button> 
+      <a href="javascript:void(0)" @click.prevent="reject" class="reject-link">Reject</a> 
     </td>
 
   </tr>
@@ -40,6 +40,13 @@
         } else {
           return false
         }
+      },
+      showAccept() {
+        if (this.request.status === 'pending' && store.company._id === this.request.to_company_id) {
+          return true
+        } else {
+          return false
+        }
       }
     },
     created() {
@@ -62,6 +69,18 @@
 
 <style lang="sass" scoped>
   .request-item {
+    .btn-accept {
+      background-color: #3ca776;
+      &:hover {
+        background-color: #6cc39b;
+      }
+    }
 
+    .btn-delete {
+
+    }
+    .reject-link {
+      font-size: 12px;
+    }
   }
 </style>
