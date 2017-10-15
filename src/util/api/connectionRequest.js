@@ -23,8 +23,10 @@ function create(toEmail, toIs) {
         to_company_id
         to_company_name
         status
-        created
-        updated
+        createdAt
+        updatedAt
+        err_code
+        err_msg
       }
     }
   `
@@ -52,8 +54,10 @@ function approve(requestId) {
         to_company_id
         to_company_name
         status
-        created
-        updated        
+        createdAt
+        updatedAt
+        err_code
+        err_msg        
       }
     }
   `
@@ -80,8 +84,10 @@ function reject(requestId) {
         to_company_id
         to_company_name
         status
-        created
-        updated         
+        createdAt
+        updatedAt
+        err_code
+        err_msg        
       }
     }
   `
@@ -102,6 +108,8 @@ function deleteRequest(requestId) {
     mutation myMutation($requestId: String) {
       deleteRequest(requestId: $requestId) {
         _id
+        err_code
+        err_msg        
       }
     }
   `
@@ -136,9 +144,12 @@ function getReceived(offset = 0, limit = 50) {
           createdAt
           updatedAt
         }
+
         total
         offset
         limit
+        err_code
+        err_msg        
       }
     }
   `
@@ -177,6 +188,8 @@ function getSent(offset = 0, limit = 50) {
         total
         offset
         limit
+        err_code
+        err_msg        
  
       }
     }
