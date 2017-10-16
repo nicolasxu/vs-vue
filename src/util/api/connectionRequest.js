@@ -8,7 +8,7 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  create, approve, reject, deleteRequest, getReceived, getSent
+  create, approve, reject, deleteRequest, getReceived, getSent, getDetail
 }
 
 
@@ -22,6 +22,7 @@ function create(toEmail, toIs) {
         from_user_name
         to_company_id
         to_company_name
+        count
         status
         createdAt
         updatedAt
@@ -54,6 +55,7 @@ function approve(requestId) {
         to_company_id
         to_company_name
         status
+        count
         createdAt
         updatedAt
         err_code
@@ -84,6 +86,7 @@ function reject(requestId) {
         to_company_id
         to_company_name
         status
+        count
         createdAt
         updatedAt
         err_code
@@ -206,5 +209,58 @@ function getSent(offset = 0, limit = 50) {
 
   return request.post(graphqlEndpoint, payload)
 }
+
+function getDetail(requestId) {
+  let query = `
+    query myQuery ($requestId: String) {
+      requestDetail(requestId: $requestId) {
+
+        _id
+        from_company_id
+        from_company_name
+        from_user_name
+        to_company_id
+        to_company_name
+        client_company_id
+        vendor_company_id
+        count
+        status
+        createdAt
+        updatedAt
+        err_code
+        err_msg
+        
+      }
+    }
+  `
+  let variables = {
+    requestId: requestId
+  }
+
+  let payload = {
+    query: query,
+    variables: JSON.stringify(variables)
+  }
+
+  return request.post(graphqlEndpoint, payload)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

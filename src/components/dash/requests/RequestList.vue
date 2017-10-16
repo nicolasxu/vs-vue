@@ -18,7 +18,7 @@
      
         <tbody>
           {{type}}
-          <request-item v-for="(request, index) in requests" :key="index" :request="request"></request-item>                
+          <request-item v-for="(request, index) in requests" :key="index" :request="request" @refresh="refreshItem" @delete="deleteitem"></request-item>                
         </tbody>
     </table>    
   </div>
@@ -61,7 +61,34 @@
       }
     },
     methods: {
+      async refreshItem(requestId) {
+        console.log('refreshing', requestId)
+        let res
+        try {
+          res = await api.request.getDetail(requestId)
+          if (res.data.requestDetail.err_code) {
+            console.log(res.data.requestDetail.err_msg)
+          }
+          let updatedRequest = res.data.requestDetail
 
+          for(let i = 0; i < this.requests.length; i++) {
+            if (this.requests[i]._id === requestId) {
+              this.requests[i].status = updatedRequest.status
+              break
+            }
+          }
+
+         } catch(e) {
+          console.error(e)
+        }
+      },
+      deleteitem(requestId) {
+        for(let i = this.requests.length -1; i >= 0; i--) {
+          if (this.requests[i]._id === requestId) {
+            this.requests.splice(i,1)
+          }
+        }
+      }
     }
   }  
 </script>
