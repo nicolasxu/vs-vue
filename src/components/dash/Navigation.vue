@@ -6,7 +6,7 @@
     <h2 class="section-title">Invoices</h2>
     <menu class="menu">
       <menuitem>
-        <router-link class="uk-button uk-button-primary nav-link new-invoice-btn" :to="{ name: 'Dash.Create', params: { userId: 123 }}">
+        <router-link class="uk-button uk-button-primary nav-link new-invoice-btn" :to="{ name: 'CreateInvoice', params: { userId: 123 }}">
           New
         </router-link>
       </menuitem>

@@ -9,7 +9,7 @@ function beforeEachRouteCheckLogin(to, from, next) {
     return
   }
 
-  if (to.name === 'Login' || to.name === 'Register') {
+  if (to.name === 'Login' || to.name === 'Register' || to.name === 'ResetPassword') {
     next()
     return
   }
