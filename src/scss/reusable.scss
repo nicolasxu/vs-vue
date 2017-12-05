@@ -14,18 +14,22 @@ $grey-text-color: rgba(127, 127, 127, 0.8);
   margin-bottom: 1em;
 }
 %list-pagination {
-        position:absolute;
-      top: -35px;
-      right: 0;
-      
-      text-align: left;
-      .prev {
-        float:none;
-      }
-      .next {
-        float: none;
-      }
-      
-      
+  position:absolute;
+  top: -35px;
+  right: 0;
+  
+  text-align: left;
+  .prev {
+    float:none;
+  }
+  .next {
+    float: none;
+  }
 }
 
+%cmd-container {
+  height: 3em;
+  
+  
+  line-height: 3em;  
+}

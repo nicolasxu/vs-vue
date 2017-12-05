@@ -5,28 +5,28 @@
       <legend class="uk-legend">Register</legend>
 
       <div class="uk-margin">
-          <label class="uk-form-label" for="form-email">Email</label>
-          <div class="uk-form-controls">
-              <input class="uk-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
-          </div>
+        <label class="uk-form-label" for="form-email">Email</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
+        </div>
       </div>
       <div class="uk-margin">
-          <label class="uk-form-label" for="form-password">Password</label>
-          <div class="uk-form-controls">
-              <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="password">
-          </div>
+        <label class="uk-form-label" for="form-password">Password</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="password">
+        </div>
       </div>
       <div class="uk-margin">
-          <label class="uk-form-label" for="form-password">Password Repeat</label>
-          <div class="uk-form-controls">
-              <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="passwordRepeat">
-          </div>
+        <label class="uk-form-label" for="form-password">Password Repeat</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="passwordRepeat">
+        </div>
       </div>       
       <div class="uk-margin">
-          <div class="uk-form-controls">
-            <button class="uk-button uk-button-primary" @click.prevent="register">Register</button>
-            <router-link class="reset-link" :to="{ name: 'Login', params: { userId: 123 }}">Login</router-link>
-          </div>
+        <div class="uk-form-controls">
+          <button class="uk-button uk-button-primary" @click.prevent="register">Register</button>
+          <router-link class="reset-link" :to="{ name: 'Login', params: { userId: 123 }}">Login</router-link>
+        </div>
       </div>
     </form>
   </div>
