@@ -1,36 +1,43 @@
 <template>
   <div class="create-invoice">
-
     <div class="data-input-area">
       <div class="cmd-container">
         <button class="uk-button uk-button-small" type="button" @click="back">Discard</button>
-       
       </div>
       <div class="invoice-control-container">
         <div class="uk-form uk-form-stacked">
-          Client, Net 30, Template (dropdown)
-
-
+    
+          <div class="client-select">
+            <a href="javascript:void(0)">Select a client</a>
+          </div>
+          <div class="tags">
+            <select>
+              <option>Due Upon Receipt</option>
+              <option>Net 7</option>
+              <option>Net 15</option>
+              <option>Net 30</option>
+            </select>
+            <select>
+              <option>Default</option>
+              <option>Law</option>
+              <option>Agency</option>
+            </select>
+          </div>
+        
+        
           <div class="uk-form-row">
             <label class="uk-form-label" for="form-s-s">Items (Ctrl+i)</label>
-            <textarea name="" cols="65" rows="10"></textarea>
-            
+            <textarea class="items-textarea" rows="10"></textarea>
           </div>
-
           <div class="uk-form-row">
             <label class="uk-form-label" for="form-s-t">Notes:</label>
             <div class="uk-form-controls">
-              <textarea id="form-s-t" cols="65" rows="5" placeholder="Textarea text"></textarea>
+              <textarea class="notes-textarea" rows="5" placeholder="Textarea text"></textarea>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
-
-
-
 
 
     <div class="invoice-preview-area">
@@ -86,34 +93,40 @@
       box-sizing: border-box;
       height: 100vh;
       float: left;
-      display: inline-block;  
+      display: inline-block;
       width: 40%;
       border-right: 1px solid lightgrey;
       padding-left: 1em;
+      padding-right: 1em;
 
-      .vs-items-container {
-        padding-left: 0;
-        position: relative;
-        .vs-item {
-          list-style: none;
-          .quantity-input {
-            width: 4em;
-            position:absolute;
-            right: 1em;
-          }
+      .invoice-control-container {
+        .client-select {
+          // display: inline-block;
+          padding-top: 1em;
+          padding-bottom: 1em;
+          a {
+              font-size: 2em;
+            }
+        }
+        .tags {
+          margin-bottom: 1em;
+        }
+        .items-textarea, .notes-textarea {
+          width: 100%;
         }
       }
+
+
 
     }
 
     .invoice-preview-area {
       
       padding-left: 1em;
+      padding-right: 1em;
       margin-left: 40%;
       height: 100vh;
       width: 900px;
-     
-
    
     }
   }
