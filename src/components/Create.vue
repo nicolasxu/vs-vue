@@ -8,7 +8,21 @@
         <div class="uk-form uk-form-stacked">
     
           <div class="client-select">
-            <a href="javascript:void(0)">Select a client</a>
+            <a href="javascript:void(0)" @click="showClientInput" v-show="!clientInputVisible">{{value && value.name}}</a>
+
+            <div v-show="clientInputVisible">
+              <label class="typo__label"></label>
+              <multiselect 
+              v-model="value" 
+              :options="options" 
+              :custom-label="nameWithLang" 
+              placeholder="Select one" 
+              label="name" 
+              @select="clientSelected"
+              track-by="name"></multiselect>
+              <!-- <pre class="language-json"><code>{{ value  }}</code></pre> -->
+            </div>
+
           </div>
           <div class="tags">
             <select>
@@ -53,11 +67,21 @@
 </template>
 
 <script>
+  import Multiselect from 'vue-multiselect'
   export default {
-    name: 'create', 
+    name: 'create',
+    components: {Multiselect}, 
     data() {
       return {
-
+        value: { name: 'Vue.js', language: 'JavaScript' },
+        options: [
+          { name: 'Vue.js', language: 'JavaScript' },
+          { name: 'Rails', language: 'Ruby' },
+          { name: 'Sinatra', language: 'Ruby' },
+          { name: 'Laravel', language: 'PHP' },
+          { name: 'Phoenix', language: 'Elixir' }
+        ],
+        clientInputVisible: false
       }
     },
     created() {
@@ -70,7 +94,16 @@
     methods: {
       back() {
         this.$router.go(-1)
-      }
+      }, 
+      nameWithLang ({ name, language }) {
+          return `${name} — [${language}]`
+      },
+      showClientInput () {
+        this.clientInputVisible = true
+      }, 
+      clientSelected() {
+        this.clientInputVisible = false
+      } 
     }
   }
 </script>
