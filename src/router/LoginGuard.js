@@ -3,7 +3,7 @@ import api from '../util/api'
 
 export default beforeEachRouteCheckLogin
 
-function beforeEachRouteCheckLogin(to, from, next) {
+async function beforeEachRouteCheckLogin(to, from, next) {
   if (store.token) {
     next()
     return
@@ -15,25 +15,29 @@ function beforeEachRouteCheckLogin(to, from, next) {
   }
 
   // 1. call api to get user 
-  api.user.getDetail()
-    .then((result)=>{
-      console.log('login guard, user detail', result)
-      if (result.code === 2000) {
-        store.user = result.data.user
-        next()
-      } else {
-        // redirect ...
-        next({name: 'Login'})
-        // next()
-      }
-    })
-    .catch(err=> {
-      console.log(err)
-      if (err.status === 403) {
-        next({name: 'Login'})
-      }
-    })
-    // 2. if API return login required, then redirect to login
-    // 3. if call succeed, then set user, and proceed to next()
+  let userRes 
+  try {
+    userRes = await api.user.getDetail()
+    console.log('userRes', userRes)
+    if (userRes.err_code === 4002 || userRes.err_code === 4003) {
+      next({name: 'Login'})
+      return
+    }
+  } catch (e) {
+    console.error('e', e)
+    next({name: 'Login'})
+    return
+  }
+
+  if (!userRes.err_code && userRes._id) {
+    store.user = userRes.data.user
+    next()
+    return
+  }
+
+  console.error('Unknow Login gard error')
+
+  // 2. if API return login required, then redirect to login
+  // 3. if call succeed, then set user, and proceed to next()
   
 }
