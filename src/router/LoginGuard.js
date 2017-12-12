@@ -35,7 +35,7 @@ async function beforeEachRouteCheckLogin(to, from, next) {
     return
   }
 
-  console.error('Unknow Login gard error')
+  console.error('Unknow Login guard error')
 
   // 2. if API return login required, then redirect to login
   // 3. if call succeed, then set user, and proceed to next()
