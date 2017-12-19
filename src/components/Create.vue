@@ -17,10 +17,14 @@
               :options="options" 
               :custom-label="nameWithLang" 
               placeholder="Select one" 
-              label="name" 
+              label="name"
+              track-by="name"
               @select="clientSelected"
-              track-by="name"></multiselect>
-              <!-- <pre class="language-json"><code>{{ value  }}</code></pre> -->
+              @close="selectDropdownClose"
+              >
+                
+              </multiselect>
+
             </div>
 
           </div>
@@ -100,10 +104,21 @@
       },
       showClientInput () {
         this.clientInputVisible = true
+        let $input = $('.multiselect__input')
+
+        setTimeout(()=> {
+          $input.focus()
+        }, 100)
+        
       }, 
       clientSelected() {
         this.clientInputVisible = false
-      } 
+      },
+      selectDropdownClose(value, id) {
+        console.log('select dropdown close, value: ' + value + ' id: ' + id)
+        console.log('value', value)
+        this.clientInputVisible = false
+      }
     }
   }
 </script>
