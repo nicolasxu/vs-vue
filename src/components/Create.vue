@@ -8,9 +8,14 @@
         <div class="uk-form uk-form-stacked">
     
           <div class="client-select">
-            <a href="javascript:void(0)" @click="showClientInput" v-show="!clientInputVisible">{{value && value.name}}</a>
+            
+            <label class="light-label">To: </label>
 
-            <div v-show="clientInputVisible">
+            <a href="javascript:void(0)" 
+            @click="showClientInput" 
+            v-show="!clientInputVisible">{{value && value.name}}</a>
+
+            <div v-show="clientInputVisible" >
               <label class="typo__label"></label>
               <multiselect 
               v-model="value" 
@@ -26,20 +31,33 @@
               </multiselect>
 
             </div>
-
           </div>
           <div class="tags">
-            <select>
-              <option>Due Upon Receipt</option>
-              <option>Net 7</option>
-              <option>Net 15</option>
-              <option>Net 30</option>
-            </select>
-            <select>
-              <option>Default</option>
-              <option>Law</option>
-              <option>Agency</option>
-            </select>
+            <div class="invoice-element-tag">
+              <label class="light-label">Invoice Date</label>
+              <form class="uk-form">
+                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">   
+              </form>
+                        
+            </div>
+            <div class="invoice-element-tag">
+              <label class="light-label">Due Date</label>
+              <select>
+                <option>Due Upon Receipt</option>
+                <option>Net 7</option>
+                <option>Net 15</option>
+                <option>Net 30</option>
+              </select>              
+            </div>            
+            <div class="invoice-element-tag">
+              <label class="light-label">Template</label>
+              <select>
+                <option>Default</option>
+                <option>Law</option>
+                <option>Agency</option>
+              </select>              
+            </div>
+
           </div>
         
         
@@ -104,11 +122,15 @@
       },
       showClientInput () {
         this.clientInputVisible = true
-        let $input = $('.multiselect__input')
-
-        setTimeout(()=> {
+        
+        /* 
+        Defer the callback to be executed after the next DOM update cycle. Use 
+        it immediately after you’ve changed some data to wait for the DOM update.
+        */
+        this.$nextTick(()=> {
+          let $input = $('.multiselect__input')
           $input.focus()
-        }, 100)
+        })
         
       }, 
       clientSelected() {
@@ -146,6 +168,15 @@
       border-right: 1px solid lightgrey;
       padding-left: 1em;
       padding-right: 1em;
+      .invoice-element-tag {
+        display:inline-block;
+      }
+      .light-label {
+        display: block;
+        margin-bottom: 0;
+        font-weight: 100;
+        font-size: 12px;
+      }
 
       .invoice-control-container {
         .client-select {
@@ -165,9 +196,6 @@
           width: 100%;
         }
       }
-
-
-
     }
 
     .invoice-preview-area {
