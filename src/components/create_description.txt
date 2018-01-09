@@ -1,0 +1,5 @@
+1. each cell can autocomplete based on its column data
+2. user can add or remove columns 
+3. columns include, product_id, description, unit price, quantiy, sub total (read only)
+4. description is required
+5. all empty role will not be used for generating invoice

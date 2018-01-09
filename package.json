@@ -13,6 +13,8 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "handsontable": "^0.35.0",
+    "lodash": "^4.17.4",
     "vee-validate": "^2.0.0-rc.19",
     "vue": "^2.4.2",
     "vue-multiselect": "^2.0.8",
@@ -62,6 +64,7 @@
     "phantomjs-prebuilt": "^2.1.15",
     "rimraf": "^2.6.0",
     "sass-loader": "^6.0.6",
+    "script-loader": "^0.7.2",
     "selenium-server": "^3.5.3",
     "semver": "^5.4.1",
     "shelljs": "^0.7.8",

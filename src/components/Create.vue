@@ -36,7 +36,7 @@
             <div class="invoice-element-tag">
               <label class="light-label">Invoice Date</label>
               <form class="uk-form">
-                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">   
+                <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceData">   
               </form>
                         
             </div>
@@ -63,12 +63,15 @@
         
           <div class="uk-form-row">
             <label class="uk-form-label" for="form-s-s">Items (Ctrl+i)</label>
-            <textarea class="items-textarea" rows="10"></textarea>
+            <!-- <textarea class="items-textarea" rows="10"></textarea> -->
+            <div id="table-mount"></div>
+            <button class="uk-button" @click="addColumn">Add Column</button>
           </div>
           <div class="uk-form-row">
             <label class="uk-form-label" for="form-s-t">Notes:</label>
             <div class="uk-form-controls">
               <textarea class="notes-textarea" rows="5" placeholder="Textarea text"></textarea>
+              
             </div>
           </div>
         </div>
@@ -90,6 +93,9 @@
 
 <script>
   import Multiselect from 'vue-multiselect'
+  import Hansontable from 'handsontable'
+  
+  import { throttle } from 'lodash'
   export default {
     name: 'create',
     components: {Multiselect}, 
@@ -103,17 +109,65 @@
           { name: 'Laravel', language: 'PHP' },
           { name: 'Phoenix', language: 'Elixir' }
         ],
-        clientInputVisible: false
+        clientInputVisible: false,
+        invoiceData: '1980-12-18',
+        showPreviewArea: false
       }
     },
     created() {
+      this.invoiceData = new Date().toISOString().substr(0, 10)
+    },
+    mounted () {
+      console.log('create component mounted')
+      let containerElem = document.getElementById('table-mount')
+      let data = [
+        ["", "Ford", "Tesla", "Toyota", "Honda"],
+        ["2017", 10, 11, 12, 13],
+        ["2018", 20, 11, 14, 13],
+        ["2019", 30, 15, 12, 13]
+      ];
+      let hot = new Hansontable(containerElem, { data: data, 
+        rowHeders: true, 
+        colHeaders: ['id', 'description', 'unit price', 'quantity', 'subtotal'],
+        colWidths: [40, 240, 100, 60, 60],
+        autoColumnSize: true,
+        minSpareRows: 1, 
+        manualColumnResize: true,
+        manualRowResize: true })
+      // setInterval(() => {
+      //   data[1][1] = data[1][1] + 1 
+      //   hot.render()
+      // }, 2000)
+      this.hot = hot
+
+      this.throttledResizeHandler = throttle(this.resizeHandler, 1000)
+      window.addEventListener('resize',this.throttledResizeHandler , false)
 
     },
+    beforeDestroy() {
+      console.log('before destroy...')
+      window.removeEventListener('resize', this.throttledResizeHandler, false )
+    },
     computed: {
-  
+    
 
     },
     methods: {
+      resizeHandler() {
+
+        console.log('resize...')
+      
+       
+
+      },
+      addColumn() {
+        this.hot.alter('insert_col', 5)
+        let headers = this.hot.getSettings().colHeaders
+
+        headers[headers.length - 1] = "new column nick"
+        console.log('new settings:')
+        this.hot.updateSettings({colHeaders: headers })
+      },
       back() {
         this.$router.go(-1)
       }, 
@@ -131,7 +185,6 @@
           let $input = $('.multiselect__input')
           $input.focus()
         })
-        
       }, 
       clientSelected() {
         this.clientInputVisible = false
@@ -140,7 +193,14 @@
         console.log('select dropdown close, value: ' + value + ' id: ' + id)
         console.log('value', value)
         this.clientInputVisible = false
+      },
+      showPreview() {
+        this.showPreviewArea = true
+      },
+      hidePreview() {
+        this.showPreviewArea = false
       }
+
     }
   }
 </script>
@@ -160,11 +220,12 @@
 
 
     .data-input-area {
+   
       box-sizing: border-box;
       height: 100vh;
       float: left;
       display: inline-block;
-      width: 40%;
+      width: 50%;
       border-right: 1px solid lightgrey;
       padding-left: 1em;
       padding-right: 1em;
@@ -199,10 +260,10 @@
     }
 
     .invoice-preview-area {
-      
+ 
       padding-left: 1em;
       padding-right: 1em;
-      margin-left: 40%;
+      margin-left: 50%;
       height: 100vh;
       width: 900px;
    
@@ -647,4 +708,24 @@
     from { transform:rotate(0) }
     to { transform:rotate(2turn) }
   }
+</style>
+
+<style lang="sass">
+  .client-select {
+    .multiselect {
+      z-index:1050;
+    }    
+  }
+
+
+  .handsontable {
+
+    .handsontableInputHolder {
+      .handsontableInput {
+        /* this is textarea element */
+
+      }
+    }
+  }
+
 </style>
