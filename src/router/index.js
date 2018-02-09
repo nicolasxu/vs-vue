@@ -15,7 +15,7 @@ import companyCreatedGuard from './CompanyCreatedGuard.js'
 import Received from '../components/dash/Received'
 import Sent from '../components/dash/Sent'
 
-import Create from '../components/Create.vue'
+import Create from '../components/dash/CreateInvoice/Create.vue'
 import Client from '../components/dash/client/Client.vue'
 import NewClient from '../components/dash/client/NewClient.vue'
 import ClientDetail from '../components/dash/client/ClientDetail.vue'

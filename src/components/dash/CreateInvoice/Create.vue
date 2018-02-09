@@ -1,104 +1,90 @@
 <template>
   <div class="create-invoice">
-    <div class="data-input-area">
-      <div class="cmd-container">
-        <button class="uk-button uk-button-small" type="button" @click="back">Discard</button>
-      </div>
-      <div class="invoice-control-container">
-        <div class="uk-form uk-form-stacked">
-    
-          <div class="client-select">
+    <div class="invoice-frame">
+      <div class="scroll-box">
+        <div class="data-input-area">
+          <div class="cmd-container">
+            <button class="uk-button uk-button-small" type="button" @click="back">Discard</button>
+          </div>
+          <div class="invoice-control-container">
+            <div class="uk-form uk-form-stacked">
+              <div class="uk-form-row client-select"> 
+                <label class="light-label">To: </label>
+                <a href="javascript:void(0)" 
+                @click="showClientInput" 
+                v-show="!clientInputVisible">{{value && value.name}}</a>
+
+                <div v-show="clientInputVisible" >
+                  <label class="typo__label"></label>
+                  <multiselect 
+                  v-model="value" 
+                  :options="options" 
+                  :custom-label="nameWithLang" 
+                  placeholder="Select one" 
+                  label="name"
+                  track-by="name"
+                  @select="clientSelected"
+                  @close="selectDropdownClose"
+                  >
+                  </multiselect>
+                </div>
+              </div>
+
+              <div class="uk-form-row tags">
+                <div class="invoice-element-tag">
+                  <label class="light-label">Invoice Date</label>
+                  <form class="uk-form">
+                    <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceData">   
+                  </form>      
+                </div>
+                <div class="invoice-element-tag">
+                  <label class="light-label">Due Date</label>
+                  <select>
+                    <option>Due Upon Receipt</option>
+                    <option>Net 7</option>
+                    <option>Net 15</option>
+                    <option>Net 30</option>
+                  </select>              
+                </div>            
+                <div class="invoice-element-tag">
+                  <label class="light-label">Template</label>
+                  <select>
+                    <option>Default</option>
+                    <option>Law</option>
+                    <option>Agency</option>
+                  </select>              
+                </div>
+              </div>
             
-            <label class="light-label">To: </label>
-
-            <a href="javascript:void(0)" 
-            @click="showClientInput" 
-            v-show="!clientInputVisible">{{value && value.name}}</a>
-
-            <div v-show="clientInputVisible" >
-              <label class="typo__label"></label>
-              <multiselect 
-              v-model="value" 
-              :options="options" 
-              :custom-label="nameWithLang" 
-              placeholder="Select one" 
-              label="name"
-              track-by="name"
-              @select="clientSelected"
-              @close="selectDropdownClose"
-              >
-                
-              </multiselect>
-
+              <div class="uk-form-row">
+                <label class="uk-form-label" for="form-s-s">Items (Ctrl+i)</label>
+                <item-input-table></item-input-table>
+              </div>
+              <div class="uk-form-row">
+                <label class="uk-form-label" for="form-s-t">Notes:</label>
+                <div class="uk-form-controls">
+                  <textarea class="notes-textarea" rows="5" placeholder="Textarea text"></textarea>
+                  
+                </div>
+              </div>
             </div>
           </div>
-          <div class="tags">
-            <div class="invoice-element-tag">
-              <label class="light-label">Invoice Date</label>
-              <form class="uk-form">
-                <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceData">   
-              </form>
-                        
-            </div>
-            <div class="invoice-element-tag">
-              <label class="light-label">Due Date</label>
-              <select>
-                <option>Due Upon Receipt</option>
-                <option>Net 7</option>
-                <option>Net 15</option>
-                <option>Net 30</option>
-              </select>              
-            </div>            
-            <div class="invoice-element-tag">
-              <label class="light-label">Template</label>
-              <select>
-                <option>Default</option>
-                <option>Law</option>
-                <option>Agency</option>
-              </select>              
-            </div>
-
-          </div>
-        
-        
-          <div class="uk-form-row">
-            <label class="uk-form-label" for="form-s-s">Items (Ctrl+i)</label>
-            <!-- <textarea class="items-textarea" rows="10"></textarea> -->
-            <div id="table-mount"></div>
-            <button class="uk-button" @click="addColumn">Add Column</button>
-          </div>
-          <div class="uk-form-row">
-            <label class="uk-form-label" for="form-s-t">Notes:</label>
-            <div class="uk-form-controls">
-              <textarea class="notes-textarea" rows="5" placeholder="Textarea text"></textarea>
-              
-            </div>
-          </div>
-        </div>
+        </div>         
       </div>
-    </div>
-
-
-    <div class="invoice-preview-area">
-      <div class="cmd-container">
-        <button class="uk-button uk-button-primary uk-button-small" type="button">Send</button>
-        <button class="uk-button uk-button-primary uk-button-small" type="button">Draft</button>
-
-      </div>
-      invoice preview
-      
     </div>
   </div>
 </template>
 
 <script>
+
   import Multiselect from 'vue-multiselect'
   import Hansontable from 'handsontable'
+  import ItemInputTable from './ItemInputTable.vue'
   
   import { throttle } from 'lodash'
   export default {
     name: 'create',
-    components: {Multiselect}, 
+    components: {Multiselect, ItemInputTable}, 
     data() {
       return {
         value: { name: 'Vue.js', language: 'JavaScript' },
@@ -118,6 +104,7 @@
       this.invoiceData = new Date().toISOString().substr(0, 10)
     },
     mounted () {
+      return
       console.log('create component mounted')
       let containerElem = document.getElementById('table-mount')
       let data = [
@@ -140,9 +127,6 @@
       // }, 2000)
       this.hot = hot
 
-      this.throttledResizeHandler = throttle(this.resizeHandler, 1000)
-      window.addEventListener('resize',this.throttledResizeHandler , false)
-
     },
     beforeDestroy() {
       console.log('before destroy...')
@@ -153,13 +137,7 @@
 
     },
     methods: {
-      resizeHandler() {
-
-        console.log('resize...')
-      
-       
-
-      },
+    
       addColumn() {
         this.hot.alter('insert_col', 5)
         let headers = this.hot.getSettings().colHeaders
@@ -206,13 +184,25 @@
 </script>
 
 <style lang="sass" scoped>
-  @import '../scss/reusable.scss';
+  @import '../../../scss/reusable.scss';
   .create-invoice {
     position: fixed;
     top: 0;
     bottom: 0;
     width: 100%;
     box-sizing: border-box;
+
+    .invoice-frame {
+      .scroll-box {
+        // overflow-y: scroll;
+      }
+      margin-top: 1em;
+      border: 5px dashed lightgrey;
+      width: 1024px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 100vh;
+    }
 
     .cmd-container {
       @extend %cmd-container;
@@ -222,11 +212,12 @@
     .data-input-area {
    
       box-sizing: border-box;
-      height: 100vh;
-      float: left;
+      
+      // float: left;
       display: inline-block;
-      width: 50%;
-      border-right: 1px solid lightgrey;
+      // width: 50%;
+      width: 100%;
+      // border-right: 1px solid lightgrey;
       padding-left: 1em;
       padding-right: 1em;
       .invoice-element-tag {
@@ -263,9 +254,9 @@
  
       padding-left: 1em;
       padding-right: 1em;
-      margin-left: 50%;
+      // margin-left: 50%;
       height: 100vh;
-      width: 900px;
+      // width: 900px;
    
     }
   }
