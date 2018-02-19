@@ -4,7 +4,7 @@
       <div v-for="header in headers" class="vs-data">{{header}}</div>
     </div>
     
-    <table-row v-for="row in rows" :row="row"></table-row>
+    <table-row v-for="(row, index) in rows" :row="row" :row-index="index" ></table-row>
    
   </div>
 </template>

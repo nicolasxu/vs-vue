@@ -88,6 +88,8 @@
   import ItemInputTable from './ItemInputTable.vue'
   
   import { throttle } from 'lodash'
+  import invoiceStore from './createInvoiceStore.js'
+
   export default {
     name: 'create',
     components: {Multiselect, ItemInputTable}, 
@@ -104,8 +106,8 @@
         clientInputVisible: false,
         invoiceData: '1980-12-18',
         showPreviewArea: false,
-        columns: ['#', 'Description', 'Unit Price', 'Quantity', 'Sub Total'],
-        demoTableData: [[1, 'product A', 10, 2, 20], [2, 'product B', 15, 3, 45], [3, 'Service 1', 50, 1.5, 75.0]]        
+        columns: invoiceStore.headers,
+        demoTableData: invoiceStore.rows       
       }
     },
     created() {
