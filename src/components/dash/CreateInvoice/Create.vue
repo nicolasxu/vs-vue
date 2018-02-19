@@ -8,6 +8,8 @@
           </div>
           <div class="invoice-control-container">
             <div class="uk-form uk-form-stacked">
+              
+              <!-- select client -->
               <div class="uk-form-row client-select"> 
                 <label class="light-label">To: </label>
                 <a href="javascript:void(0)" 
@@ -29,7 +31,7 @@
                   </multiselect>
                 </div>
               </div>
-
+              <!-- tags: Invoice Date, Due Date, Template -->
               <div class="uk-form-row tags">
                 <div class="invoice-element-tag">
                   <label class="light-label">Invoice Date</label>
@@ -55,18 +57,22 @@
                   </select>              
                 </div>
               </div>
-            
+              <!-- Item table -->
               <div class="uk-form-row">
                 <label class="uk-form-label" for="form-s-s">Items (Ctrl+i)</label>
-                <item-input-table></item-input-table>
+                <item-input-table 
+                :headers="columns" 
+                :rows="demoTableData">
+                </item-input-table>
               </div>
+              <!-- Notes -->
               <div class="uk-form-row">
                 <label class="uk-form-label" for="form-s-t">Notes:</label>
                 <div class="uk-form-controls">
                   <textarea class="notes-textarea" rows="5" placeholder="Textarea text"></textarea>
-                  
                 </div>
               </div>
+
             </div>
           </div>
         </div>         
@@ -97,55 +103,27 @@
         ],
         clientInputVisible: false,
         invoiceData: '1980-12-18',
-        showPreviewArea: false
+        showPreviewArea: false,
+        columns: ['#', 'Description', 'Unit Price', 'Quantity', 'Sub Total'],
+        demoTableData: [[1, 'product A', 10, 2, 20], [2, 'product B', 15, 3, 45], [3, 'Service 1', 50, 1.5, 75.0]]        
       }
     },
     created() {
       this.invoiceData = new Date().toISOString().substr(0, 10)
     },
     mounted () {
-      return
-      console.log('create component mounted')
-      let containerElem = document.getElementById('table-mount')
-      let data = [
-        ["", "Ford", "Tesla", "Toyota", "Honda"],
-        ["2017", 10, 11, 12, 13],
-        ["2018", 20, 11, 14, 13],
-        ["2019", 30, 15, 12, 13]
-      ];
-      let hot = new Hansontable(containerElem, { data: data, 
-        rowHeders: true, 
-        colHeaders: ['id', 'description', 'unit price', 'quantity', 'subtotal'],
-        colWidths: [40, 240, 100, 60, 60],
-        autoColumnSize: true,
-        minSpareRows: 1, 
-        manualColumnResize: true,
-        manualRowResize: true })
-      // setInterval(() => {
-      //   data[1][1] = data[1][1] + 1 
-      //   hot.render()
-      // }, 2000)
-      this.hot = hot
+      
 
     },
     beforeDestroy() {
-      console.log('before destroy...')
-      window.removeEventListener('resize', this.throttledResizeHandler, false )
+      let a = 2
     },
     computed: {
-    
+  
 
     },
     methods: {
-    
-      addColumn() {
-        this.hot.alter('insert_col', 5)
-        let headers = this.hot.getSettings().colHeaders
 
-        headers[headers.length - 1] = "new column nick"
-        console.log('new settings:')
-        this.hot.updateSettings({colHeaders: headers })
-      },
       back() {
         this.$router.go(-1)
       }, 
