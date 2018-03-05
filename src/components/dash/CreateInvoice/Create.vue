@@ -18,15 +18,19 @@
 
                 <div v-show="clientInputVisible" >
                   <label class="typo__label"></label>
-                  <multiselect 
+                  <multiselect
                   v-model="value" 
-                  :options="options" 
-                  :custom-label="nameWithLang" 
+                  :options="foundClients" 
+                  :allow-empty="false"
+                  :custom-label="nameWithLang"
+                  :limit="7"
+                  :options-limit="7"
                   placeholder="Select one" 
                   label="name"
                   track-by="name"
                   @select="clientSelected"
                   @close="selectDropdownClose"
+                  @search-change="asyncFindClient"
                   >
                   </multiselect>
                 </div>
@@ -75,16 +79,15 @@
 
             </div>
           </div>
-        </div>         
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
+  import api from '../../../util/api'
   import Multiselect from 'vue-multiselect'
-  import Hansontable from 'handsontable'
   import ItemInputTable from './ItemInputTable.vue'
   
   import { throttle } from 'lodash'
@@ -96,18 +99,12 @@
     data() {
       return {
         value: { name: 'Vue.js', language: 'JavaScript' },
-        options: [
-          { name: 'Vue.js', language: 'JavaScript' },
-          { name: 'Rails', language: 'Ruby' },
-          { name: 'Sinatra', language: 'Ruby' },
-          { name: 'Laravel', language: 'PHP' },
-          { name: 'Phoenix', language: 'Elixir' }
-        ],
+        foundClients: [],
         clientInputVisible: false,
         invoiceData: '1980-12-18',
         showPreviewArea: false,
         columns: invoiceStore.headers,
-        demoTableData: invoiceStore.rows       
+        demoTableData: invoiceStore.rows2
       }
     },
     created() {
@@ -142,14 +139,14 @@
         this.$nextTick(()=> {
           let $input = $('.multiselect__input')
           $input.focus()
+          this.asyncFindClient('')
         })
       }, 
       clientSelected() {
         this.clientInputVisible = false
       },
       selectDropdownClose(value, id) {
-        console.log('select dropdown close, value: ' + value + ' id: ' + id)
-        console.log('value', value)
+       
         this.clientInputVisible = false
       },
       showPreview() {
@@ -157,6 +154,11 @@
       },
       hidePreview() {
         this.showPreviewArea = false
+      },
+      async asyncFindClient(query) {
+        let res = await api.client.searchMock(query)
+        this.foundClients = res
+
       }
 
     }

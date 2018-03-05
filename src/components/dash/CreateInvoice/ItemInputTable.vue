@@ -1,7 +1,14 @@
 <template>
   <div class="vs-item-table" @click="clickHandler">
+    <col width="5%">
+    <col width="60%">
+    <col width="10%">
+    <col width="10%">
+    <col width="10%">
     <div class="vs-row vs-header">
-      <div v-for="header in headers" class="vs-data">{{header}}</div>
+      <div v-for="(header,index) in headers"
+      :class="{'text-center': index===0}"
+      class="vs-data">{{header}}</div>
     </div>
     
     <table-row v-for="(row, index) in rows" :row="row" :row-index="index" ></table-row>
@@ -63,8 +70,7 @@
       calculateSubTotal(index) {
       },
       editCell(row, col) {
-        console.log('row: ' + row)
-        console.log('col: ' + col)
+       
       }
 
     }
@@ -86,6 +92,11 @@
     width: 100%;
     position: relative;
     font-size: 16px;
+    .text-center {
+      text-align: center;
+    }
+    .vs-header {
+    }
     .vs-row {
       display: table-row;
 

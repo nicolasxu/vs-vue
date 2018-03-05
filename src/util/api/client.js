@@ -8,7 +8,7 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  create, connect, update, deleteExisting, getList, getDetail
+  create, connect, update, deleteExisting, getList, getDetail, searchMock
 }
 
 function create(newClient) {
@@ -169,4 +169,42 @@ function getDetail(id) {
   }
 
   return request.post(graphqlEndpoint, payload)
+}
+
+function searchMock(query) {
+  let allClients =[
+    { name: 'Vue.js', language: 'JavaScript' },
+    { name: 'Rails', language: 'Ruby' },
+    { name: 'Sinatra', language: 'Ruby' },
+    { name: 'Laravel', language: 'PHP' },
+    { name: 'Phoenix', language: 'Elixir' }
+  ]
+  let foundClients = []
+  let promise = new Promise((resolve, reject)=> {
+    setTimeout(()=> {
+      if (query) {
+        let lowerQuery = query.toLowerCase()
+
+        foundClients = allClients.filter((c) => {
+          let totalStr = c.name.toLowerCase() + ' ' + c.language.toLowerCase()
+          if (totalStr.indexOf(lowerQuery) > -1) {
+            return true
+          } else {
+            return false
+          }
+         })
+
+      } else {
+
+        foundClients = allClients
+
+      }
+
+      resolve(foundClients)
+
+    }, 1500)
+  })
+
+  return promise
+
 }

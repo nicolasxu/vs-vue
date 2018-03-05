@@ -1,11 +1,13 @@
 <template>
 	<div class="vs-row">
+
+		<div class="vs-data">{{rowIndex + 1}}</div>
 		
 		<div 
-		v-for="(cell, cellIndex) in row" 
-		:key="cellIndex" 
-		@click="showCellEdit(cellIndex)" 
-		:class="{pointer: (cellIndex!==row.length-1 && cellIndex !== 0) , 'no-event': (cellIndex=== 0 || cellIndex === row.length -1) }" 
+		v-for="(value, key, index) in row" 
+		:key="index" 
+		@click="showCellEdit(key)" 
+		:class="{pointer: key !== 'subTotal', 'no-event': key === 'subTotal' }" 
 		class="vs-data" >
 			
 			<!-- 
@@ -13,35 +15,38 @@
 				then you can use 'cellIndex' to determine which column it is.
 			 -->
 			 <!-- render # cell -->
-			<div v-if="cellIndex === 0">
-				{{cell}}
-			</div>
+		
 
 			<!-- render description cell -->
-			<div v-if="cellIndex === 1" >
-				<div v-show="!showEdit[cellIndex]">{{cell}}</div>
-				<div v-show="showEdit[cellIndex]">
-					<input type="text" v-model="rows[rowIndex][cellIndex]" 
-					@focusout="hideCellEdit(cellIndex) "
-					:ref="'tb-input-' + cellIndex"
+			<div v-if="key === 'description'" >
+				<div v-show="!showEdit[key]">{{value}}</div>
+				<div v-show="showEdit[key]">
+
+					<input type="text" v-model="row[key] " 
+					@focusout="hideCellEdit(key) "
+					:ref="'tb-input-' + key"
 					/>
+
+
+
+
 				</div>
 			</div>
 
 			<!-- render Unit Price, Quantity cell -->
-			<div v-if="cellIndex === 2 || cellIndex === 3"> 
-				<div v-show="!showEdit[cellIndex]">{{cell}}</div>
-				<div v-show="showEdit[cellIndex]">
-					<input type="text"  
-					v-model.number="rows[rowIndex][cellIndex]" 
-					@focusout="hideCellEdit(cellIndex)" 
-					:ref="'tb-input-' + cellIndex"/>
+			<div v-if="key === 'unitPrice' || key === 'quantity' "> 
+				<div v-show="!showEdit[key]">{{value}}</div>
+				<div v-show="showEdit[key]">
+					<input type="text"
+					v-model.number="row[key]" 
+					@focusout="hideCellEdit(key)" 
+					:ref="'tb-input-' + key"/>
 				</div>
 			</div>
 
 			<!-- render Sub Total cell -->
-			<div v-if="cellIndex === 4">
-				${{cell}}
+			<div v-if="key === 'subTotal' ">
+				${{value}}
 			</div>
 
 
@@ -51,6 +56,7 @@
 
 <script>
 import Vue from 'vue'
+import Multiselect from 'vue-multiselect' 
 import invoiceStore from './createInvoiceStore.js'
 
 export default {
@@ -69,22 +75,22 @@ export default {
 
 	},
 	methods: {
-		showCellEdit(index) {
-			if (this.showEdit[index] === true) {
+		showCellEdit(theKey) {
+			if (this.showEdit[theKey] === true) {
 				return
 			}
-			Vue.set(this.showEdit, index, true)
+			Vue.set(this.showEdit, theKey, true)
 			this.$nextTick(() => {
 				
-				this.$refs['tb-input-' + index][0].focus()
+				this.$refs['tb-input-' + theKey][0].focus()
 				console.log('next tick works...')
 				
 			})
 
 		},
-		hideCellEdit(index) {
+		hideCellEdit(theKey) {
 			// console.log(index)
-			this.showEdit[index] = false
+			this.showEdit[theKey] = false
 			
 
 		}
@@ -99,5 +105,6 @@ export default {
 	.no-event {
 		pointer-events: none;
 	}
+
 
 </style>
