@@ -85,15 +85,20 @@
     display: table;
     width: 100%;
     position: relative;
+    font-size: 16px;
     .vs-row {
-
       display: table-row;
+
       .vs-data {
-        
+        // cell
         display: table-cell;
-        font-size: 16px;
-       
+        vertical-align: middle;
+        height: 32px; // function as min-height
         border: 1px solid grey;
+        input {
+          width: 100%;
+          border: 0;
+        }
       }
     }
   }
