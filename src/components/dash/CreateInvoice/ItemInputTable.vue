@@ -47,9 +47,7 @@
       let a = 10
     },
     mounted() {
-      console.log('headers:')
-      console.log(this.headers)
-      console.log(this.rows)
+ 
     },
     methods: {
       clickHandler(e) {

@@ -14,12 +14,12 @@
                 <label class="light-label">To: </label>
                 <a href="javascript:void(0)" 
                 @click="showClientInput" 
-                v-show="!clientInputVisible">{{value && value.name}}</a>
+                v-show="!clientInputVisible">{{selectedClient && selectedClient.name}}</a>
 
                 <div v-show="clientInputVisible" >
                   <label class="typo__label"></label>
                   <multiselect
-                  v-model="value" 
+                  v-model="selectedClient" 
                   :options="foundClients" 
                   :allow-empty="false"
                   :custom-label="nameWithLang"
@@ -90,7 +90,7 @@
   import Multiselect from 'vue-multiselect'
   import ItemInputTable from './ItemInputTable.vue'
   
-  import { throttle } from 'lodash'
+
   import invoiceStore from './createInvoiceStore.js'
 
   export default {
@@ -98,7 +98,7 @@
     components: {Multiselect, ItemInputTable}, 
     data() {
       return {
-        value: { name: 'Vue.js', language: 'JavaScript' },
+        selectedClient: { name: 'Please select', language: '' },
         foundClients: [],
         clientInputVisible: false,
         invoiceData: '1980-12-18',

@@ -29,15 +29,18 @@ function searchMock(query) {
 
     setTimeout(()=> {
       if (query) {
-        let lowerQuery = query.toLowerCase()
+        let lowerQuery = query 
         foundProducts = allProducts.filter((p)=> {
-          let totalStr = p.description + ' ' + p.code + ' ' + unitPrice
+          let totalStr = p.description + ' ' + p.code + ' ' + p.unitPrice
+      
           if (totalStr.indexOf(lowerQuery) > -1) {
             return true
           } else {
             return false
           }
         })
+      
+        resolve (foundProducts)
       } else {
         resolve (allProducts)
       }

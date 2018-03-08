@@ -1,7 +1,7 @@
 <template>
 	<div class="vs-row">
 
-		<div class="vs-data">{{rowIndex + 1}}</div>
+		<div class="vs-data row-count">{{rowIndex + 1}}</div>
 		
 		<div 
 		v-for="(value, key, index) in row" 
@@ -22,13 +22,12 @@
 				<div v-show="!showEdit[key]">{{value}}</div>
 				<div v-show="showEdit[key]">
 
-					<input type="text" v-model="row[key] " 
-					@focusout="hideCellEdit(key) "
-					:ref="'tb-input-' + key"
-					/>
-
-
-
+					<product-description
+					@doneEditing="myDoneEditing(key)"
+					:row="row"
+					:rowKey="key"
+					></product-description>
+					
 
 				</div>
 			</div>
@@ -55,17 +54,19 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import Multiselect from 'vue-multiselect' 
 import invoiceStore from './createInvoiceStore.js'
+import ProductDescription from './ProductDescription.vue'
 
 export default {
 	name: 'ItemInputTableRow',
+	components: {ProductDescription },
 	props: ['row', 'rowIndex'],
 	data() {
 		return {
 			showEdit: {},
-			rows: invoiceStore.rows
+			foundProducts: []
+		
 		}
 	},
 	created() {
@@ -76,23 +77,34 @@ export default {
 	},
 	methods: {
 		showCellEdit(theKey) {
+			
 			if (this.showEdit[theKey] === true) {
 				return
 			}
-			Vue.set(this.showEdit, theKey, true)
-			this.$nextTick(() => {
-				
-				this.$refs['tb-input-' + theKey][0].focus()
-				console.log('next tick works...')
-				
-			})
+			this.$set(this.showEdit, theKey, true)
+
+			if (theKey === 'description') {
+
+ 				let $input = $('.multiselect__input')
+        $input.focus()
+
+			} else {
+
+				this.$nextTick(() => {
+					this.$refs['tb-input-' + theKey][0].focus()
+				})
+
+			}
+
 
 		},
 		hideCellEdit(theKey) {
-			// console.log(index)
+			console.log('focusout')
 			this.showEdit[theKey] = false
-			
-
+		}, 
+		myDoneEditing(cellKey) {
+			console.log('done editing...')
+			this.showEdit[cellKey] = false
 		}
 
 	}
