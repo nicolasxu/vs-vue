@@ -30,6 +30,8 @@ import RolePrivilege from '../components/dash/setting/RolePrivilege'
 
 import Requests from '../components/dash/requests/Requests.vue'
 
+import MaintainTemplate from '../components/maintain-template/maintain-template.vue'
+
 Vue.use(Router)
 
 let theRouter = new Router({
@@ -56,8 +58,12 @@ let theRouter = new Router({
       name: 'CreateInvoice',
       component: Create,
       beforeEach: companyCreatedGuard
-    },
-     {
+    }, {
+      path: '/maintain-template',
+      name: 'MaintainTemplate',
+      component: MaintainTemplate
+
+    }, {
       path: '/dash',
       components: {
         nav: Navigation,
