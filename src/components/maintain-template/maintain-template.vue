@@ -1,22 +1,9 @@
 <template>
   <div class="maintain-template">
     
-<!--     maintain-template
-
-    html 
-
-    css
-
-    js
-
-    isDefault
-
-    isActive
-
-    preview -->
     <div>
       <ul>
-        <li v-for="template in templates"> {{template._id}}</li>
+        <li v-for="template in templates" @click="getOne(template._id)" class="template-title"> {{template._id}} - {{template.name}}</li>
       </ul>
     </div>
 
@@ -70,9 +57,6 @@
         @click="deleteTemplate"
         >Delete</button>
         
-        <button class="uk-button uk-button-primary"
-        @click="getOne"
-        >Get One</button>
       </fieldset>
     </form>
 
@@ -103,7 +87,7 @@
     async created() {
   
       this.getAll()
-      this.getOne()
+      this.getOne(this.tid)
 
     },
     methods: {
@@ -112,7 +96,9 @@
 
         let res = await api.template.createTemplate(this.workingTemplate)
 
-        // this.getAll()
+        this.getAll()
+
+
 
       },
       async updateTemplate() {
@@ -127,19 +113,18 @@
       async deleteTemplate() {
         if (this.tid) {
           await api.template.deleteTemplate(this.tid)
-
+          this.getAll()
         }
       },
       async getAll() {
         let res = await api.template.getTemplates()
         this.templates = res.data.templates.docs        
       },
-      async getOne () {
-
-        if (this.tid) {
-          let res = await api.template.getTemplateById(this.tid)
-          console.log('getTemplateById: ', res.data.template)
+      async getOne (tid) {
+        if (tid) {
+          let res = await api.template.getTemplateById(tid)          
           this.workingTemplate = res.data.template
+          this.tid = tid
         }
       }
     }
@@ -150,6 +135,12 @@
 <style lang="scss" scoped>
   .maintain-template {
     padding: 32px;
+    .template-title {
+      &:hover {
+        background-color: #ccc;
+        cursor: pointer;
+      }
+    }
     textarea, input[type=text] {
       width: 100%;
     }

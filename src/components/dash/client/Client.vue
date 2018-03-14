@@ -9,18 +9,26 @@
             <Notification></Notification>
 
           </div>
-  
         </div>
       </form>
     </div>
     <div class="command-bar">
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="newClient">Create</button>
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="goToConnect">Connect</button>
-    
+
+      <ul class="list-pagination">
+        <li class="prev">
+          <a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a>
+        </li>
+        <li class="next">
+          <a href="#">Next <i class="uk-icon-angle-double-right"></i></a>
+        </li>      
+      </ul>
     </div>
     <div class="list">
       
-      <client-list></client-list>
+      <client-list :clients="clients"></client-list>
+
     </div>
   </div>
 </template>
@@ -28,12 +36,17 @@
 <script>
   import ClientList from './ClientList.vue'
   import Notification from '../Notification.vue'
+  import api from '../../../util/api'
+
   export default {
     name: 'client',
     components: {ClientList, Notification},
     data() {
       return {
-     
+        clients: [],
+        offset: 0,
+        limit: 50,
+        total: 0
       }
     },
     methods: {
@@ -43,6 +56,12 @@
       },
       goToConnect() {
         this.$router.push({name: 'Dash.Client.Connect', query:{q1: 'q1'}, params: {email: 'abc'} })
+      },
+      prev() {
+       
+      },
+      next() {
+        
       }
     }
   }
@@ -75,12 +94,13 @@
       }
     }
     .command-bar {
-      
       position: relative;
       @extend %dash-component-margin-padding;
-
-
+      .list-pagination {
+        @extend %list-pagination;
+      }
     }
+
     .list {
       @extend %dash-component-margin-padding;
     }

@@ -1,9 +1,5 @@
 <template>
-  <div class="client-list">
-    <ul class="uk-pagination list-pagination">
-      <li class="uk-pagination-previous prev"><a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a></li>
-      <li class="uk-pagination-next next"><a href="#">Next<i class="uk-icon-angle-double-right"></i></a></li>      
-    </ul>      
+  <div class="client-list">     
     <table class="uk-table uk-table-hover uk-table-striped client-list-table">
         <thead>
           <tr>
