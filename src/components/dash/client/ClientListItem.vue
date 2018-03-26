@@ -1,6 +1,6 @@
 <template>
   <tr class="client-item">
-   
+    <td>{{clientIndex}}</td>
     <td><router-link :to="{name: 'Dash.Client.Detail', params: {id: client._id}}">{{client.name}}</router-link>  </td>
     <td>static data</td>
     <td>static data</td>
@@ -15,9 +15,9 @@
   export default {
     name: 'clientItem',
     data() {
-      return {}
+      return {} 
     },
-    props: ['client'],
+    props: ['client', 'clientIndex'],
     created() {
       console.log(this.client) 
     }

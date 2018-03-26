@@ -9,7 +9,9 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  searchMock
+  searchMock, getProducts, getProductById, 
+  updateProduct, deleteProduct,
+  createProduct
 }
 
 function searchMock(query) {
@@ -48,4 +50,141 @@ function searchMock(query) {
   })
 
   return promise
+}
+
+function createProduct(product) {
+  let query = `
+    mutation myMutation ($input: ProductInput) {
+      createProduct(input: $input) {
+        _id
+        description
+        price
+        shortCode
+        created
+        updated
+      }
+    }
+  `
+  let variables = {
+    input: product
+  }
+
+  let payload = {
+    query: query,
+    variables: JSON.stringify(variables)
+  }
+
+  return request.post(graphqlEndpoint, payload)
+}
+
+function getProducts(offset = 0, limit = 50) {
+  let query = `
+    query myQuery ($offset: Int, $limit: Int) {
+      products(offset: $offset, limit: $limit) {
+        docs {
+          _id
+          description
+          price
+          shortCode
+          created
+          updated
+        }
+        total
+        offset
+        limit
+        err_code
+        err_msg
+      }
+    }
+  `
+
+  let variables = {
+    offset: offset,
+    limit: limit
+  }
+
+  let payload = {
+    query: query,
+    variables: JSON.stringify(variables)
+  }
+
+  return request.post(graphqlEndpoint, payload )
+}
+
+function getProductById(id) {
+  let query = `
+    query myQuery ($id: String) {
+      product(id: $id) {
+        _id
+        description
+        price
+        shortCode
+        created
+        updated
+        err_code
+        err_msg
+      }
+    }
+  `
+  let variables = {
+    id: id
+  }
+
+  let payload = {
+    query: query,
+    variables: JSON.stringify(variables)
+  }
+
+  return request.post(graphqlEndpoint, payload)
+}
+
+function updateProduct(id, product) {
+  let query = `
+
+    mutation myMutation ($id: String, $input: ProductInput) {
+      updateProduct(id: $id, input: $input) {
+        _id
+        description
+        price
+        shortCode
+        created
+        updated
+        err_code
+        err_msg
+      }
+    }
+
+  `
+  let variables = {
+    id: id,
+    input: product
+  }
+  let payload = {
+    query: query,
+    variables: JSON.stringify(variables)
+  }
+  return request.post(graphqlEndpoint, payload)
+}
+
+function deleteProduct(id) {
+
+  let query = `
+    mutation myMutation ($id: String) {
+      deleteProduct(id: $id) {
+        _id
+        count
+        message
+        err_code
+        err_msg
+      }
+    }
+  `
+  let variables = {
+    id: id
+  }
+  let payload = {
+    query: query,
+    variables: JSON.stringify(variables)
+  }
+  return request.post(graphqlEndpoint, payload)
 }

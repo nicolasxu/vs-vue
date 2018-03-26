@@ -4,9 +4,9 @@
     <div class="button-container">
       <button class="uk-button" @click="goBack">Back</button>
     </div>
-    <form class="uk-form-horizontal uk-margin-large client-detail-form">
+    <form class="uk-form uk-form-horizontal uk-margin-large client-detail-form">
 
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label">Name: </label>
         <div class="uk-form-controls">
           <div class="text">
@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label">Public</label>
         <div class="uk-form-controls">
           <div class="text">
@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label">Active</label>
         <div class="uk-form-controls">
           <div class="text">
@@ -30,7 +30,7 @@
           </div>          
         </div>
       </div>
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label">Invoice Emails</label>
         <div class="uk-form-controls">
           <div class="text">
@@ -38,7 +38,7 @@
           </div>          
         </div>
       </div>
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label">Contact Person</label>
         <div class="uk-form-controls">
           <div class="text">
@@ -46,7 +46,7 @@
           </div>          
         </div>
       </div>
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label">Address</label>
         <div class="uk-form-controls">
           <div class="text">
@@ -54,7 +54,7 @@
           </div>          
         </div>
       </div>
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label">Tel</label>
         <div class="uk-form-controls">
           <div class="text">
@@ -94,21 +94,15 @@
 <style lang="sass" scoped>
   @import '../../../scss/reusable.scss';
   .client-detail {
-    .title {
-      @extend %dash-component-margin-padding;
-      
-    }
-    .button-container {
-      @extend %dash-component-margin-padding;
-
-    }
+    @extend %dash-component-margin-padding;
+ 
     .client-detail-form {
       label {
-        text-align: right;
+        // text-align: right;
       }
       .text {
-        line-height: 31px;
-        min-height: 31px;
+        // line-height: 31px;
+        // min-height: 31px;
       }
     }
   }

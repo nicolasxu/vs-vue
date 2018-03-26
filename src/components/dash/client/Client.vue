@@ -28,7 +28,6 @@
     <div class="list">
       
       <client-list :clients="clients"></client-list>
-
     </div>
   </div>
 </template>
@@ -39,7 +38,7 @@
   import api from '../../../util/api'
 
   export default {
-    name: 'client',
+    name: 'Client',
     components: {ClientList, Notification},
     data() {
       return {
@@ -100,7 +99,6 @@
         @extend %list-pagination;
       }
     }
-
     .list {
       @extend %dash-component-margin-padding;
     }

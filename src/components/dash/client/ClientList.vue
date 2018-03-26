@@ -3,6 +3,7 @@
     <table class="uk-table uk-table-hover uk-table-striped client-list-table">
         <thead>
           <tr>
+            <th>#</th>
             <th>Client Name</th>
             <th>Contact Person</th>
             <th>Amount Outstanding(#)</th>
@@ -12,7 +13,10 @@
         </thead>
      
         <tbody>
-          <ClientItem v-for="(client, index) in clients" :client="client" :key="index"></ClientItem>                 
+          <ClientItem v-for="(client, index) in clients" 
+          :client="client" 
+          :key="index" 
+          :clientIndex="index"></ClientItem>                 
         </tbody>
     </table>
   </div>  

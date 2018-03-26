@@ -86,7 +86,7 @@ function deleteExisting(id) {
   return request.post(graphqlEndpoint, payload)
 }
 
-function getList() {
+function getList(limit = 50, offset = 0) {
   let query = `
     query myQuery {
       clients {

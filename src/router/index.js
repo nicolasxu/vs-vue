@@ -32,6 +32,10 @@ import Requests from '../components/dash/requests/Requests.vue'
 
 import MaintainTemplate from '../components/maintain-template/maintain-template.vue'
 
+import Product from '../components/dash/product/Product.vue'
+import NewProduct from '../components/dash/product/NewProduct.vue'
+import ProductDetail from '../components/dash/product/ProductDetail.vue'
+
 Vue.use(Router)
 
 let theRouter = new Router({
@@ -129,6 +133,21 @@ let theRouter = new Router({
           path: 'requests',
           name: 'Dash.Requests',
           component: Requests,
+          beforeEnter: companyCreatedGuard
+        }, {
+          path: 'product',
+          name: 'Dash.Product',
+          component: Product,
+          beforeEnter: companyCreatedGuard
+        }, {
+          path: 'product/new',
+          name: 'Dash.Product.New',
+          component: NewProduct,
+          beforeEnter: companyCreatedGuard
+        }, {
+          path: 'product/detail/:id',
+          name: 'Dash.Product.Detail',
+          component: ProductDetail,
           beforeEnter: companyCreatedGuard
         }
       ]
