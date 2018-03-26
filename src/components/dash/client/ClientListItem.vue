@@ -19,7 +19,7 @@
     },
     props: ['client', 'clientIndex'],
     created() {
-      console.log(this.client) 
+      
     }
   }
 </script>

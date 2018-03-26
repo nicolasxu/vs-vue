@@ -13,10 +13,10 @@
         </thead>
      
         <tbody>
-          <ClientItem v-for="(client, index) in clients" 
+          <client-item v-for="(client, index) in clients" 
           :client="client" 
           :key="index" 
-          :clientIndex="index"></ClientItem>                 
+          :clientIndex="index"></client-item>                 
         </tbody>
     </table>
   </div>  
@@ -51,13 +51,6 @@
   @import '../../../scss/reusable.scss';
   .client-list {
     position: relative;
-    .list-pagination {
-
-      @extend %list-pagination;
-    }    
-    .client-list-table th, .client-list-table td {
-      padding: 8px 8px;
-      border-bottom: 1px solid #E5E5E5;
-    }
+  
   }
 </style>

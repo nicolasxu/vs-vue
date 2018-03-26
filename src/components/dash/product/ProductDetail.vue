@@ -47,7 +47,6 @@
         <button class="uk-button"  v-show="isEditing" @click.prevent="cancelEditing">Cancel</button>
 
       </div>
-
     </form>
   </div>
 

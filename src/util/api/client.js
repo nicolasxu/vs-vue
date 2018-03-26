@@ -39,8 +39,7 @@ function update(id, newClient) {
       updateMyClient(id: $id, input: $input) {
         _id
         name
-        public
-        creator
+        creatorCompanyId
         invoiceEmails
         addressLine1
         addressLine2
@@ -93,9 +92,8 @@ function getList(limit = 50, offset = 0) {
         docs {
           _id
           name
-          public
-          creator
-          active
+          creatorCompanyId
+          isActive
           addressLine1
           addressLine2
           city
@@ -143,9 +141,9 @@ function getDetail(id) {
       clientDetail(id: $id) {
         _id
         name
-        public
-        creator
-        active
+        creatorCompanyId
+        
+        isActive
         invoiceEmails
         
         addressLine1

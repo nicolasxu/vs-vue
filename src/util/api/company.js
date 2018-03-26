@@ -19,9 +19,8 @@ function getDetail() {
       myCompany {
         _id
         name
-        public
         creator
-        active
+        isActive
         invoiceEmails
         members {
           _id
@@ -39,6 +38,7 @@ function getDetail() {
         state
         zip
         country
+        creatorCompanyId
         createdAt
         updatedAt
       }

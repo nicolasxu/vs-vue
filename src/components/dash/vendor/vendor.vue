@@ -1,6 +1,8 @@
 <template>
-  <div class="vs-client">
+  <div class="vs-vendor">
+
     <div class="header-bar">
+      
       <form class="uk-form">
         <input type="text" name="search" placeholder="search" class="uk-width-2-3">
         <div class="profile">
@@ -11,9 +13,9 @@
           </div>
         </div>
       </form>
+ 
     </div>
     <div class="command-bar">
-      <button type="button" class="uk-button uk-button-primary uk-button-small" @click="newClient">Create</button>
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="goToConnect">Connect</button>
 
       <ul class="list-pagination">
@@ -23,53 +25,64 @@
         <li class="next">
           <a href="#">Next <i class="uk-icon-angle-double-right"></i></a>
         </li>      
-      </ul>
+      </ul>      
     </div>
     <div class="list">
-      
-      <client-list :clients="clients"></client-list>
+      <vendor-list :vendors="vendors"></vendor-list>
     </div>
   </div>
 </template>
 
 <script>
-  import ClientList from './ClientList.vue'
-  import Notification from '../Notification.vue'
   import api from '../../../util/api'
+  import Notification from '../Notification.vue'
+  import VendorList from './VendorList.vue'
 
   export default {
-    name: 'Client',
-    components: {ClientList, Notification},
+    name: 'Vendor',
+    components: {Notification, VendorList},
+    props: [],
     data() {
       return {
-        clients: [],
+        vendors:[],
+        total: 0,
         offset: 0,
-        limit: 50,
-        total: 0
+        limit: 50
+      }
+    },
+    async created() {
+      let res
+      try {
+        res = await api.vendor.getList(this.offset, this.limit)
+      } catch (e) {
+        res = {}
+        console.log('Get vendor list error', e)
+      }
+
+      if (res.data && !res.data.vendors.err_code) {
+        this.vendors = res.data.vendors.docs
+        this.vendors = [{name: 'vendor1', _id:'111'}, {name:'vendor 2', _id:'222'}]
+        this.total = res.data.vendors.total
+        this.offset = res.data.vendors.offset
+        this.limit = res.data.vendors.limit
       }
     },
     methods: {
-      newClient() {
-    
-        this.$router.push({name: 'Dash.Client.New'})
-      },
       goToConnect() {
+        // todo: connect can be used for both client and vendor, need refactor here
         this.$router.push({name: 'Dash.Client.Connect', query:{q1: 'q1'}, params: {email: 'abc'} })
-      },
-      prev() {
-       
-      },
-      next() {
-        
+
       }
     }
   }
+
 </script>
 
 <style lang="sass" scoped>
   @import '../../../scss/reusable.scss';
-  .vs-client {
+  .vs-vendor {
     min-width: 435px;
+
     .header-bar {
       @extend %dash-component-margin-padding;
       .profile {
@@ -101,6 +114,14 @@
     }
     .list {
       @extend %dash-component-margin-padding;
-    }
+    }    
+
   }
 </style>
+
+
+
+
+
+
+
