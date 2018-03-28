@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+
+  <style>
+    
+    
+    body { 
+      background: #e0e0e0;
+      margin: 0;
+    }
+    #vs-invoice {
+      display: block;
+      color: green;
+
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      page-break-after: always;      
+
+    }
+    #vs-invoice.letter-size {
+      width: 216mm;
+      height: 279mm;
+
+    }
+    #vs-invoice .invoice-row {
+      
+      color: orange;
+    }
+
+    #vs-invoice .item-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #vs-invoice .item-table .col-index {
+      width: 3%;
+      color: blue;
+      background-color: yellow;
+    }
+    #vs-invoice .item-table .col-description {
+      width: 64%;
+    }
+    #vs-invoice .item-table .col-unit-price {
+      width: 10%;
+    }
+    #vs-invoice .item-table .col-quantity {
+      width: 5%;
+    }
+    #vs-invoice .item-table .col-subtotal {
+      width: 8%;
+    }
+
+    #vs-invoice .item-table .subtotal-cell {
+      text-align: right;
+    }
+    #vs-invoice .item-table .quantity-cell {
+      text-align: center;
+    }
+    #vs-invoice .item-table .unitprice-cell {
+      text-align: center;
+    }
+    
+    @media screen {
+      body { background: #e0e0e0 }
+      #vs-invoice {
+        background: white;
+        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+        margin: 5mm auto;        
+      }
+    }
+    @page { margin: 0 }
+    @media print {
+      body {
+        width: 216mm;
+      }
+    }
+    @page { size: letter; }
+
+  </style>
+
+</head>
+
+<!-- 
+
+
+
+
+    Name or attention line:
+    Company:
+    Delivery address:
+    City, state, ZIP Code:
+
+    JANE L MILLER
+    MILLER ASSOCIATES
+    1960 W CHELSEA AVE STE 2006R
+    ALLENTOWN PA 18104
+
+
+
+
+ -->
+<body>
+
+  <invoice id="vs-invoice" class="letter-size">
+    <div class="invoice-row">
+      <div>INVOICE</div>
+      <div class="inv-number">#025</div>
+    </div>
+    <div class="invoice-row">
+      <div class="inv-from">
+        <div>From:</div>
+        <div class="person-name">John Doe</div>
+        <div class="company-name">Large Fork Logistic</div>
+        <div class="deliver-addr">1960 W CHELSEA AVE STE 2006R</div>
+        <div class="city-state-zip">ALLENTOWN PA 18104</div> 
+      </div>
+      <div class="inv-to">
+        <div>From:</div>
+        <div class="person-name">Margaret M Moore</div>
+        <div class="company-name">The Simple Turtle Web Design Company</div>
+        <div class="deliver-addr">1003 Jarvisville Road</div>
+        <div class="city-state-zip">Huntington NY 11743</div>        
+      </div>
+    </div>
+    <div class="invoice-row">
+
+      <table class="item-table">
+        <colgroup>
+          <col span="1" class="col-index">
+          <col span="1" class="col-description">
+          <col span="1" class="col-unit-price">
+          <col span="1" class="col-quantity">
+          <col span="1" class="col-subtotal">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Description</th> 
+            <th>Unit Price</th>
+            <th>Quantity</th>          
+            <th>Sub-Total</th>
+          </tr>          
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam volutpat augue ut convallis auctor</td>
+            <td class="unitprice-cell">50</td>
+            <td class="quantity-cell">3</td>
+            <td class="subtotal-cell">150</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Nullam viverra, massa eget pretium dictum, lacus arcu maximus odio, quis ultrices magna erat sed dui. Nulla quis lectus vestibulum, viverra massa eu, dapibus purus</td>
+            <td class="unitprice-cell">94</td>
+            <td class="quantity-cell">1</td>
+            <td class="subtotal-cell">94</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Donec tempus malesuada orci, ac maximus sapien semper a</td>
+            <td class="unitprice-cell">80</td>
+            <td class="quantity-cell">5</td>
+            <td class="subtotal-cell">400</td>
+          </tr>          
+        </tbody>
+
+      </table>
+    </div>
+    <div class="invoice-row">
+      <div class="inv-total">
+        total: $333
+      </div>
+    </div>
+    <div class="invoice-row">
+      <div class="inv-notes">
+        Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, 
+        consectetur, adipisci velit...
+      </div>
+    </div>
+
+  </invoice>
+  
+</body>
+</html>

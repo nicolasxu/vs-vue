@@ -137,7 +137,8 @@ function deleteTemplate(id) {
         _id
         count
         message
-
+        err_code
+        err_msg
       }
     }
 
