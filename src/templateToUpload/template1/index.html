@@ -15,38 +15,140 @@
     }
     #vs-invoice {
       display: block;
-      color: green;
-
+      
       margin: 0;
       padding: 0;
       overflow: hidden;
       position: relative;
       box-sizing: border-box;
-      page-break-after: always;      
+      page-break-after: always;
+      font-size: 16px;
+      font-family: sans-serif;
+      color: #a6a8ab;
+      background-color: white;
 
     }
     #vs-invoice.letter-size {
       width: 216mm;
       height: 279mm;
+      padding: 30px;
 
     }
-    #vs-invoice .invoice-row {
+    #vs-invoice .invoice-row {  
+      position: relative;
+      clear: both;
       
-      color: orange;
     }
+
+    #vs-invoice .invoice-row:after {
+     /* content: '';
+      clear: both;*/
+
+    }
+
+    #vs-invoice .invoice-label-block {
+
+    }
+
+    #vs-invoice .invoice-label-block .inv-text {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    #vs-invoice .invoice-label-block .inv-number {
+      font-size: 12px;
+    }
+
+    #vs-invoice .invoice-label-block .inv-date {
+      font-size: 12px;
+    }
+
+    #vs-invoice .invoice-label-block .inv-term {
+      display: inline-block;
+      font-size: 12px;
+      color: white;
+      background-color: black;
+
+    }        
+
+    #vs-invoice .from-to-wrapper {
+      position: relative;
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+    }
+
+    #vs-invoice .inv-from {
+    
+      display: inline-block;
+      width: 45%;
+      
+
+    }
+
+    #vs-invoice .inv-to {
+      float: right;
+      display: inline-block;
+      width: 45%;
+     
+    }
+
+    #vs-invoice .inv-from, #vs-invoice .inv-to {
+      font-size: 14px;
+    }
+
+    #vs-invoice .from-to-wrapper .from-static, #vs-invoice .from-to-wrapper .to-static {
+      color: #a6a8ab;
+      font-size: 12px;
+      line-height: 1.5em;
+    }
+
+    #vs-invoice .from-to-wrapper .company-name {
+      font-size: 18px;
+      color: black;
+      font-family: serif;
+    }
+
+
 
     #vs-invoice .item-table {
       border-collapse: collapse;
       width: 100%;
     }
+    #vs-invoice .item-table thead {
+      border-top: 1px solid #c8c8c8;
+
+    }
+    #vs-invoice .item-table tr {
+      border-bottom: 1px solid #c8c8c8;
+    }
+
+    #vs-invoice .item-table td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      color: #3c4858;
+      font-family: serif;
+    }    
+
+    #vs-invoice .item-table .table-header {
+      font-size: 14px;
+      line-height: 2em;
+      
+      font-family: serif;
+      color: #6b6b6b;      
+      background-color: #e6e6e6;
+
+    }
 
     #vs-invoice .item-table .col-index {
       width: 3%;
-      color: blue;
-      background-color: yellow;
+     
     }
+
+
+
     #vs-invoice .item-table .col-description {
-      width: 64%;
+      width: 60%;
     }
     #vs-invoice .item-table .col-unit-price {
       width: 10%;
@@ -55,7 +157,7 @@
       width: 5%;
     }
     #vs-invoice .item-table .col-subtotal {
-      width: 8%;
+      width: 10%;
     }
 
     #vs-invoice .item-table .subtotal-cell {
@@ -66,6 +168,17 @@
     }
     #vs-invoice .item-table .unitprice-cell {
       text-align: center;
+    }
+
+    #vs-invoice .inv-total {
+      padding-top: 3em;
+      float: right;
+      color: #3c4858;
+      border-bottom: 1px solid black;
+    }
+
+    #vs-invoice .inv-notes {
+      padding-top: 5em;
     }
     
     @media screen {
@@ -111,24 +224,31 @@
 
   <invoice id="vs-invoice" class="letter-size">
     <div class="invoice-row">
-      <div>INVOICE</div>
-      <div class="inv-number">#025</div>
+      <div class="invoice-label-block">
+        <div class="inv-text">INVOICE</div>
+        <div class="inv-number">#INV-025</div>
+        <div class="inv-date">March-25-2018</div>
+        <div class="inv-term">Due On Receipt</div>
+      </div>
     </div>
     <div class="invoice-row">
-      <div class="inv-from">
-        <div>From:</div>
-        <div class="person-name">John Doe</div>
-        <div class="company-name">Large Fork Logistic</div>
-        <div class="deliver-addr">1960 W CHELSEA AVE STE 2006R</div>
-        <div class="city-state-zip">ALLENTOWN PA 18104</div> 
+      <div class="from-to-wrapper">
+        <div class="inv-from">
+          <div class="from-static">From:</div>
+          <!-- <div class="person-name">John Doe</div> -->
+          <div class="company-name">Large Fork Logistic</div>
+          <div class="deliver-addr">1960 W CHELSEA AVE STE 2006R</div>
+          <div class="city-state-zip">ALLENTOWN PA 18104</div> 
+        </div>
+        <div class="inv-to">
+          <div class="to-static">To:</div>
+          <!-- <div class="person-name">Margaret M Moore</div> -->
+          <div class="company-name">The Simple Turtle Web Design Company</div>
+          <div class="deliver-addr">1003 Jarvisville Road</div>
+          <div class="city-state-zip">Huntington NY 11743</div>        
+        </div>        
       </div>
-      <div class="inv-to">
-        <div>From:</div>
-        <div class="person-name">Margaret M Moore</div>
-        <div class="company-name">The Simple Turtle Web Design Company</div>
-        <div class="deliver-addr">1003 Jarvisville Road</div>
-        <div class="city-state-zip">Huntington NY 11743</div>        
-      </div>
+
     </div>
     <div class="invoice-row">
 
@@ -140,7 +260,7 @@
           <col span="1" class="col-quantity">
           <col span="1" class="col-subtotal">
         </colgroup>
-        <thead>
+        <thead class="table-header">
           <tr>
             <th>#</th>
             <th>Description</th> 
@@ -177,7 +297,7 @@
     </div>
     <div class="invoice-row">
       <div class="inv-total">
-        total: $333
+        TOTAL:    $333
       </div>
     </div>
     <div class="invoice-row">
