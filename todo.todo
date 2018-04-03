@@ -1,14 +1,4 @@
-
- ✔ min height to table row, so that the row will not jump when switching between edit and non-edit mode @done (18-03-05 12:11)
- ☐ product description field search & complete
+ ☐ 1. re-write create invoice part to generate json data
 
  
- ☐ Click to add new row to table
 
-
- ☐ Build an interface and back to update template
- 
- ☐ After create a my company, add my user id to company.members array
-
-
- ☐ double template results by getTemplates

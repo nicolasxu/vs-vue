@@ -5,6 +5,7 @@
         <div class="data-input-area">
           <div class="cmd-container">
             <button class="uk-button uk-button-small" type="button" @click="back">Discard</button>
+            <button class="uk-button uk-button-small uk-button-primary" @click="previewInvoice">Preview</button>
           </div>
           <div class="invoice-control-container">
             <div class="uk-form uk-form-stacked">
@@ -40,7 +41,7 @@
                 <div class="invoice-element-tag">
                   <label class="light-label">Invoice Date</label>
                   <form class="uk-form">
-                    <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceData">   
+                    <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceDate">   
                   </form>      
                 </div>
                 <div class="invoice-element-tag">
@@ -63,11 +64,15 @@
               </div>
               <!-- Item table -->
               <div class="uk-form-row">
+
                 <label class="uk-form-label" for="form-s-s">Items (Ctrl+i)</label>
-                <item-input-table 
+                <InputTable 
                 :headers="columns" 
-                :rows="demoTableData">
-                </item-input-table>
+                :rows="demoTableData"
+                @tableDataChange="handleTableDataChange"
+                @tableRowRemove="handleTableRowRemove">
+                </InputTable>
+
               </div>
               <!-- Notes -->
               <div class="uk-form-row">
@@ -76,7 +81,6 @@
                   <textarea class="notes-textarea" rows="5" placeholder="Textarea text"></textarea>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -88,27 +92,45 @@
 <script>
   import api from '../../../util/api'
   import Multiselect from 'vue-multiselect'
-  import ItemInputTable from './ItemInputTable.vue'
-  
-
+  import InputTable from './InputTable.vue'
   import invoiceStore from './createInvoiceStore.js'
+  import store from '../../../components/store.js'
 
   export default {
     name: 'create',
-    components: {Multiselect, ItemInputTable}, 
+    components: {Multiselect, InputTable}, 
     data() {
       return {
         selectedClient: { name: 'Please select', language: '' },
         foundClients: [],
         clientInputVisible: false,
-        invoiceData: '1980-12-18',
-        showPreviewArea: false,
-        columns: invoiceStore.headers,
-        demoTableData: invoiceStore.rows2
+        invoiceDate: '1980-12-18',
+        columns: ['#', 'Description', 'Unit Price', 'Quantity', 'Sub Total'],
+        demoTableData: invoiceStore.rows2,
+
+        templates: [],
+        terms: [{0: 'Due On Receipt', 7: 'Net 7', 15: 'Net 15', 30: 'Net 30'}],
+
+        invoiceData: {
+          templateId: '',
+          fromCompany: {},
+          toCompany: {},
+          invoiceDate: '', // sentDate
+          dueDate: '',
+          items: [],
+          note: 'note...',
+          total: null
+        }
       }
     },
     created() {
-      this.invoiceData = new Date().toISOString().substr(0, 10)
+      this.invoiceDate = new Date().toISOString().substr(0, 10)
+      // todo: 
+      // get store.invoiceData(if exists) to this component
+      // todo:
+      // 1. get templates
+      // 2. get myCompany
+      //
     },
     mounted () {
       
@@ -149,16 +171,29 @@
        
         this.clientInputVisible = false
       },
-      showPreview() {
-        this.showPreviewArea = true
-      },
-      hidePreview() {
-        this.showPreviewArea = false
-      },
       async asyncFindClient(query) {
         let res = await api.client.searchMock(query)
         this.foundClients = res
 
+      },
+      previewInvoice() {
+        store.invoiceData = JSON.parse(JSON.stringify(this.invoiceData))
+        this.$router.push({name: 'CreateInvoice.Preview'})
+      }, 
+      handleTableDataChange(payload) {
+        /*
+        payload = {
+          rowIndex: 3,
+          rowData: {....}
+        }
+        */
+
+        // todo: splice this.invoiceData.items
+        // update total
+
+      },
+      handleTableRowRemove(rowIndex) {
+        // todo: handle row remove
       }
 
     }

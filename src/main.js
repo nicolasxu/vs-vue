@@ -8,6 +8,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VeeValidate from 'vee-validate'
+import Notifications from 'vue-notification'
 
 
 Vue.config.productionTip = false
@@ -33,6 +34,8 @@ const veeValidateConfig = {
   validity: false,
   aria: true
 };
+
+Vue.use(Notifications)
 
 Vue.use(VeeValidate, veeValidateConfig)
 /* eslint-disable no-new */

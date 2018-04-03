@@ -11,7 +11,13 @@
       class="vs-data">{{header}}</div>
     </div>
     
-    <table-row v-for="(row, index) in rows" :row="row" :row-index="index" ></table-row>
+    <TableRow 
+    v-for="(row, index) in rows" 
+    :row="row"  
+    :row-index="index" 
+    @rowChange="RowDataChangeEmitter"
+    @rowRemove="rowRemoveEmitter"
+    ></TableRow>
    
   </div>
 </template>
@@ -33,9 +39,9 @@
 
   */
 
-  import TableRow from './ItemInputTableRow.vue'
+  import TableRow from './InputTableRow.vue'
   export default {
-    name: 'ItemInputTable',
+    name: 'InputTable',
     components: {TableRow},
     props: ['headers', 'rows'],
     data() {
@@ -53,14 +59,7 @@
       clickHandler(e) {
   
       },
-      addColumn(name) {
-
-      },
-      removeColumn(name) {
-
-      },
       addRow() {
-
       },
       removeRow(index) {
 
@@ -69,6 +68,21 @@
       },
       editCell(row, col) {
        
+      },
+      RowDataChangeEmitter(payload) {
+        /* payload example
+        
+        payload = {
+          rowIndex: 3,
+          rowData: {....}
+        }
+
+        */
+        
+        this.$emit('tableDataChange', payload)
+      },
+      rowRemoveEmitter(rowIndex) {
+        this.$emit('tableRowRemove', rowIndex)
       }
 
     }

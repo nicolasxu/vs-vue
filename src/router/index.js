@@ -16,6 +16,8 @@ import Received from '../components/dash/Received'
 import Sent from '../components/dash/Sent'
 
 import Create from '../components/dash/CreateInvoice/Create.vue'
+import PreviewInvoice from '../components/dash/CreateInvoice/PreviewInvoice.vue'
+
 import Client from '../components/dash/client/Client.vue'
 import NewClient from '../components/dash/client/NewClient.vue'
 import ClientDetail from '../components/dash/client/ClientDetail.vue'
@@ -65,6 +67,11 @@ let theRouter = new Router({
       path: '/createInvoice',
       name: 'CreateInvoice',
       component: Create,
+      beforeEach: companyCreatedGuard
+    }, {
+      path:'/createInvoice/preview',
+      name: 'CreateInvoice.Preview',
+      component: PreviewInvoice,
       beforeEach: companyCreatedGuard
     }, {
       path: '/maintain-template',

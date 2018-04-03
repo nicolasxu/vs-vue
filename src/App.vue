@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
+    <notifications group="foo" position="top center"/>
     <router-view class="view default"></router-view>
     <router-view class="view two" name="nav"></router-view>
     <router-view class="view three" name="workingArea"></router-view>    
