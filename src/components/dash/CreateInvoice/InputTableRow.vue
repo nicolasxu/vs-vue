@@ -10,16 +10,14 @@
 			<div class="cell-wrapper">
 				<div class="number-text">{{rowIndex + 1}}</div>
 				<div class="remove-btn-wrapper">
-					<button class="uk-button uk-button-small remove-row"
+					<button class="uk-button uk-button-small uk-button-primary remove-row-btn"
 					@click="removeRow(rowIndex)">
 						
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"/></svg>						
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"/></svg>						
 					
 					</button>			
 				</div>
-
 			</div>
-		
 		</div>
 		
 		<div 
@@ -34,11 +32,12 @@
 				<div v-show="!showEdit[key]">{{value}}</div>
 				<div v-show="showEdit[key]">
 
-					<product-description
-					@doneEditing="myDoneEditing(key)"
+					<ProductDescription
+					@doneEditing="descriptionDoneEditing"
 					:row="row"
 					:rowKey="key"
-					></product-description>
+					>
+					</ProductDescription>
 					
 
 				</div>
@@ -59,7 +58,6 @@
 			<div v-if="key === 'subTotal' ">
 				${{value}}
 			</div>
-
 
 		</div>
 	</div>
@@ -88,14 +86,14 @@ export default {
 
 	},
 	methods: {
-		showCellEdit(theKey) {
+		showCellEdit(cellKey) {
 			
-			if (this.showEdit[theKey] === true) {
+			if (this.showEdit[cellKey] === true) {
 				return
 			}
-			this.$set(this.showEdit, theKey, true)
+			this.$set(this.showEdit, cellKey, true)
 
-			if (theKey === 'description') {
+			if (cellKey === 'description') {
 
  				let $input = $('.multiselect__input')
         $input.focus()
@@ -103,27 +101,37 @@ export default {
 			} else {
 
 				this.$nextTick(() => {
-					this.$refs['tb-input-' + theKey][0].focus()
+					this.$refs['tb-input-' + cellKey][0].focus()
 				})
 
 			}
 		},
-		hideCellEdit(theKey) {
+		hideCellEdit(cellKey) {
 			console.log('focusout')
-			this.showEdit[theKey] = false
-		}, 
-		myDoneEditing(cellKey) {
-			console.log('done editing...')
 			this.showEdit[cellKey] = false
+			let compiledPayload = {}
+			compiledPayload[cellKey] = this.row[cellKey]
+			this.$emit('rowChange', compiledPayload)
+		}, 
+		descriptionDoneEditing(payload) {
+			// console.log('description done editing...', cellKey)
+			this.showEdit.description = false
+			let compiledPayload = {
+				rowIndex: this.rowIndex,
+				description: payload.description
+			}
+			if (payload.unitPrice !== void 0) {
+				compiledPayload.unitPrice = payload.unitPrice
+			}
+			this.$emit('rowChange', compiledPayload)
 		},
 		removeRow(rowIndex) {
 			let confirmed = confirm("Do you want to remove row " + (this.rowIndex + 1) + " ?")
 			if (confirmed) {
 				this.$emit('rowRemove', rowIndex)
-			}
-			
-		}
 
+			}
+		}
 	}
 }
 
@@ -136,22 +144,30 @@ export default {
 			text-align: center;
 			.cell-wrapper {
 				position: relative;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items:center;
 				.number-text {
 					display: inline;
+
 				}
 				.remove-btn-wrapper {
 					display: none;
 					position: absolute;
-					top: -2px;
+					// top: -2px;
 					left: 50%;
 					transform: translate(-50%, 0);
 
-					.remove-row {
+					.remove-row-btn {
+						background-color: #00a8e6;
+						// color: #00a8e6;
+						color: white;
 						width: 30px;
-						height: 25px;
+						height: 28px;
 						padding: 0 4px;
 						border-radius: 5px;
-						color: grey;
+						
 						fill: currentColor;
 
 					}

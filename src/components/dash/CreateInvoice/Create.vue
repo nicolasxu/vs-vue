@@ -68,11 +68,14 @@
                 <label class="uk-form-label" for="form-s-s">Items (Ctrl+i)</label>
                 <InputTable 
                 :headers="columns" 
-                :rows="demoTableData"
-                @tableDataChange="handleTableDataChange"
+                :rows="invoiceData.items"
+                @rowDataChange="handleRowDataChange"
                 @tableRowRemove="handleTableRowRemove">
                 </InputTable>
-
+                <div class="add-row-positioner">
+                  <button class="uk-button uk-button-small uk-button-primary" @click="addRow">Add Row</button>                  
+                </div>
+ 
               </div>
               <!-- Notes -->
               <div class="uk-form-row">
@@ -106,10 +109,11 @@
         clientInputVisible: false,
         invoiceDate: '1980-12-18',
         columns: ['#', 'Description', 'Unit Price', 'Quantity', 'Sub Total'],
-        demoTableData: invoiceStore.rows2,
-
         templates: [],
-        terms: [{0: 'Due On Receipt', 7: 'Net 7', 15: 'Net 15', 30: 'Net 30'}],
+        term: {0: 'Due On Receipt', 
+        7: 'Net 7', 
+        15: 'Net 15', 
+        30: 'Net 30'},
 
         invoiceData: {
           templateId: '',
@@ -117,7 +121,7 @@
           toCompany: {},
           invoiceDate: '', // sentDate
           dueDate: '',
-          items: [],
+          items: invoiceStore.rows2,
           note: 'note...',
           total: null
         }
@@ -180,7 +184,7 @@
         store.invoiceData = JSON.parse(JSON.stringify(this.invoiceData))
         this.$router.push({name: 'CreateInvoice.Preview'})
       }, 
-      handleTableDataChange(payload) {
+      handleRowDataChange(payload) {
         /*
         payload = {
           rowIndex: 3,
@@ -190,10 +194,28 @@
 
         // todo: splice this.invoiceData.items
         // update total
-
+        console.log('RowDataChange', payload)
+        // TODO: update description, unitPrice, and quantity based on key existance in payload
+        
       },
       handleTableRowRemove(rowIndex) {
-        // todo: handle row remove
+
+        this.invoiceData.items.splice(rowIndex, 1)
+
+        this.updateTotal()
+
+      },
+      updateTotal() {
+
+        let total = 0
+        this.invoiceData.items.forEach(i => {
+          total = total + i.subTotal
+        })
+        this.invoiceData.total = total
+        console.log(total)
+      },
+      addRow() {
+        this.invoiceData.items.push({description: '', unitPrice: 0, quantity: 1, subTotal: 0})
       }
 
     }
@@ -210,9 +232,7 @@
     box-sizing: border-box;
 
     .invoice-frame {
-      .scroll-box {
-        // overflow-y: scroll;
-      }
+
       margin-top: 1em;
       border: 5px dashed lightgrey;
       width: 1024px;
@@ -264,17 +284,10 @@
         .items-textarea, .notes-textarea {
           width: 100%;
         }
+        .add-row-positioner {
+          margin-top: 0.6em;
+        }
       }
-    }
-
-    .invoice-preview-area {
- 
-      padding-left: 1em;
-      padding-right: 1em;
-      // margin-left: 50%;
-      height: 100vh;
-      // width: 900px;
-   
     }
   }
 </style>
@@ -724,16 +737,4 @@
       z-index:1050;
     }    
   }
-
-
-  .handsontable {
-
-    .handsontableInputHolder {
-      .handsontableInput {
-        /* this is textarea element */
-
-      }
-    }
-  }
-
 </style>

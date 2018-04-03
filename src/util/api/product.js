@@ -46,7 +46,7 @@ function searchMock(query) {
       } else {
         resolve (allProducts)
       }
-    }, 2000)
+    }, 300)
   })
 
   return promise

@@ -23,7 +23,7 @@
         >
           {{item.description}}
         </li>
-      </ul>      
+      </ul>
     </div>
   </div>
 </template>
@@ -52,10 +52,10 @@
   export default {
     name: 'VsAutocomplete',
     components: {},
-    props: ['options', 'item'],
+    props: ['options', 'initialText'],
     data() {
       return {
-        inputStr: this.item, // copy props value to internal model
+        inputStr: this.initialText, // copy props value to internal model
         currentItemIndex: -1,
         selectedItem: {},
         showDropdown: true,
@@ -83,12 +83,11 @@
             return
           }
         }
-
       }
     },
     methods: {
       itemClick(index, e) {
-        this.$emit('itemSelected')
+        console.log('itemClicked')
         this.selectedItem = this.options[index]
         this.showDropdown = false
         this.$emit('close', this.selectedItem)
@@ -97,7 +96,7 @@
       keyDownEnter(e) {
         // 3. enter,(selectedItem and currentItemIndex is updated at other place), hide dropdown, done
 
-        window.thisCompo = this.$refs.inputElem.blur()
+        // window.thisCompo = this.$refs.inputElem.blur()
         // focusout event will handle it
 
 
@@ -145,7 +144,7 @@
 
         
         this.currentItemIndex = -1
-        this.$emit('searchChange', this.inputStr)
+        this.$emit('searchTextChange', this.inputStr)
         this.selectedItem = {description: this.inputStr}
 
       }, 

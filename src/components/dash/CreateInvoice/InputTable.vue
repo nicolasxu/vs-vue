@@ -27,7 +27,7 @@
 
   // Requirements:
   /* 
- 
+
   2. autocomplete for description input by shortId and product description
   3. autocomplete is only for product description
   3. after input, all column is editable except sub total, unit price and quantity is required. 
@@ -59,13 +59,6 @@
       clickHandler(e) {
   
       },
-      addRow() {
-      },
-      removeRow(index) {
-
-      },
-      calculateSubTotal(index) {
-      },
       editCell(row, col) {
        
       },
@@ -79,12 +72,12 @@
 
         */
         
-        this.$emit('tableDataChange', payload)
+        this.$emit('rowDataChange', payload)
       },
       rowRemoveEmitter(rowIndex) {
+
         this.$emit('tableRowRemove', rowIndex)
       }
-
     }
  }
   

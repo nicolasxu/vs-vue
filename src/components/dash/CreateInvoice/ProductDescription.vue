@@ -1,14 +1,14 @@
 <template>
   <div class="row-field-description">
     
-  
-  <autocomplete 
-  :options="products" 
-  @searchChange="findProductsAsync"
-  @close="autocompleteClosed"
-  :item="description"
-  >
-  </autocomplete>
+    <Autocomplete 
+    :options="products" 
+    @searchTextChange="findProductsAsync"
+    @close="autocompleteClosed"
+    :initialText="description"
+    >
+    </Autocomplete>
+
   </div>
 </template>
 
@@ -41,9 +41,10 @@
         this.products = res
       },
       autocompleteClosed(selectedItem) {
-       
-        this.row[this.rowKey] = selectedItem.description
-        this.$emit('doneEditing')
+        
+        // this.row[this.rowKey] = selectedItem.description
+
+        this.$emit('doneEditing', selectedItem)
       }
 
     }
