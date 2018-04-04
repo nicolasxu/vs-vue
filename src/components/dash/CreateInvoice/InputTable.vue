@@ -14,9 +14,7 @@
     <TableRow 
     v-for="(row, index) in rows" 
     :row="row"  
-    :row-index="index" 
-    @rowChange="RowDataChangeEmitter"
-    @rowRemove="rowRemoveEmitter"
+    :row-index="index"
     ></TableRow>
    
   </div>

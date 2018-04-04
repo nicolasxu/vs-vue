@@ -15,13 +15,13 @@
                 <label class="light-label">To: </label>
                 <a href="javascript:void(0)" 
                 @click="showClientInput" 
-                v-show="!clientInputVisible">{{selectedClient && selectedClient.name}}</a>
+                v-show="!clientInputVisible">{{invoiceData.toCompany && invoiceData.toCompany.name}}</a>
 
                 <div v-show="clientInputVisible" >
                   <label class="typo__label"></label>
                   <multiselect
-                  v-model="selectedClient" 
-                  :options="foundClients" 
+                  v-model="invoiceData.toCompany"
+                  :options="foundClients"
                   :allow-empty="false"
                   :custom-label="nameWithLang"
                   :limit="7"
@@ -41,16 +41,13 @@
                 <div class="invoice-element-tag">
                   <label class="light-label">Invoice Date</label>
                   <form class="uk-form">
-                    <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceDate">   
+                    <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceData.invoiceDate">   
                   </form>      
                 </div>
                 <div class="invoice-element-tag">
                   <label class="light-label">Due Date</label>
-                  <select>
-                    <option>Due Upon Receipt</option>
-                    <option>Net 7</option>
-                    <option>Net 15</option>
-                    <option>Net 30</option>
+                  <select v-model="invoiceData.term">
+                    <option v-for="option in terms" :value="option">{{option.desc}}</option>
                   </select>              
                 </div>            
                 <div class="invoice-element-tag">
@@ -69,19 +66,18 @@
                 <InputTable 
                 :headers="columns" 
                 :rows="invoiceData.items"
-                @rowDataChange="handleRowDataChange"
-                @tableRowRemove="handleTableRowRemove">
+                >
                 </InputTable>
                 <div class="add-row-positioner">
                   <button class="uk-button uk-button-small uk-button-primary" @click="addRow">Add Row</button>                  
                 </div>
- 
+
               </div>
               <!-- Notes -->
               <div class="uk-form-row">
                 <label class="uk-form-label" for="form-s-t">Notes:</label>
                 <div class="uk-form-controls">
-                  <textarea class="notes-textarea" rows="5" placeholder="Textarea text"></textarea>
+                  <textarea class="notes-textarea" rows="5" placeholder="Textarea text" v-model="invoiceData.note"></textarea>
                 </div>
               </div>
             </div>
@@ -99,38 +95,35 @@
   import invoiceStore from './createInvoiceStore.js'
   import store from '../../../components/store.js'
 
+
   export default {
     name: 'create',
     components: {Multiselect, InputTable}, 
     data() {
       return {
-        selectedClient: { name: 'Please select', language: '' },
         foundClients: [],
         clientInputVisible: false,
-        invoiceDate: '1980-12-18',
         columns: ['#', 'Description', 'Unit Price', 'Quantity', 'Sub Total'],
         templates: [],
-        term: {0: 'Due On Receipt', 
-        7: 'Net 7', 
-        15: 'Net 15', 
-        30: 'Net 30'},
-
-        invoiceData: {
-          templateId: '',
-          fromCompany: {},
-          toCompany: {},
-          invoiceDate: '', // sentDate
-          dueDate: '',
-          items: invoiceStore.rows2,
-          note: 'note...',
-          total: null
-        }
+        terms: [
+          {day: 0, desc: 'Due On Receipt' }, 
+          {day: 7, desc: 'Net 7'}, 
+          {day: 15, desc: 'Net 15'},
+          {day: 30, desc: 'Net 30'}
+        ], 
+   
+        invoiceData: invoiceStore.state.invoice
       }
     },
-    created() {
-      this.invoiceDate = new Date().toISOString().substr(0, 10)
-      // todo: 
-      // get store.invoiceData(if exists) to this component
+    async created() {
+      
+      this.invoiceData = invoiceStore.state.invoice
+      if (!this.invoiceData.term.day) {
+        // init term value
+        this.invoiceData.term = this.terms[0]
+      }
+
+
       // todo:
       // 1. get templates
       // 2. get myCompany
@@ -181,22 +174,18 @@
 
       },
       previewInvoice() {
-        store.invoiceData = JSON.parse(JSON.stringify(this.invoiceData))
+        
+        // todo: update store
         this.$router.push({name: 'CreateInvoice.Preview'})
       }, 
       handleRowDataChange(payload) {
-        /*
-        payload = {
-          rowIndex: 3,
-          rowData: {....}
-        }
-        */
+   
 
         // todo: splice this.invoiceData.items
         // update total
         console.log('RowDataChange', payload)
         // TODO: update description, unitPrice, and quantity based on key existance in payload
-        
+
       },
       handleTableRowRemove(rowIndex) {
 

@@ -6,9 +6,8 @@
   class="vs-autocomplete">
     <input type="text"
     v-model="inputStr"
-    @focus="onFocus"
     @input="onInput"
-    @focusout="onFocusout"
+    @focus="onFocus"
     ref="inputElem"
     />
 
@@ -21,7 +20,7 @@
         :class="{selectedItem: currentItemIndex === index }"
         @click.stop="itemClick(index, $event)"
         >
-          {{item.description}}
+          {{item.description}} - {{item.unitPrice}}
         </li>
       </ul>
     </div>
@@ -73,32 +72,27 @@
 
     },
     watch: {
-      options: (newVal, oldVal) => {
-        let newOptions = newVal
-        
-        for(let i = 0 ; i < newOptions.length; i++) {
-          if (newOptions[i].description === this.inputStr) {
-            this.currentItemIndex = i
-            this.selectedItem = newOptions[i]
-            return
-          }
-        }
-      }
+
     },
     methods: {
       itemClick(index, e) {
-        console.log('itemClicked')
+
         this.selectedItem = this.options[index]
         this.showDropdown = false
+        this.inputStr = this.selectedItem.description
         this.$emit('close', this.selectedItem)
 
       },
       keyDownEnter(e) {
-        // 3. enter,(selectedItem and currentItemIndex is updated at other place), hide dropdown, done
+    
+        if (this.currentItemIndex !== -1) {
+          this.$emit('close', this.selectedItem)
+          return
+        }
+        this.showDropdown = false
 
-        // window.thisCompo = this.$refs.inputElem.blur()
-        // focusout event will handle it
 
+        this.$emit('close', {description: this.inputStr})
 
       },
       keyDownUp(e) {
@@ -145,7 +139,7 @@
         
         this.currentItemIndex = -1
         this.$emit('searchTextChange', this.inputStr)
-        this.selectedItem = {description: this.inputStr}
+        
 
       }, 
       onFocus() {
@@ -159,7 +153,7 @@
         this.currentItemIndex = -1
         this.showDropdown = true
 
-        // note, watch 'options' will handle the matching after options are updated
+
       },
       onFocusout() {
         // 1. focusout, emit selected, hide dropdown, done

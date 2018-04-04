@@ -3,9 +3,9 @@
     
     <Autocomplete 
     :options="products" 
+    :initialText="description"
     @searchTextChange="findProductsAsync"
     @close="autocompleteClosed"
-    :initialText="description"
     >
     </Autocomplete>
 
@@ -42,8 +42,6 @@
       },
       autocompleteClosed(selectedItem) {
         
-        // this.row[this.rowKey] = selectedItem.description
-
         this.$emit('doneEditing', selectedItem)
       }
 

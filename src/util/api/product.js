@@ -16,13 +16,13 @@ export {
 
 function searchMock(query) {
   let allProducts = [
-    {description: 'product A', unitPrice: 12, code: 'AX01'},
-    {description: 'web development service large', unitPrice: 12, code: 'AX02'},
-    {description: 'web development service small', unitPrice: 12, code: 'AX03'},
-    {description: 'testing', unitPrice: 12, code: 'AX04'},
-    {description: 'deployment A', unitPrice: 12, code: 'AX05'},
-    {description: 'project management hour', unitPrice: 12, code: 'AX06'},
-    {description: 'artist creation A', unitPrice: 12, code: 'AX07'}
+    {description: 'product A', unitPrice: 5, code: 'AX01'},
+    {description: 'web development service large', unitPrice: 6, code: 'AX02'},
+    {description: 'web development service small', unitPrice: 7, code: 'AX03'},
+    {description: 'testing', unitPrice: 8, code: 'AX04'},
+    {description: 'deployment A', unitPrice: 9, code: 'AX05'},
+    {description: 'project management hour', unitPrice: 10, code: 'AX06'},
+    {description: 'artist creation A', unitPrice: 11, code: 'AX07'}
   ]
 
   let foundProducts = []

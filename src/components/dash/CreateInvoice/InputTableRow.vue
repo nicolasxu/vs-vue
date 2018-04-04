@@ -1,9 +1,5 @@
 <template>
 	<div class="vs-row">
-		
-
-
-
 
 		<!-- render # cell -->
 		<div class="vs-data row-number">
@@ -21,7 +17,7 @@
 		</div>
 		
 		<div 
-		v-for="(value, key, index) in row" 
+		v-for="(value, key, index) in rowCopy" 
 		:key="index" 
 		@click="showCellEdit(key)" 
 		:class="{pointer: key !== 'subTotal', 'no-event': key === 'subTotal' }" 
@@ -34,7 +30,7 @@
 
 					<ProductDescription
 					@doneEditing="descriptionDoneEditing"
-					:row="row"
+					:row="rowCopy"
 					:rowKey="key"
 					>
 					</ProductDescription>
@@ -48,8 +44,8 @@
 				<div v-show="!showEdit[key]">{{value}}</div>
 				<div v-show="showEdit[key]">
 					<input type="text"
-					v-model.number="row[key]" 
-					@focusout="hideCellEdit(key)" 
+					v-model.number="rowCopy[key]"
+					@focusout="focusOutEdit(key)" 
 					:ref="'tb-input-' + key"/>
 				</div>
 			</div>
@@ -75,8 +71,8 @@ export default {
 	data() {
 		return {
 			showEdit: {},
-			foundProducts: []
-		
+			foundProducts: [],
+			rowCopy: JSON.parse(JSON.stringify(this.row))
 		}
 	},
 	created() {
@@ -106,29 +102,31 @@ export default {
 
 			}
 		},
-		hideCellEdit(cellKey) {
+		focusOutEdit(cellKey) {
 			console.log('focusout')
 			this.showEdit[cellKey] = false
-			let compiledPayload = {}
-			compiledPayload[cellKey] = this.row[cellKey]
-			this.$emit('rowChange', compiledPayload)
+			if (this.rowCopy[cellKey] !== this.row[cellKey]) {
+				let row = {}
+				row[cellKey] = this.rowCopy[cellKey]
+				invoiceStore.setItemsRow(this.rowIndex, row)
+				this.rowCopy = JSON.parse(JSON.stringify(this.row))
+			}
 		}, 
 		descriptionDoneEditing(payload) {
 			// console.log('description done editing...', cellKey)
 			this.showEdit.description = false
-			let compiledPayload = {
-				rowIndex: this.rowIndex,
-				description: payload.description
-			}
-			if (payload.unitPrice !== void 0) {
-				compiledPayload.unitPrice = payload.unitPrice
-			}
-			this.$emit('rowChange', compiledPayload)
+
+			console.log('descriptionDoneEditing payload', payload)
+			let row = payload
+			invoiceStore.setItemsRow(this.rowIndex, row)
+			this.rowCopy = JSON.parse(JSON.stringify(this.row))
+
 		},
 		removeRow(rowIndex) {
 			let confirmed = confirm("Do you want to remove row " + (this.rowIndex + 1) + " ?")
 			if (confirmed) {
-				this.$emit('rowRemove', rowIndex)
+				// this.$emit('rowRemove', rowIndex)
+				invoiceStore.removeItemsRow(rowIndex)
 
 			}
 		}
