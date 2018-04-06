@@ -2,7 +2,7 @@ let store =  {
   debug: true,
   state: {
     invoice: {
-      templateId: '',
+      template: {},
       toCompany: {name:'Please Select', language: ''},
       fromCompany: {},
       invoiceDate: new Date(),
@@ -110,11 +110,11 @@ let store =  {
     }    
     this.state.invoice.term = term
   },
-  setTemplateId (id) {
+  setTemplate (template) {
     if (this.debug) {
-      console.log('setTemplateId triggered', id)
+      console.log('setTemplateId triggered', template)
     }     
-    this.state.invoice.templateId = id
+    this.state.invoice.template = template
   },
   setFromCompany(from) {
     if (this.debug) {

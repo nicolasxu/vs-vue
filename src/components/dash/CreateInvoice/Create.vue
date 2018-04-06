@@ -10,19 +10,18 @@
           <div class="invoice-control-container">
             <div class="uk-form uk-form-stacked">
 
-              <input type="" name="" v-model="message">
-              {{messageOri}}
+           
               <!-- select client -->
               <div class="uk-form-row client-select"> 
                 <label class="light-label">To: </label>
                 <a href="javascript:void(0)" 
                 @click="showClientInput" 
-                v-show="!clientInputVisible">{{invoiceData.toCompany && invoiceData.toCompany.name}}</a>
+                v-show="!clientInputVisible">{{toCompany && toCompany.name}}</a>
 
                 <div v-show="clientInputVisible" >
                   <label class="typo__label"></label>
                   <multiselect
-                  v-model="invoiceData.toCompany"
+                  v-model="toCompany"
                   :options="foundClients"
                   :allow-empty="false"
                   :custom-label="nameWithLang"
@@ -48,16 +47,14 @@
                 </div>
                 <div class="invoice-element-tag">
                   <label class="light-label">Due Date</label>
-                  <select v-model="invoiceData.term">
-                    <option v-for="option in terms" :value="option">{{option.desc}}</option>
+                  <select v-model="term">
+                    <option v-for="option, index in terms" :value="option" :key="index">{{option.desc}}</option>
                   </select>              
                 </div>            
                 <div class="invoice-element-tag">
                   <label class="light-label">Template</label>
-                  <select>
-                    <option>Default</option>
-                    <option>Law</option>
-                    <option>Agency</option>
+                  <select v-model="template">
+                    <option v-for="t, index in templates" :value="t" :key="index">{{t.name}}</option>
                   </select>              
                 </div>
               </div>
@@ -108,7 +105,7 @@
         foundClients: [],
         clientInputVisible: false,
         columns: ['#', 'Description', 'Unit Price', 'Quantity', 'Sub Total'],
-        templates: [],
+        templates: [{_id: '1234345', name: 'Default'}, {_id: '2', name: 'Law'}, {_id: '3', name: 'Agency'}],
         terms: [
           {day: 0, desc: 'Due On Receipt' }, 
           {day: 7, desc: 'Net 7'}, 
@@ -129,28 +126,52 @@
           invoiceStore.setInvoiceDate(val)
         }
       },
-      message: {
+      toCompany: {
         get() {
-          return this.messageOri
+          return this.invoiceData.toCompany
         },
-        set(val) {
-          this.messageOri = val
+        set(value) {
+          invoiceStore.setToCompany(value)
+        }
+      },
+      term: {
+        get() {
+          return this.invoiceData.term
+        },
+        set(value) {
+          invoiceStore.setTerm(value)
+        }
+      },
+      template: {
+        get() {
+          return this.invoiceData.template
+        },
+        set(t) {
+          invoiceStore.setTemplate(t)
         }
       }
     },
     async created() {
-      
-      this.invoiceData = invoiceStore.state.invoice
-      if (!this.invoiceData.term.day) {
-        // init term value
-        this.invoiceData.term = this.terms[0]
-      }
-
 
       // todo:
       // 1. get templates
       // 2. get myCompany
-      //
+            
+
+      this.invoiceData = invoiceStore.state.invoice
+      if (!this.invoiceData.term.day) {
+        // init term value
+        
+        invoiceStore.setTerm(this.terms[0]) 
+      }
+
+      if (!this.invoiceData.template._id) {
+        console.log('set template called...')
+        invoiceStore.setTemplate(this.templates[0])
+      }
+
+
+
     },
     mounted () {
       
