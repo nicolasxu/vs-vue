@@ -1,5 +1,5 @@
 <template>
-  <div class="vs-item-table" @click="clickHandler">
+  <div class="vs-item-table" >
     <col width="5%">
     <col width="60%">
     <col width="10%">
@@ -15,27 +15,13 @@
     v-for="(row, index) in rows" 
     :row="row"  
     :row-index="index"
+    :key="index"
     ></TableRow>
    
   </div>
 </template>
 
 <script>
-
-
-  // Requirements:
-  /* 
-
-  2. autocomplete for description input by shortId and product description
-  3. autocomplete is only for product description
-  3. after input, all column is editable except sub total, unit price and quantity is required. 
-  3. add line
-  4. remove line
-  5. column names: #, description, unit price, quantity, sub-total
-
-
-
-  */
 
   import TableRow from './InputTableRow.vue'
   export default {
@@ -48,34 +34,13 @@
       }
     },
     created() {
-      let a = 10
+      
     },
     mounted() {
  
     },
     methods: {
-      clickHandler(e) {
-  
-      },
-      editCell(row, col) {
-       
-      },
-      RowDataChangeEmitter(payload) {
-        /* payload example
-        
-        payload = {
-          rowIndex: 3,
-          rowData: {....}
-        }
-
-        */
-        
-        this.$emit('rowDataChange', payload)
-      },
-      rowRemoveEmitter(rowIndex) {
-
-        this.$emit('tableRowRemove', rowIndex)
-      }
+ 
     }
  }
   

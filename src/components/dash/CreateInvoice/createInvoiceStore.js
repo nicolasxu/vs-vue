@@ -5,7 +5,7 @@ let store =  {
       templateId: '',
       toCompany: {name:'Please Select', language: ''},
       fromCompany: {},
-      invoiceDate: new Date().toISOString().substr(0, 10),
+      invoiceDate: new Date(),
       dueDate: '',
       term: {},
       total: 0,

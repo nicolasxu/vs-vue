@@ -29,32 +29,13 @@
 
 <script>
 
-/* 
-  Behaviors:
-  0. onFocus, 
-          trigger new search based on InputStr
-          search for match description from option, set selected and index if match
-  - 1. focusout, emit selected, hide dropdown, done
-  - 2. click, update selected, emit selected, hide dropdown, done
-  - 3. enter, update selected, emit selected, hide dropdown, done
-  4. onInput, update searchStr(automatic), 
-              update currentItemIndex to -1, 
-              emit search change (will trigger new back-end search, result will be passed in via props )
-              search all description field of new result, if exactly match, set currentItemIndex and selectedItem 
-              select the item if every letter in searchStr matches description
-
-  - 5. arrow up, update currentItemIndex, update selected...
-  - 6. arrow down, update currentItemIndex, update selected...
-
-*/
-
   export default {
     name: 'VsAutocomplete',
     components: {},
-    props: ['options', 'initialText'],
+    props: ['options', 'initialSearchText'],
     data() {
       return {
-        inputStr: this.initialText, // copy props value to internal model
+        inputStr: this.initialSearchText, // copy props value to internal model
         currentItemIndex: -1,
         selectedItem: {},
         showDropdown: true,
@@ -89,10 +70,10 @@
           this.$emit('close', this.selectedItem)
           return
         }
-        this.showDropdown = false
-
-
+        
         this.$emit('close', {description: this.inputStr})
+
+        this.showDropdown = false
 
       },
       keyDownUp(e) {
@@ -153,13 +134,6 @@
         this.currentItemIndex = -1
         this.showDropdown = true
 
-
-      },
-      onFocusout() {
-        // 1. focusout, emit selected, hide dropdown, done
-
-        this.$emit('close', this.selectedItem)
-        this.showDropdown = false
       }
     }
 

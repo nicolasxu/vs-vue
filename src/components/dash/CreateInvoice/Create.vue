@@ -9,7 +9,9 @@
           </div>
           <div class="invoice-control-container">
             <div class="uk-form uk-form-stacked">
-              
+
+              <input type="" name="" v-model="message">
+              {{messageOri}}
               <!-- select client -->
               <div class="uk-form-row client-select"> 
                 <label class="light-label">To: </label>
@@ -41,7 +43,7 @@
                 <div class="invoice-element-tag">
                   <label class="light-label">Invoice Date</label>
                   <form class="uk-form">
-                    <input type="text" data-uk-datepicker="{format:'YYYY-MM-DD'}" v-model="invoiceData.invoiceDate">   
+                    <Datepicker placeholder="Select Date" v-model="invoiceDate"></Datepicker>
                   </form>      
                 </div>
                 <div class="invoice-element-tag">
@@ -92,15 +94,17 @@
   import api from '../../../util/api'
   import Multiselect from 'vue-multiselect'
   import InputTable from './InputTable.vue'
+  import Datepicker from 'vuejs-datepicker'
   import invoiceStore from './createInvoiceStore.js'
   import store from '../../../components/store.js'
 
 
   export default {
     name: 'create',
-    components: {Multiselect, InputTable}, 
+    components: {Multiselect, InputTable, Datepicker}, 
     data() {
       return {
+        messageOri: 'Nick',
         foundClients: [],
         clientInputVisible: false,
         columns: ['#', 'Description', 'Unit Price', 'Quantity', 'Sub Total'],
@@ -110,9 +114,28 @@
           {day: 7, desc: 'Net 7'}, 
           {day: 15, desc: 'Net 15'},
           {day: 30, desc: 'Net 30'}
-        ], 
-   
+        ],
         invoiceData: invoiceStore.state.invoice
+      }
+    },
+    computed: {
+      invoiceDate:{
+        get() {
+          console.log('getter called')
+          return this.invoiceData.invoiceDate
+        },
+        set(val) {
+          console.log('setter called..')
+          invoiceStore.setInvoiceDate(val)
+        }
+      },
+      message: {
+        get() {
+          return this.messageOri
+        },
+        set(val) {
+          this.messageOri = val
+        }
       }
     },
     async created() {
@@ -135,10 +158,6 @@
     },
     beforeDestroy() {
       let a = 2
-    },
-    computed: {
-  
-
     },
     methods: {
 
@@ -177,34 +196,9 @@
         
         // todo: update store
         this.$router.push({name: 'CreateInvoice.Preview'})
-      }, 
-      handleRowDataChange(payload) {
-   
-
-        // todo: splice this.invoiceData.items
-        // update total
-        console.log('RowDataChange', payload)
-        // TODO: update description, unitPrice, and quantity based on key existance in payload
-
       },
-      handleTableRowRemove(rowIndex) {
-
-        this.invoiceData.items.splice(rowIndex, 1)
-
-        this.updateTotal()
-
-      },
-      updateTotal() {
-
-        let total = 0
-        this.invoiceData.items.forEach(i => {
-          total = total + i.subTotal
-        })
-        this.invoiceData.total = total
-        console.log(total)
-      },
-      addRow() {
-        this.invoiceData.items.push({description: '', unitPrice: 0, quantity: 1, subTotal: 0})
+      addRow(){
+        invoiceStore.addNewItemsRow()
       }
 
     }

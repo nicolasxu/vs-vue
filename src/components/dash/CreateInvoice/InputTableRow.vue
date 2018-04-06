@@ -17,7 +17,7 @@
 		</div>
 		
 		<div 
-		v-for="(value, key, index) in rowCopy" 
+		v-for="(value, key, index) in row" 
 		:key="index" 
 		@click="showCellEdit(key)" 
 		:class="{pointer: key !== 'subTotal', 'no-event': key === 'subTotal' }" 
@@ -30,8 +30,7 @@
 
 					<ProductDescription
 					@doneEditing="descriptionDoneEditing"
-					:row="rowCopy"
-					:rowKey="key"
+					:initialDescText="row[key]"
 					>
 					</ProductDescription>
 					
@@ -72,7 +71,7 @@ export default {
 		return {
 			showEdit: {},
 			foundProducts: [],
-			rowCopy: JSON.parse(JSON.stringify(this.row))
+			rowCopy: {}
 		}
 	},
 	created() {
@@ -87,6 +86,7 @@ export default {
 			if (this.showEdit[cellKey] === true) {
 				return
 			}
+			this.rowCopy = JSON.parse(JSON.stringify(this.row))
 			this.$set(this.showEdit, cellKey, true)
 
 			if (cellKey === 'description') {
@@ -103,29 +103,28 @@ export default {
 			}
 		},
 		focusOutEdit(cellKey) {
-			console.log('focusout')
+			
+
 			this.showEdit[cellKey] = false
 			if (this.rowCopy[cellKey] !== this.row[cellKey]) {
 				let row = {}
 				row[cellKey] = this.rowCopy[cellKey]
 				invoiceStore.setItemsRow(this.rowIndex, row)
-				this.rowCopy = JSON.parse(JSON.stringify(this.row))
+
 			}
 		}, 
 		descriptionDoneEditing(payload) {
-			// console.log('description done editing...', cellKey)
+
 			this.showEdit.description = false
 
-			console.log('descriptionDoneEditing payload', payload)
 			let row = payload
 			invoiceStore.setItemsRow(this.rowIndex, row)
-			this.rowCopy = JSON.parse(JSON.stringify(this.row))
 
 		},
 		removeRow(rowIndex) {
 			let confirmed = confirm("Do you want to remove row " + (this.rowIndex + 1) + " ?")
 			if (confirmed) {
-				// this.$emit('rowRemove', rowIndex)
+				
 				invoiceStore.removeItemsRow(rowIndex)
 
 			}

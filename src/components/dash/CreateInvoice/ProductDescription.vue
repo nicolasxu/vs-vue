@@ -3,7 +3,7 @@
     
     <Autocomplete 
     :options="products" 
-    :initialText="description"
+    :initialSearchText="initialDescText"
     @searchTextChange="findProductsAsync"
     @close="autocompleteClosed"
     >
@@ -21,15 +21,18 @@
   export default {
     name: 'ProductDescription',
     components: { Autocomplete  },
-    props: ['row', 'rowKey'],
+    props: ['initialDescText'],
     data () {
       return {
         products: [],
-        description: this.row[this.rowKey]
+        // description: this.row[this.rowKey] 
       }
     },
+    computed: {
+      
+    },
     created() {
-
+    
     },
     mounted() {
     },
