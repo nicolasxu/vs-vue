@@ -25,7 +25,6 @@
     data () {
       return {
         products: [],
-        // description: this.row[this.rowKey] 
       }
     },
     computed: {

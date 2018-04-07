@@ -4,7 +4,7 @@
       <div class="scroll-box">
         <div class="data-input-area">
           <div class="cmd-container">
-            <button class="uk-button uk-button-small" type="button" @click="back">Discard</button>
+            <button class="uk-button uk-button-small" type="button" @click="discard">Discard</button>
             <button class="uk-button uk-button-small uk-button-primary" @click="previewInvoice">Preview</button>
           </div>
           <div class="invoice-control-container">
@@ -118,11 +118,9 @@
     computed: {
       invoiceDate:{
         get() {
-          console.log('getter called')
           return this.invoiceData.invoiceDate
         },
         set(val) {
-          console.log('setter called..')
           invoiceStore.setInvoiceDate(val)
         }
       },
@@ -182,8 +180,9 @@
     },
     methods: {
 
-      back() {
-        this.$router.go(-1)
+      discard() {
+        // this.$router.go(-1)
+        this.$router.push({name: 'Dash.Received'})
       }, 
       nameWithLang ({ name, language }) {
           return `${name} — [${language}]`

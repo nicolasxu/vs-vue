@@ -53,11 +53,15 @@
 
     },
     watch: {
+      options: (newOpts, oldOpts) => {
+        // 1. do a search of inputStr in newOpts
+        // 2. set currentItemIndex, and selectedItem
 
+      }
     },
     methods: {
       itemClick(index, e) {
-
+        this.currentItemIndex = index
         this.selectedItem = this.options[index]
         this.showDropdown = false
         this.inputStr = this.selectedItem.description
@@ -126,8 +130,8 @@
       onFocus() {
         /*
         0. onFocus, 
-          trigger new search based on InputStr
-          search for match description from option, set selected and index if match
+          - trigger new search based on InputStr
+          - todo: search for match description from option, set selected and index if match
         */
         this.$emit('searchChange', this.inputStr)
         this.selectedItem = {description: this.inputStr}
