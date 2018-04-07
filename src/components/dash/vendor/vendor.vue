@@ -57,6 +57,12 @@
       } catch (e) {
         res = {}
         console.log('Get vendor list error', e)
+        return
+      }
+      if (res.err_code === 4002) {
+        // token not valid
+        this.$router.push({name:'Login'})
+        return
       }
 
       if (res.data && !res.data.vendors.err_code) {

@@ -17,6 +17,10 @@ function companyCreated(to, from, next) {
   console.log('api', api)
   api.company.getDetail()
     .then(result => {
+      if (result.err_code === 4002) {
+        // token is invalid
+        next({name: 'Login'})
+      }
       if (result.data.myCompany && result.data.myCompany._id) {
         console.log('company created guard', result)
         store.company = result.data.myCompany
@@ -29,6 +33,6 @@ function companyCreated(to, from, next) {
     })
     .catch((err)=> {
       console.error('CompanyCreatedGuard api call error...')
-      console.error(err.responseText)
+      console.error(err)
     })
 }

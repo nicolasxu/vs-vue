@@ -38,7 +38,22 @@
       }
     },
     async created() {
-      let res = await api.client.getList()
+      // TODO: move this api call to Client, one level up
+      let res
+      try {
+        res = await api.client.getList(this.offset, this.limit)
+      } catch (e) {
+        console.log('get clients error', e)
+        return
+      }
+      
+      // handle error
+      if (res.err_code === 4002) {
+        // token not valid
+        this.$router.push({name:'Login'})
+        return
+      }
+
       this.clients = res.data.clients.docs
       this.total = res.data.clients.total
       this.offset = res.data.clients.offset

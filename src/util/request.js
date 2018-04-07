@@ -2,6 +2,7 @@
 
 import store from '../../src/components/store.js'
 
+window.store = store
 
 export default {
   get: getFn,
