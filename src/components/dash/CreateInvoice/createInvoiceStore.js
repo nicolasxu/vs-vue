@@ -5,8 +5,9 @@ let store =  {
       template: {},
       toCompany: {name:'Please Select', language: ''},
       fromCompany: {},
+      number: 33,
       invoiceDate: new Date(),
-      dueDate: '',
+      dueDate: {},
       term: {},
       total: 0,
       note: '',
@@ -19,12 +20,33 @@ let store =  {
               { description: 'product Nick', unitPrice: 150, quantity: 3, subTotal: 17}
             ],
       customData: {}
-    }
+    },
+    invoiceRenderData: {}
   },
-  duplicate() {
-    return JSON.parse(JSON.stringify(this.state.invoice))
+  createRenderData() {
+    this.state.invoiceRenderData = JSON.parse(JSON.stringify(this.state.invoice))
+    this.state.invoiceRenderData.invoiceDate = this.formatDate(this.state.invoice.invoiceDate)
+    this.calculateDueDate()
+    this.state.invoiceRenderData.dueDate = this.formatDate(this.state.invoice.dueDate)
+    // console.log(this.state.invoiceRenderData)
   },
+  formatDate(date) {
 
+    var options = {   
+        day: 'numeric',
+        month: 'short', 
+        year: 'numeric'
+    }
+
+    return date.toLocaleDateString('en-ZA', options)
+
+  },
+  calculateDueDate() {
+    let invoiceDate = this.state.invoice.invoiceDate // it is a Date() object
+    let day = this.state.invoice.term.day // integer, 0, 7, 15, 30
+    let dueDate = new Date( invoiceDate.getTime() + 1000*60*60*24*day)
+    this.state.invoice.dueDate = dueDate
+  },
   removeItemsRow(rowIndex) {
     if (this.debug) {
       console.log('removeItemRow triggered', rowIndex)
@@ -112,7 +134,7 @@ let store =  {
   },
   setTemplate (template) {
     if (this.debug) {
-      console.log('setTemplateId triggered', template)
+      console.log('setTemplate triggered', template)
     }     
     this.state.invoice.template = template
   },

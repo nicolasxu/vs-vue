@@ -14,15 +14,14 @@ function companyCreated(to, from, next) {
     next()
     return
   }
-  console.log('api', api)
+  
   api.company.getDetail()
     .then(result => {
       if (result.err_code === 4002) {
         // token is invalid
         next({name: 'Login'})
       }
-      if (result.data.myCompany && result.data.myCompany._id) {
-        console.log('company created guard', result)
+      if (result.data.myCompany._id) {
         store.company = result.data.myCompany
         next()
       } else {

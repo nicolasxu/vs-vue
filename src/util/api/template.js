@@ -50,9 +50,7 @@ function getTemplates() {
           css
           js
           active
-          isDefault
-          err_code
-          err_msg       
+          isDefault      
         }
         total
         offset

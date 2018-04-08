@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+
+  <style>
+    
+    
+    body {
+      background: #e0e0e0;
+      margin: 0;
+    }
+    #vs-invoice {
+      display: block;
+      
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      page-break-after: always;
+      font-size: 16px;
+      font-family: sans-serif;
+      color: #a6a8ab;
+      background-color: white;
+
+    }
+    #vs-invoice.letter-size {
+      width: 216mm;
+      height: 279mm;
+      padding: 30px;
+
+    }
+    #vs-invoice .invoice-row {  
+      position: relative;
+      clear: both;
+      
+    }
+
+    #vs-invoice .invoice-row:after {
+     /* content: '';
+      clear: both;*/
+
+    }
+
+    #vs-invoice .invoice-label-block {
+
+    }
+
+    #vs-invoice .invoice-label-block .inv-text {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    #vs-invoice .invoice-label-block .inv-number {
+      font-size: 12px;
+    }
+
+    #vs-invoice .invoice-label-block .inv-date {
+      font-size: 12px;
+    }
+
+    #vs-invoice .invoice-label-block .inv-term {
+      display: inline-block;
+      font-size: 12px;
+      color: white;
+      background-color: black;
+
+    }        
+
+    #vs-invoice .from-to-wrapper {
+      position: relative;
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+    }
+
+    #vs-invoice .inv-from {
+    
+      display: inline-block;
+      width: 45%;
+
+    }
+
+    #vs-invoice .inv-to {
+      float: right;
+      display: inline-block;
+      width: 45%;
+     
+    }
+
+    #vs-invoice .inv-from, #vs-invoice .inv-to {
+      font-size: 14px;
+    }
+
+    #vs-invoice .from-to-wrapper .from-static, #vs-invoice .from-to-wrapper .to-static {
+      color: #a6a8ab;
+      font-size: 12px;
+      line-height: 1.5em;
+    }
+
+    #vs-invoice .from-to-wrapper .company-name {
+      font-size: 18px;
+      color: black;
+      font-family: serif;
+    }
+
+
+
+    #vs-invoice .item-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #vs-invoice .item-table thead {
+      border-top: 1px solid #c8c8c8;
+
+    }
+    #vs-invoice .item-table tr {
+      border-bottom: 1px solid #c8c8c8;
+    }
+
+    #vs-invoice .item-table td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      color: #3c4858;
+      font-family: serif;
+    }    
+
+    #vs-invoice .item-table .table-header {
+      font-size: 14px;
+      line-height: 2em;
+      
+      font-family: serif;
+      color: #6b6b6b;      
+      background-color: #e6e6e6;
+
+    }
+
+    #vs-invoice .item-table .col-index {
+      width: 3%;
+     
+    }
+
+
+
+    #vs-invoice .item-table .col-description {
+      width: 60%;
+    }
+    #vs-invoice .item-table .col-unit-price {
+      width: 10%;
+    }
+    #vs-invoice .item-table .col-quantity {
+      width: 5%;
+    }
+    #vs-invoice .item-table .col-subtotal {
+      width: 10%;
+    }
+
+    #vs-invoice .item-table .subtotal-cell {
+      text-align: right;
+    }
+    #vs-invoice .item-table .quantity-cell {
+      text-align: center;
+    }
+    #vs-invoice .item-table .unitprice-cell {
+      text-align: center;
+    }
+
+    #vs-invoice .inv-total {
+      padding-top: 3em;
+      float: right;
+      color: #3c4858;
+      border-bottom: 1px solid black;
+      font-weight: bold;
+    }
+
+    #vs-invoice .inv-notes {
+      padding-top: 5em;
+    }
+    
+    @media screen {
+      body { background: #e0e0e0 }
+      #vs-invoice {
+        background: white;
+        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+        margin: 5mm auto;        
+      }
+    }
+    @page { margin: 0 }
+    @media print {
+      body {
+        width: 216mm;
+      }
+    }
+    @page { size: letter; }
+
+  </style>
+
+</head>
+
+<!-- 
+
+
+
+
+    Name or attention line:
+    Company:
+    Delivery address:
+    City, state, ZIP Code:
+
+    JANE L MILLER
+    MILLER ASSOCIATES
+    1960 W CHELSEA AVE STE 2006R
+    ALLENTOWN PA 18104
+
+
+
+
+ -->
+<body>
+
+  <script id="vs-invoice-wrapper"  type="text/template">
+    <invoice id="vs-invoice" class="letter-size">
+      <div class="invoice-row">
+        <div class="invoice-label-block">
+          <div class="inv-text">INVOICE</div>
+          <div class="inv-number">#INV-${ number }</div>
+          <div class="inv-date"> ${ invoiceDate}</div>
+          <div class="inv-term">${term.desc}</div>
+        </div>
+      </div>
+      <div class="invoice-row">
+        <div class="from-to-wrapper">
+          <div class="inv-from">
+            <div class="from-static">From:</div>
+            <div class="company-name">${fromCompany.name}</div>
+            <div class="deliver-addr">${fromCompany.addressLine1} ${fromCompany.addressLine1}</div>
+            <div class="city-state-zip">
+              ${fromCompany.city} ${fromCompany.state} ${fromCompany.zip}
+            </div> 
+          </div>
+          <div class="inv-to">
+            <div class="to-static">To:</div>
+            <div class="company-name">${toCompany.name}</div>
+            <div class="deliver-addr">${toCompany.addressLine1} ${toCompany.addressLine1}</div>
+            <div class="city-state-zip">
+              ${toCompany.city} ${toCompany.state} ${toCompany.zip}
+            </div>
+          </div>        
+        </div>
+      </div>
+      <div class="invoice-row">
+
+        <table class="item-table">
+          <colgroup>
+            <col span="1" class="col-index">
+            <col span="1" class="col-description">
+            <col span="1" class="col-unit-price">
+            <col span="1" class="col-quantity">
+            <col span="1" class="col-subtotal">
+          </colgroup>
+          <thead class="table-header">
+            <tr>
+              <th>#</th>
+              <th>Description</th> 
+              <th>Unit Price</th>
+              <th>Quantity</th>          
+              <th>Sub-Total</th>
+            </tr>          
+          </thead>
+          <tbody>
+            
+            <% items.forEach((item, index)=> { %>
+            <tr>
+              <td>${index +1}</td>
+              <td>${item.description} </td>
+              <td class="unitprice-cell">${item.unitPrice}</td>
+              <td class="quantity-cell">${item.quantity}</td>
+              <td class="subtotal-cell">${item.subTotal}</td>
+            </tr>
+            <% }) %>
+         
+          </tbody>
+
+        </table>
+      </div>
+      <div class="invoice-row">
+        <div class="inv-total">
+          TOTAL:    $${total}
+        </div>
+      </div>
+      <div class="invoice-row">
+        <div class="inv-notes">
+          ${note}
+        </div>
+      </div>
+    </invoice>
+  </script>
+
+  <div id="invoice-holder"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
+
+  <script>
+    
+    var invoice =  {
+      template: {},
+      toCompany: {
+        name:'John Well INC', 
+        language: '',
+        addressLine1:'1003 Jarvisville Road',
+        addressLine2: null, 
+        city: 'Huntington',
+        state: 'NY',
+        zip: '11743'
+      },
+      fromCompany: {
+        name:'Grey LLC', 
+        addressLine1: '1960 W CHELSEA AVE',
+        addressLine2: 'STE 2006R',
+        city: 'Medford',
+        state: 'MA',
+        zip: '02155'
+      },
+      invoiceDate: new Date(),
+      number:33,
+      dueDate: '',
+      term: {day: 0, desc: 'Due On Receipt'},
+      total: 335,
+      note: 'Good luck!',
+      items: [
+              { description: 'product 1', unitPrice: 33, quantity: 3, subTotal: 12},
+              { description: 'product 2', unitPrice: 12, quantity: 3, subTotal: 13},
+              { description: 'product 3', unitPrice: 5, quantity: 3, subTotal: 14},
+              { description: 'product 4', unitPrice: 99, quantity: 3, subTotal: 15},
+              { description: 'product 5', unitPrice: 200, quantity: 3, subTotal: 16},
+              { description: 'product Nick', unitPrice: 150, quantity: 3, subTotal: 17}
+            ],
+      customData: {}
+    }
+
+
+
+
+
+  </script>
+
+  <script>
+    let templateString = document.querySelector('#vs-invoice-wrapper').innerHTML
+    let templateFunc = _.template(templateString)
+    let result = templateFunc(invoice)
+    document.querySelector('#invoice-holder').innerHTML = result
+    console.log(result)
+  </script>
+
+
+</body>
+</html>

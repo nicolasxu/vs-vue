@@ -31,7 +31,7 @@ function searchMock(query) {
 
     setTimeout(()=> {
       if (query) {
-        let lowerQuery = query 
+        let lowerQuery = query
         foundProducts = allProducts.filter((p)=> {
           let totalStr = p.description + ' ' + p.code + ' ' + p.unitPrice
       

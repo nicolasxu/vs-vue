@@ -37,6 +37,7 @@
     },
     methods: {
       async findProductsAsync(query) {
+        
         this.products = []
         
         let res = await api.product.searchMock(query)

@@ -308,6 +308,41 @@
       </div>
     </div>
   </invoice>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.core.min.js" integrity="sha256-/WikzFcmjMZS+es0fni22evPN2lgZh8Dk2XXI/ZFtxM=" crossorigin="anonymous"></script>
+
+  <script>
+    
+    var invoice =  {
+      template: {},
+      toCompany: {name:'Please Select', language: ''},
+      fromCompany: {},
+      invoiceDate: new Date(),
+      dueDate: '',
+      term: {},
+      total: 0,
+      note: 'good luck!',
+      items: [
+              { description: 'product 1', unitPrice: 33, quantity: 3, subTotal: 12},
+              { description: 'product 2', unitPrice: 12, quantity: 3, subTotal: 13},
+              { description: 'product 3', unitPrice: 5, quantity: 3, subTotal: 14},
+              { description: 'product 4', unitPrice: 99, quantity: 3, subTotal: 15},
+              { description: 'product 5', unitPrice: 200, quantity: 3, subTotal: 16},
+              { description: 'product Nick', unitPrice: 150, quantity: 3, subTotal: 17}
+            ],
+      customData: {}
+    }
+
+
+
+
+
+  </script>
+
+  <script>
+    let templateString = document.querySelector('#vs-invoice').outerHTML
+    console.log(templateString)
+  </script>
+
+
 </body>
 </html>

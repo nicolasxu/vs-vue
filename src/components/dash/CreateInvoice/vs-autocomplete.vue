@@ -133,7 +133,8 @@
           - trigger new search based on InputStr
           - todo: search for match description from option, set selected and index if match
         */
-        this.$emit('searchChange', this.inputStr)
+        console.log('autocomplete onFocus triggered...')
+        this.$emit('searchTextChange', this.inputStr)
         this.selectedItem = {description: this.inputStr}
         this.currentItemIndex = -1
         this.showDropdown = true

@@ -41,6 +41,8 @@ function getDetail() {
         creatorCompanyId
         createdAt
         updatedAt
+        err_code
+        err_msg
       }
     }
   `

@@ -6,31 +6,55 @@
         <button class="uk-button uk-button-small" @click="back">Back</button>
         <button class="uk-button uk-button-small" type="button" @click="saveDraft">Save Draft</button>
       </div>
-
-      <div class="preview-area">
-        preview area
-      </div>
-
-
     </div>
+
+    <div class="preview-area">
+      
+      rendered invoice goes here...
+      
+      <div v-html="renderedInvoice"></div>
+    </div>    
 
   </div>
 </template>
 
 <script>
+  import api from '../../../util/api'
+  import invoiceStore from './createInvoiceStore.js'
+
   export default {
     name: 'PreviewInvoice',
     components: {},
     data() {
       return {
-
+        template: {},
+        renderedInvoice: '',
+        invoiceData: invoiceStore.state.invoiceRenderData  
       }
     },
-    created() {
+    async created() {
+      
       // todo:
       // 1. get template
-      // 2. render template from store.invoiceData
-      // 3. update preview area
+      let res 
+      try {
+        let tid = this.invoiceData.template._id
+        if (!tid) {
+          console.error('Template id is empty')
+          return
+        }
+        res = await api.template.getTemplateById(tid)
+      } catch (e) {
+        console.log('get template by id error', e)
+        return
+      }
+      if (res.err_code === 4002) {
+        this.$router.push({name:'Login'})
+        return
+      }
+      this.template = res.data.getTemplateById
+
+      this.renderInvoice()
     },
     mounted() {
       this.$notify({
@@ -48,6 +72,9 @@
       },
       saveDraft() {
         console.log('saving draft...')
+      }, 
+      renderInvoice() {
+        this.renderedInvoice = "<h1>nick</h1>"
       }
     }
   }
@@ -55,6 +82,8 @@
 
 <style lang="sass" scoped>
   .preview-invoice {
+    position: relative;
+    height: 100vh;
     .preview-header {
       height: 48px;
       border-bottom:1px solid #efefef;
@@ -64,6 +93,15 @@
       .cmd-group {
         margin-left: 1em;
       }
+    }
+    .preview-area {
+      position: absolute;
+      top: 49px;
+      bottom: 0;
+      background: #e0e0e0;
+      width: 100%;
+      margin: 0;
+      // height: 100vh;
     }
   }
 </style>

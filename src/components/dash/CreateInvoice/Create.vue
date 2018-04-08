@@ -70,7 +70,11 @@
                 <div class="add-row-positioner">
                   <button class="uk-button uk-button-small uk-button-primary" @click="addRow">Add Row</button>                  
                 </div>
-
+              </div>
+              <div class="uk-form-row">
+                <div class="invoice-total-positioner">
+                  Total: ${{invoiceData.total}}
+                </div>
               </div>
               <!-- Notes -->
               <div class="uk-form-row">
@@ -152,21 +156,54 @@
     async created() {
 
       // todo:
-      // 1. get templates
-      // 2. get myCompany
-            
 
-      this.invoiceData = invoiceStore.state.invoice
+
+      // 2. get myCompany
+      let myCompanyRes
+      try {
+        myCompanyRes = await api.company.getDetail()
+      } catch (e) {
+        console.log('Get my company detail error', e)
+        return 
+      }
+      if (myCompanyRes.err_code === 4002) {
+        this.$router.push({name: 'Login'})
+        return
+      }
+      if (myCompanyRes.data.myCompany.err_code === 4001) {
+        console.log('User haven\'t created company yet')
+        this.$router.push({name: 'Dash.CreateMyCompany'})
+        return
+      }
+      invoiceStore.setFromCompany(myCompanyRes.data.myCompany)
+
+
+      // 2. get templates
+      let tempRes
+      try {
+        tempRes = await api.template.getTemplates()
+      } catch (e) {
+        console.log('get templates error', e)
+        return
+      }
+      
+      if (tempRes.err_code === 4002) {
+        this.$router.push({name: 'Login'})
+        return
+      }
+      this.templates = tempRes.data.templates.docs
+
+      console.log('this.invoiceData', this.invoiceData)
+      if (!this.invoiceData.template._id) {
+        
+        invoiceStore.setTemplate(this.templates[0])
+      }
+
       if (!this.invoiceData.term.day) {
         // init term value
         
         invoiceStore.setTerm(this.terms[0]) 
-      }
-
-      if (!this.invoiceData.template._id) {
-        console.log('set template called...')
-        invoiceStore.setTemplate(this.templates[0])
-      }
+      }      
 
 
 
@@ -176,7 +213,7 @@
 
     },
     beforeDestroy() {
-      let a = 2
+      
     },
     methods: {
 
@@ -214,7 +251,7 @@
       },
       previewInvoice() {
         
-        // todo: update store
+        invoiceStore.createRenderData()
         this.$router.push({name: 'CreateInvoice.Preview'})
       },
       addRow(){
@@ -290,6 +327,11 @@
         .add-row-positioner {
           margin-top: 0.6em;
         }
+        .invoice-total-positioner {
+
+          float: right;
+        }
+
       }
     }
   }
