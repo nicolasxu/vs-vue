@@ -10,9 +10,11 @@
 
     <div class="preview-area">
       
-      rendered invoice goes here...
       
-      <div v-html="renderedInvoice"></div>
+      <div class="invoice-positioner">
+        <div v-html="renderedInvoice"></div>
+      </div>
+      
     </div>    
 
   </div>
@@ -101,7 +103,16 @@
       background: #e0e0e0;
       width: 100%;
       margin: 0;
-      // height: 100vh;
+      display: flex;
+      // flex-direction: row;
+      justify-content: center;
+      .invoice-positioner {
+        display: inline-block;
+        background: white;
+        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+        margin: 5mm auto;
+
+      }
     }
   }
 </style>

@@ -155,9 +155,6 @@
     },
     async created() {
 
-      // todo:
-
-
       // 2. get myCompany
       let myCompanyRes
       try {
@@ -193,7 +190,6 @@
       }
       this.templates = tempRes.data.templates.docs
 
-      console.log('this.invoiceData', this.invoiceData)
       if (!this.invoiceData.template._id) {
         
         invoiceStore.setTemplate(this.templates[0])
@@ -203,7 +199,7 @@
         // init term value
         
         invoiceStore.setTerm(this.terms[0]) 
-      }      
+      }
 
 
 
@@ -221,8 +217,8 @@
         // this.$router.go(-1)
         this.$router.push({name: 'Dash.Received'})
       }, 
-      nameWithLang ({ name, language }) {
-          return `${name} — [${language}]`
+      nameWithLang ({ name, city, state }) {
+          return `${name} — [${city} ${state}]`
       },
       showClientInput () {
         this.clientInputVisible = true

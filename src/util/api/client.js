@@ -171,11 +171,36 @@ function getDetail(id) {
 
 function searchMock(query) {
   let allClients =[
-    { name: 'Vue.js', language: 'JavaScript' },
-    { name: 'Rails', language: 'Ruby' },
-    { name: 'Sinatra', language: 'Ruby' },
-    { name: 'Laravel', language: 'PHP' },
-    { name: 'Phoenix', language: 'Elixir' }
+    { 
+      _id: '1',
+      name: 'Jewel Electronics', 
+      addressLine1: '1342 Atha Drive', 
+      addressLine2: '', 
+      city: 'SENTINEL BUTTE', 
+      state: 'ND', 
+      zip: '58654', 
+      invoiceEmails: ['abc@abc.com'], 
+      invoicePersonName: 'Boss 1' },
+    { 
+      _id: '2',
+      name: 'Spherecords', 
+      addressLine1: '2840 Maxwell Street', 
+      addressLine2: '', 
+      city: 'Danielson', 
+      state: 'CT', 
+      zip: '06239', 
+      invoiceEmails: ['abc2@abc2.com'], 
+      invoicePersonName: 'Boss 1' },
+    { 
+      _id: '3',
+      name: 'Nymphdream', 
+      addressLine1: '893 Cheshire Road', 
+      addressLine2: '', 
+      city: 'BARNESVILLE', 
+      state: 'OH', 
+      zip: '43713', 
+      invoiceEmails: ['abc3@abc3.com'], 
+      invoicePersonName: 'Boss 3' }
   ]
   let foundClients = []
   let promise = new Promise((resolve, reject)=> {
