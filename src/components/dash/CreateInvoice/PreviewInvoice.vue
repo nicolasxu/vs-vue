@@ -11,8 +11,8 @@
     <div class="preview-area">
       
       
-      <div class="invoice-positioner">
-        <div v-html="renderedInvoice"></div>
+      <div class="invoice-positioner" ref="attachPoint">
+        <div v-html="renderResult"></div>
       </div>
       
     </div>    
@@ -23,6 +23,7 @@
 <script>
   import api from '../../../util/api'
   import invoiceStore from './createInvoiceStore.js'
+  import _ from 'lodash'
 
   export default {
     name: 'PreviewInvoice',
@@ -30,8 +31,8 @@
     data() {
       return {
         template: {},
-        renderedInvoice: '',
-        invoiceData: invoiceStore.state.invoiceRenderData  
+        invoiceData: invoiceStore.state.invoiceRenderData,
+        renderResult: ''
       }
     },
     async created() {
@@ -54,16 +55,16 @@
         this.$router.push({name:'Login'})
         return
       }
-      this.template = res.data.getTemplateById
+      this.template = res.data.template
 
       this.renderInvoice()
     },
     mounted() {
-      this.$notify({
-        group: 'foo',
-        title: 'Important message',
-        text: 'Hello user! This is a notification'
-      })
+      // this.$notify({
+      //   group: 'foo',
+      //   title: 'Important message',
+      //   text: 'Hello user! This is a notification'
+      // })
     },
     methods: {
       send() {
@@ -77,6 +78,18 @@
       }, 
       renderInvoice() {
         this.renderedInvoice = "<h1>nick</h1>"
+        let tempFunc = _.template(this.template.html)
+        this.renderResult = tempFunc(this.invoiceData)
+        this.insertCss()
+      },
+      insertCss() {
+        let styleNode = document.createElement('style')
+        styleNode.type = 'text/css'
+        styleNode.appendChild( document.createTextNode(this.template.css) )
+
+        window.attachPoint = this.$refs.attachPoint.appendChild(styleNode)
+
+
       }
     }
   }
@@ -85,7 +98,8 @@
 <style lang="sass" scoped>
   .preview-invoice {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
+
     .preview-header {
       height: 48px;
       border-bottom:1px solid #efefef;
@@ -95,16 +109,16 @@
       .cmd-group {
         margin-left: 1em;
       }
+      @media print {
+        display: none;
+      }
     }
     .preview-area {
-      position: absolute;
-      top: 49px;
-      bottom: 0;
+      
       background: #e0e0e0;
       width: 100%;
       margin: 0;
       display: flex;
-      // flex-direction: row;
       justify-content: center;
       .invoice-positioner {
         display: inline-block;
@@ -115,4 +129,16 @@
       }
     }
   }
+</style>
+<style>
+  
+    @page { margin: 0 }
+    @media print {
+      body {
+        width: 215mm;
+      }
+    }
+    @page { size: letter; }
+
+
 </style>

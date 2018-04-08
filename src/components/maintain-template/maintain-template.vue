@@ -47,14 +47,14 @@
       <fieldset>
         <button class="uk-button uk-button-primary" 
         v-show="!tid"
-        @click="createTemplate">Create</button>
+        @click.prevent="createTemplate">Create</button>
 
         <button class="uk-button uk-button-primary" v-show="tid"
-        @click="updateTemplate"
+        @click.prevent="updateTemplate"
         >Update</button>
 
         <button class="uk-button uk-button-danger" v-show="tid"
-        @click="deleteTemplate"
+        @click.prevent="deleteTemplate"
         >Delete</button>
         
       </fieldset>
@@ -107,10 +107,30 @@
         delete templateCopy.err_code
         delete templateCopy.err_msg
 
-        await api.template.updateTemplate(this.tid, templateCopy)
+        let res = await api.template.updateTemplate(this.tid, templateCopy)
+        if (!res.data.updateTemplate.err_code) {
+          this.$notify({
+            group: 'foo',
+            type: 'success',
+            title: 'Update Template Success!',
+            text: 'Please continue'
+          })
+        } else {
+          // error
+          this.$notify({
+            group: 'foo',
+            type: 'error',
+            title: 'Update Template Error!',
+            text: 'Please read console log'
+          })          
+        }
 
       },
       async deleteTemplate() {
+        let confirmed = confirm('Do you really want to delete this template?')
+        if (!confirmed) {
+          return
+        }
         if (this.tid) {
           await api.template.deleteTemplate(this.tid)
           this.getAll()
