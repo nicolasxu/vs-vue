@@ -71,7 +71,7 @@ function create(myCompany) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)

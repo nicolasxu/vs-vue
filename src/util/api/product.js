@@ -71,7 +71,7 @@ function createProduct(product) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -105,7 +105,7 @@ function getProducts(offset = 0, limit = 50) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload )
@@ -132,7 +132,7 @@ function getProductById(id) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -161,7 +161,7 @@ function updateProduct(id, product) {
   }
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
   return request.post(graphqlEndpoint, payload)
 }
@@ -184,7 +184,7 @@ function deleteProduct(id) {
   }
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
   return request.post(graphqlEndpoint, payload)
 }

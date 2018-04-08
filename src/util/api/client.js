@@ -28,7 +28,7 @@ function create(newClient) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
   return request.post(graphqlEndpoint, payload)
 }
@@ -58,7 +58,7 @@ function update(id, newClient) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
   return request.post(graphqlEndpoint, payload)
 }
@@ -79,7 +79,7 @@ function deleteExisting(id) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -114,7 +114,7 @@ function getList(limit = 50, offset = 0) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -129,7 +129,7 @@ function connect(id) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
   return request.post(graphqlEndpoint, payload)
 }
@@ -163,7 +163,7 @@ function getDetail(id) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)

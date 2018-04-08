@@ -38,7 +38,7 @@ function create(toEmail, toIs) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -69,7 +69,7 @@ function approve(requestId) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -100,7 +100,7 @@ function reject(requestId) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -122,7 +122,7 @@ function deleteRequest(requestId) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -163,7 +163,7 @@ function getReceived(offset = 0, limit = 50) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
   console.log('offset', offset)
   console.log('limit', limit)
@@ -204,7 +204,7 @@ function getSent(offset = 0, limit = 50) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -239,7 +239,7 @@ function getDetail(requestId) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)

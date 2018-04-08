@@ -46,7 +46,7 @@ function getList( offset = 0, limit = 50) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -81,7 +81,7 @@ function getDetail(vendorId) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -118,7 +118,7 @@ function sever(vendorId) {
 
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)

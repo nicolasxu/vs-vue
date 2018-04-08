@@ -43,7 +43,7 @@ function register() {
 
 function createToken(user) {
   const url = baseUrl + '/user/token'
-
+  console.log('user', user)
   return request.post(url, user)
 
 }

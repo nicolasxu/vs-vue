@@ -33,7 +33,7 @@ function createTemplate(template) {
   }
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -61,7 +61,7 @@ function getTemplates() {
   let variables = {}
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -89,7 +89,7 @@ function getTemplateById(id) {
   }
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -121,7 +121,7 @@ function updateTemplate(id, template) {
   }
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)
@@ -146,7 +146,7 @@ function deleteTemplate(id) {
   }
   let payload = {
     query: query,
-    variables: JSON.stringify(variables)
+    variables: variables
   }
 
   return request.post(graphqlEndpoint, payload)

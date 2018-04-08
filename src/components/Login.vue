@@ -52,9 +52,30 @@ export default {
     }
   },
   methods: {
-    login() {
-      // todo: a bit of data validation 
-      let thisComponent = this
+    async login() {
+
+      let tokenRes
+
+      try {
+        tokenRes = await api.user.createToken({email: this.email, password: this.password})
+      } catch (e) {
+        console.log('Create token error', e)
+        return
+      }
+      if (tokenRes.code !== 2000) {
+       
+        // login failed, probably pasword does not match
+        // TODO: handle password wrong here
+        return
+      }
+
+      store.token = tokenRes.data.token
+      store.user = tokenRes.data.user
+
+      this.$router.push({name: 'Dash.Received'})
+
+
+      /*
       api.user.createToken({email: this.email, password: this.password})
         .then(async (result) => {
           if (result.code === 2000) {
@@ -72,6 +93,7 @@ export default {
         .catch((err)=> {
           console.log('err', err)
         })
+      */
     }
   }
 }

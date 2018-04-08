@@ -19,6 +19,7 @@ function postFn(url, payload) {
   return $.ajax({
     url: url,
     method: 'POST',
+    contentType:"application/json; charset=utf-8",
     headers: {
       'x-access-token': token
     },
@@ -26,7 +27,7 @@ function postFn(url, payload) {
     xhrFields: {
       withCredentials: true
     },
-    data: payload
+    data: JSON.stringify(payload)
   });
 }
 
@@ -48,6 +49,7 @@ function putFn(url, payload) {
   let token = store.token
   return $.ajax({
     method: 'PUT',
+    contentType:"application/json; charset=utf-8",
     headers: {
       'x-access-token': token
     },    
@@ -55,7 +57,7 @@ function putFn(url, payload) {
     xhrFields: {
       withCredentials: true
     },
-    data: payload
+    data: JSON.stringify(payload)
   });
 }
 
@@ -63,6 +65,7 @@ function deleteFn(url, payload) {
   let token = store.token  
   return $.ajax({
     method: 'DELETE',
+    contentType:"application/json; charset=utf-8",
     headers: {
       'x-access-token': token
     },    
@@ -70,7 +73,7 @@ function deleteFn(url, payload) {
     xhrFields: {
       withCredentials: true
     },
-    data: payload
+    data: JSON.stringify(payload)
   });
 }
 
