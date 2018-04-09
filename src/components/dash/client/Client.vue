@@ -9,12 +9,9 @@
           <input type="text" name="search" placeholder="search" class="uk-width-2-3">
         </form>
       </div>
-
       <div class="profile">
         <div class="profile-box box-1">
-
           <Notification></Notification>
-
         </div>
       </div>      
     </div>

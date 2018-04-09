@@ -14,12 +14,18 @@
       </div>
     </div>
     <div class="command-bar">
-      command-bar
-    </div>
+      <ul class="list-pagination">
+        <li class="prev">
+          <a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a>
+        </li>
+        <li class="next">
+          <a href="#">Next <i class="uk-icon-angle-double-right"></i></a>
+        </li>      
+      </ul>      
+    </div>    
     <div class="list">
       list
     </div>
-
   </div>
 </template>
 
@@ -32,7 +38,6 @@
     components: {Notification},
     data() {
       return {
-
       }
     }
   }
@@ -52,10 +57,19 @@
           }          
         }
       }
-
       .profile {
         @extend %profile;
       }
     }
+    .command-bar {
+      position: relative;
+      margin-bottom: 1em;
+      .list-pagination {
+        @extend %list-pagination;
+      }
+    }
+    .list {
+      clear: both;
+    }    
   }
 </style>
