@@ -37,3 +37,25 @@ $grey-text-color: rgba(127, 127, 127, 0.8);
   
   line-height: 3em;  
 }
+
+%profile {
+
+  float: right;
+  .profile-box {
+    display: inline-block;
+    min-width: 30px;
+    
+    line-height: 30px;
+    height: 30px;
+    text-align: center;
+  }
+  .box-1 {
+    
+    
+  }
+  .box-2 {
+    
+    background-color: DimGray;
+  }
+
+}

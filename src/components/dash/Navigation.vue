@@ -5,18 +5,18 @@
     </div>
     <h2 class="section-title">Invoices</h2>
     <menu class="menu">
-      <menuitem>
-        <router-link class="uk-button uk-button-primary nav-link new-invoice-btn" :to="{ name: 'CreateInvoice', params: { userId: 123 }}">
-          New
+      <menuitem class="new-btn-positioner">
+        <router-link :to="{ name: 'CreateInvoice', params: { userId: 123 }}">
+          <button class="uk-button uk-button-primary new-invoice-btn">New</button>
         </router-link>
       </menuitem>
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Received', params: { userId: 123 }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Received', params: { userId: 123 }}" active-class="active">
           Received
         </router-link>        
       </menuitem>
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Sent', params: { userId: 123 }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Sent', params: { userId: 123 }}" active-class="active">
           Sent
         </router-link> 
       </menuitem>
@@ -24,17 +24,17 @@
     <h2 class="section-title">My network</h2>
     <menu class="menu">
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Client', params: { userId: 123 }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Client', params: { userId: 123 }}" active-class="active">
           Client
         </router-link> 
       </menuitem>
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Vendor', params: { userId: 123 }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Vendor', params: { userId: 123 }}" active-class="active">
           Vendor
         </router-link>         
       </menuitem>
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Product', params: { userId: 123 }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Product', params: { userId: 123 }}" active-class="active">
           Product
         </router-link>         
       </menuitem>      
@@ -42,7 +42,7 @@
     <h2 class="section-title">Settings</h2>
     <menu class="menu">   
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Setting', params: { category: 'mycompany' }}">
+        <router-link class="nav-link" :to="{ name: 'Dash.Setting', params: { category: 'mycompany' }}" active-class="active">
           Settings
         </router-link>         
       </menuitem>
@@ -72,15 +72,22 @@
     box-sizing: border-box;
     padding-top: 30px;
     padding-left: 10px;
+    padding-right: 10px;
     height: 100vh;
     width: 200px;
     float: left;
-    .new-invoice-btn {
-      width: 100px;
-      font-weight: bold;
-      border-radius: 5px;
+    .new-btn-positioner {
       margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      .new-invoice-btn {
+        font-weight: bold;
+        margin-bottom: 10px;
+        border-radius: 5px;
+
+      }      
     }
+
     .logo {
       width: 50px;
       height: 50px;
@@ -96,8 +103,27 @@
       margin-top: 0.6em;
     }
     .menu {
+
       padding-left: 0;
       margin-top: 0;
+      .nav-link {
+        display: block;
+        line-height: 2em;
+        padding-left: 0.6em;
+        border-left: 4px solid transparent;
+
+
+        &.active {
+          border-left: 4px solid orange;
+          background-color: #d8d7d7;
+        }
+        &:hover {
+          background-color: #f7f7f7;
+          text-decoration: none;
+          
+        }
+      }
+     
     }
     menuitem {
       display: block; // by default, menuitem is in-line element
