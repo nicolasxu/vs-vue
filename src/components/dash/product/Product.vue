@@ -24,8 +24,6 @@
           <a href="#">Next <i class="uk-icon-angle-double-right"></i></a>
         </li>      
       </ul>
-
-      
     </div>
     <div class="list">
       <product-list :products="products"></product-list>

@@ -16,6 +16,7 @@
       </div>       
     </div>
     <div class="command-bar">
+      <button class="uk-button uk-button-default">Sort</button>
       <ul class="list-pagination">
         <li class="prev">
           <a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a>
@@ -26,21 +27,23 @@
       </ul>      
     </div>
     <div class="list">
-      list goes here
+      <SentList :sentInvoices="sentInvoices"></SentList>
     </div>
   </div>
 </template>
 
 <script>
-  import Notification from '../Notification.vue'
   import api from '../../../util/api'
+  import Notification from '../Notification.vue'
+  import SentList from './SentList.vue'
+
 
   export default {
     name: 'sent',
-    components: {Notification},
+    components: {Notification, SentList},
     data() {
       return {
-
+        sentInvoices: [{},{}]
       }
     }
   }
