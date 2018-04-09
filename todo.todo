@@ -1,5 +1,12 @@
- ☐ 1. re-write create invoice part to generate json data
+ ✔ 1. re-write create invoice part to generate json data @done (18-04-08 21:44)
 
  
 
- ☐ 2. when token is invalid, handle the api error
+ ✔ 2. when token is invalid, handle the api error @done (18-04-08 21:43)
+
+
+ ☐ 3. research javascript floating round error for financial calculation
+      The problem that can be solved by decimal module in Py thon
+
+
+ ☐ 4. Invoice related graphql API

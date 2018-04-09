@@ -12,35 +12,35 @@ import WorkingArea from '@/components/dash/WorkingArea'
 import loginGuard from './LoginGuard.js'
 import companyCreatedGuard from './CompanyCreatedGuard.js'
 
-import Received from '../components/dash/Received'
-import Sent from '../components/dash/Sent'
+import Received from '../components/dash/Received/Received.vue'
+import Sent from '../components/dash/Sent/Sent.vue'
 
 import Create from '../components/dash/CreateInvoice/Create.vue'
 import PreviewInvoice from '../components/dash/CreateInvoice/PreviewInvoice.vue'
 
-import Client from '../components/dash/client/Client.vue'
-import NewClient from '../components/dash/client/NewClient.vue'
-import ClientDetail from '../components/dash/client/ClientDetail.vue'
-import ConnectClient from '../components/dash/client/ConnectClient.vue'
+import Client from '../components/dash/Client/Client.vue'
+import NewClient from '../components/dash/Client/NewClient.vue'
+import ClientDetail from '../components/dash/Client/ClientDetail.vue'
+import ConnectClient from '../components/dash/Client/ConnectClient.vue'
 
-import Vendor from '../components/dash/vendor/vendor.vue'
-import VendorDetail from '../components/dash/vendor/VendorDetail.vue'
+import Vendor from '../components/dash/Vendor/vendor.vue'
+import VendorDetail from '../components/dash/Vendor/VendorDetail.vue'
 
 
 
-import Setting from '../components/dash/setting/Setting'
-import Account from '../components/dash/setting/Account'
-import MyCompany from '../components/dash/setting/MyCompany'
-import Plan from '../components/dash/setting/Plan'
-import RolePrivilege from '../components/dash/setting/RolePrivilege'
+import Setting from '../components/dash/Setting/Setting'
+import Account from '../components/dash/Setting/Account'
+import MyCompany from '../components/dash/Setting/MyCompany'
+import Plan from '../components/dash/Setting/Plan'
+import RolePrivilege from '../components/dash/Setting/RolePrivilege'
 
-import Requests from '../components/dash/requests/Requests.vue'
+import Requests from '../components/dash/Requests/Requests.vue'
 
 import MaintainTemplate from '../components/maintain-template/maintain-template.vue'
 
-import Product from '../components/dash/product/Product.vue'
-import NewProduct from '../components/dash/product/NewProduct.vue'
-import ProductDetail from '../components/dash/product/ProductDetail.vue'
+import Product from '../components/dash/Product/Product.vue'
+import NewProduct from '../components/dash/Product/NewProduct.vue'
+import ProductDetail from '../components/dash/Product/ProductDetail.vue'
 
 Vue.use(Router)
 
