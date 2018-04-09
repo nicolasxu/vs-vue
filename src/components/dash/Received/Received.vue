@@ -1,12 +1,35 @@
 <template>
   <div class="received-invoice">
-    Received
+    <div class="header-bar">
+      <div class="title-search-positioner">
+        <div class="page-title">
+          &lt;received/&gt;:
+        </div>      
+        <form class="uk-form search-form">
+          <input type="text" name="search" placeholder="search" class="uk-width-2-3 search-input">
+        </form>
+      </div>
+      <div class="profile box-1">
+        <Notification></Notification>
+      </div>
+    </div>
+    <div class="command-bar">
+      command-bar
+    </div>
+    <div class="list">
+      list
+    </div>
+
   </div>
 </template>
 
 <script>
+  import api from '../../../util/api'
+  import Notification from '../Notification.vue'
+
   export default {
     name: 'received', 
+    components: {Notification},
     data() {
       return {
 
@@ -18,12 +41,18 @@
 <style lang="sass" scoped>
   @import '../../../scss/reusable.scss';
   .received-invoice {
-    background-color: yellow;
-    
-    background-color: yellow;
     min-width: 435px;
+    @extend %dash-component-margin-padding;
     .header-bar {
-      @extend %dash-component-margin-padding;
+      @extend %header-bar;
+      .title-search-positioner {
+        .search-form {
+          .search-input {
+            padding-left: 8em;
+          }          
+        }
+      }
+
       .profile {
         @extend %profile;
       }

@@ -1,7 +1,6 @@
 <template>
   <nav class="navigation">
     <div class="logo">
-      
     </div>
     <h2 class="section-title">Invoices</h2>
     <menu class="menu">
@@ -71,8 +70,7 @@
   .navigation {
     box-sizing: border-box;
     padding-top: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
+
     height: 100vh;
     width: 200px;
     float: left;
@@ -84,6 +82,8 @@
         font-weight: bold;
         margin-bottom: 10px;
         border-radius: 5px;
+        padding-left: 25px;
+        padding-right: 25px;
 
       }      
     }
@@ -101,6 +101,8 @@
       color: $grey-text-color;
       margin-bottom: 0.6em;
       margin-top: 0.6em;
+      padding-left: 10px;
+      padding-right: 10px;      
     }
     .menu {
 
@@ -109,7 +111,7 @@
       .nav-link {
         display: block;
         line-height: 2em;
-        padding-left: 0.6em;
+        padding-left: 20px;
         border-left: 4px solid transparent;
 
 
