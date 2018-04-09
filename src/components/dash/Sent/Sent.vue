@@ -5,16 +5,17 @@
         <input type="text" name="search" placeholder="search" class="uk-width-2-3">
         <div class="profile">
           <div class="profile-box box-1">
-
             <Notification></Notification>
-
           </div>
         </div>         
       </form>
-      
-     
     </div>
-
+    <div class="command-bar">
+      command bar
+    </div>
+    <div class="list">
+      list goes here
+    </div>
   </div>
 </template>
 
@@ -36,7 +37,7 @@
 <style lang="sass" scoped>
   @import '../../../scss/reusable.scss';
   .sent-invoice {
-    background-color: yellow;
+    
     min-width: 435px;
     .header-bar {
       @extend %dash-component-margin-padding;

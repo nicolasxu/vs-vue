@@ -61,7 +61,8 @@
 </script>
 
 <style lang="sass" scoped>
+  @import '../../../scss/reusable.scss';
   .setting {
-    // background-color: yellow;
+    @extend %dash-component-margin-padding;
   }
 </style>

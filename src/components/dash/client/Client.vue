@@ -26,7 +26,6 @@
       </ul>
     </div>
     <div class="list">
-      
       <client-list :clients="clients"></client-list>
     </div>
   </div>
@@ -70,8 +69,9 @@
   @import '../../../scss/reusable.scss';
   .vs-client {
     min-width: 435px;
+    @extend %dash-component-margin-padding;
     .header-bar {
-      @extend %dash-component-margin-padding;
+      margin-bottom: 1em;
       .profile {
         float: right;
         .profile-box {
@@ -94,13 +94,13 @@
     }
     .command-bar {
       position: relative;
-      @extend %dash-component-margin-padding;
+      margin-bottom: 1em;
       .list-pagination {
         @extend %list-pagination;
       }
     }
     .list {
-      @extend %dash-component-margin-padding;
+
     }
   }
 </style>
