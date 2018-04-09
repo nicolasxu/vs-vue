@@ -1,16 +1,22 @@
 <template>
   <div class="vs-client">
     <div class="header-bar">
-      <form class="uk-form">
-        <input type="text" name="search" placeholder="search" class="uk-width-2-3">
-        <div class="profile">
-          <div class="profile-box box-1">
+      <div class="title-search-positioner">
+        <div class="page-title">
+          &lt;client/&gt;:
+        </div>      
+        <form class="uk-form search-form">
+          <input type="text" name="search" placeholder="search" class="uk-width-2-3">
+        </form>
+      </div>
 
-            <Notification></Notification>
+      <div class="profile">
+        <div class="profile-box box-1">
 
-          </div>
+          <Notification></Notification>
+
         </div>
-      </form>
+      </div>      
     </div>
     <div class="command-bar">
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="newClient">Create</button>
@@ -71,25 +77,9 @@
     min-width: 435px;
     @extend %dash-component-margin-padding;
     .header-bar {
-      margin-bottom: 1em;
+      @extend %header-bar;
       .profile {
-        float: right;
-        .profile-box {
-          display: inline-block;
-          min-width: 30px;
-          
-          line-height: 30px;
-          height: 30px;
-          text-align: center;
-        }
-        .box-1 {
-          
-          
-        }
-        .box-2 {
-          
-          background-color: DimGray;
-        }
+        @extend %profile;
       }
     }
     .command-bar {

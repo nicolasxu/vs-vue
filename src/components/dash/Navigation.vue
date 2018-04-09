@@ -43,7 +43,7 @@
     <menu class="menu">   
       <menuitem>
         <router-link class="nav-link" :to="{ name: 'Dash.Setting', params: { category: 'mycompany' }}" active-class="active">
-          Settings
+          Setting
         </router-link>         
       </menuitem>
       <menuitem>

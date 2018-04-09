@@ -1,9 +1,16 @@
 <template>
   <div class="vs-product">
     <div class="header-bar">
-      <form class="uk-form">
-        <input type="text" name="search" placeholder="search" class="uk-width-2-3">        
-      </form>
+      <div class="title-search-positioner">
+        <div class="page-title">
+          &lt;product/&gt;:
+        </div>
+        <form class="uk-form search-form">
+          <input type="text" name="search" placeholder="search" class="uk-width-2-3">    
+        </form>        
+
+      </div>
+
     </div>
     <div class="command-bar">
 
@@ -75,7 +82,14 @@
     min-width: 435px;
     @extend %dash-component-margin-padding;
     .header-bar {
-      margin-bottom: 1em;
+      @extend %header-bar;
+      .title-search-positioner {
+        .search-form {
+          input {
+            padding-left: 7.3em;
+          }
+        }
+      }
     }
     .command-bar {
       position: relative;

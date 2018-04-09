@@ -45,7 +45,7 @@ $grey-text-color: rgba(127, 127, 127, 0.8);
     display: inline-block;
     min-width: 30px;
     
-    line-height: 30px;
+    line-height: 29px;
     height: 30px;
     text-align: center;
   }
@@ -56,6 +56,36 @@ $grey-text-color: rgba(127, 127, 127, 0.8);
   .box-2 {
     
     background-color: DimGray;
+  }
+}
+
+%header-bar {
+  position: relative;
+  margin-bottom: 1em;
+  border-bottom: 1px solid lightskyblue;
+  .title-search-positioner {
+    display: inline-block;
+    .page-title {
+      display: inline-block;
+      position: absolute;
+      left: 5px;
+      top: 4px;
+      font-family: monospace;
+    }
+    .search-form {
+      display: inline-block;
+      input {
+        padding-left: 92px;
+        width: 400px;
+        border: 0;
+        border-bottom: 1px solid transparent;
+        &:focus {
+          border: 1px solid skyblue;
+          border-bottom: 1px solid transparent;
+        }
+      }
+    }
+
   }
 
 }

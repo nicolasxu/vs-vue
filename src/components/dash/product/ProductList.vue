@@ -1,6 +1,6 @@
 <template>
   <div class="vs-product-list">
-    Product List
+    
     <table class="uk-table uk-table-hover uk-table-striped client-list-table">
       <thead>
         <tr>
