@@ -241,8 +241,19 @@
         this.clientInputVisible = false
       },
       async asyncFindClient(query) {
-        let res = await api.client.searchMock(query)
-        this.foundClients = res
+        let searchRes
+        try {
+          searchRes = await api.client.search(query)
+        } catch (e) {
+          console.log('search client request error', e)
+          return
+        }
+
+        if (!searchRes.data.err_code) {
+          this.foundClients = searchRes.data.clientsSearch.docs
+        } else {
+          console.log('Error in search client response', searchRes)
+        }
 
       },
       previewInvoice() {

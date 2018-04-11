@@ -8,7 +8,10 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  create, connect, update, deleteExisting, getList, getDetail, searchMock
+  create, connect, update, 
+  deleteExisting, getList, 
+  getDetail, searchMock,
+  search
 }
 
 function create(newClient) {
@@ -169,7 +172,7 @@ function getDetail(id) {
   return request.post(graphqlEndpoint, payload)
 }
 
-function searchMock(query) {
+function searchMock(query ) {
   let allClients =[
     { 
       _id: '1',
@@ -225,9 +228,69 @@ function searchMock(query) {
 
       resolve(foundClients)
 
-    }, 1500)
+    }, 500)
   })
 
   return promise
 
 }
+
+function search(queryStr = '') {
+  let query = `
+
+    query myQuery ($query: String ) {
+      clientsSearch (query: $query) {
+        docs {
+          _id
+          name
+          creator
+          isActive
+          invoicePersonName
+          addressLine1
+          addressLine2
+          city
+          state
+          zip
+          country
+          tel
+          website
+          serviceDesc
+          createdAt
+          updatedAt
+          creatorCompanyId
+          err_code
+          err_msg
+        }
+        total
+        limit
+        offset
+        err_code
+        err_msg
+
+      }
+    }
+
+
+  `
+  let variables = {
+    query: queryStr
+  }
+
+  let payload = {
+    query: query,
+    variables: variables
+  }
+
+  return request.post(graphqlEndpoint, payload)
+
+
+}
+
+
+
+
+
+
+
+
+

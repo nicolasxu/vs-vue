@@ -14,7 +14,7 @@ function companyCreated(to, from, next) {
     next()
     return
   }
-  
+  console.log('my company guard called...')
   api.company.getDetail()
     .then(result => {
       if (result.err_code === 4002) {
