@@ -20,6 +20,7 @@ function companyCreated(to, from, next) {
       if (result.err_code === 4002) {
         // token is invalid
         next({name: 'Login'})
+        return
       }
       if (result.data.myCompany._id) {
         store.company = result.data.myCompany

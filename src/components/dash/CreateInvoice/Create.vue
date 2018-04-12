@@ -155,7 +155,7 @@
     },
     async created() {
 
-      // 2. get myCompany
+      // 1. get myCompany
       let myCompanyRes
       try {
         myCompanyRes = await api.company.getDetail()
@@ -204,8 +204,10 @@
 
 
     },
-    mounted () {
-      
+    mounted () {      
+      this.$nextTick(()=> {
+        invoiceStore.calculateAll()
+      })
 
     },
     beforeDestroy() {

@@ -30,6 +30,54 @@ let store =  {
     this.state.invoiceRenderData.dueDate = this.formatDate(this.state.invoice.dueDate)
     // console.log(this.state.invoiceRenderData)
   },
+  createSendData() {
+    // create send data from
+
+    /*
+      input InvoiceTermInput {
+        day: Int
+        desc: String
+      }
+
+      input InvoiceInput {  
+        toCompanyId: String
+        templateId: String
+        items: String
+        customData: String
+        total: Int
+        invoiceDate: Int
+        dueDate: Int
+        term: InvoiceTermInput
+        note: String
+      }
+    */
+
+
+    let invoice = this.state.invoice
+
+
+    let invoiceInput = {
+      toCompanyId: invoice.toCompany._id,
+      templateId: invoice.template._id,
+      items: JSON.stringify(invoice.items),
+      total: invoice.total,
+      invoiceDate: invoice.invoiceDate.getTime().toString(),
+      dueDate: invoice.dueDate.getTime().toString(),
+      term: invoice.term,
+      note: invoice.note
+    }
+    if (invoice.customData) {
+      if (Object.keys(invoice.customData).length > 0) {
+        invoiceInput.customData = JSON.stringify(invoice.customData)  
+      }
+    } else {
+        invoiceInput.customData = JSON.stringify({})
+    }    
+
+    
+    return invoiceInput
+
+  },
   formatDate(date) {
 
     var options = {   
@@ -125,6 +173,15 @@ let store =  {
     })
     this.state.invoice.total = total
     console.log('new total:', total)
+  },
+  calculateAll() {
+    let items = this.state.invoice.items
+
+    items.forEach((item, index)=> {
+      this._calculateSubTotal(index)
+    })
+
+    this._calculateTotal()
   },
   setTerm(term) {
     if (this.debug) {

@@ -62,13 +62,65 @@
     mounted() {
       // this.$notify({
       //   group: 'foo',
+      //   type: 'error', // 'warning', 'success', 'info', 'warning'
       //   title: 'Important message',
       //   text: 'Hello user! This is a notification'
       // })
     },
     methods: {
-      send() {
-        console.log('sending invoice...')
+      async send() {
+
+        let confirmed = confirm('Are you sure to send this invoice?')
+        if (!confirmed) {
+          return
+        }
+
+        let input = invoiceStore.createSendData()
+        let sendRes
+        try {
+          sendRes = await api.invoice.send(input)
+        } catch (e) {
+          console.log('Send invoice request error', e)
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: 'Error',
+            text: e.message
+          })
+
+          return
+        }
+        if (sendRes.errors) {
+          this.$notify({
+            group: 'foo',
+            type: 'error',
+            title: 'Error',
+            text: sendRes.errors[0].message
+          })
+          return 
+        }
+
+        if (sendRes.data.err_code) {
+          this.$notify({
+            group: 'foo',
+            type: 'error',
+            title: 'Error ' + sendRes.data.err_code,
+            text: sendRes.data.err_msg          
+          })
+          return 
+        }
+
+        this.$notify({
+          group: 'foo',
+          type: 'success',
+          title: '&#10004 Success',
+          text: 'Send invoice success!'            
+        })
+
+        this.$router.push({name: 'Dash.Sent'})
+
+
       },
       back() {
         this.$router.push({name: 'CreateInvoice'})
@@ -77,19 +129,17 @@
         console.log('saving draft...')
       }, 
       renderInvoice() {
-        this.renderedInvoice = "<h1>nick</h1>"
+        
         let tempFunc = _.template(this.template.html)
         this.renderResult = tempFunc(this.invoiceData)
         this.insertCss()
+        window.invoiceStore = invoiceStore
       },
       insertCss() {
         let styleNode = document.createElement('style')
         styleNode.type = 'text/css'
         styleNode.appendChild( document.createTextNode(this.template.css) )
-
-        window.attachPoint = this.$refs.attachPoint.appendChild(styleNode)
-
-
+        this.$refs.attachPoint.appendChild(styleNode)
       }
     }
   }
