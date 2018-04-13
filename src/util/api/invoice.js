@@ -69,9 +69,13 @@ function getList(type = 'sent', offset = 0, limit = 50) {
       invoices(offset: $offset, limit: $limit, type: $type) {
         docs {
           _id
+          toCompany {
+            companyId
+            name
+          }
           templateId
           viewId
-          invoiceNumber
+          number
           total
           invoiceDate
           dueDate
@@ -121,7 +125,7 @@ function getById(type = 'sent', id) {
         }
         templateId
         viewId
-        invoiceNumber
+        number
         total
         invoiceDate
         dueDate
@@ -166,7 +170,7 @@ function voidById(id) {
         }
         templateId
         viewId
-        invoiceNumber
+        number
         total
         invoiceDate
         dueDate

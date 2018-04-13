@@ -24,7 +24,7 @@
       </ul>      
     </div>    
     <div class="list">
-      list
+      <ReceivedList :receivedInvoices="receivedInvoices"></ReceivedList>
     </div>
   </div>
 </template>
@@ -32,12 +32,65 @@
 <script>
   import api from '../../../util/api'
   import Notification from '../Notification.vue'
+  import ReceivedList from './ReceivedList.vue'
 
   export default {
     name: 'received', 
-    components: {Notification},
+    components: {Notification, ReceivedList},
     data() {
       return {
+        receivedInvoices: [{}, {}],
+        offset: 0,
+        limit: 50,
+        total: 0
+      }
+    },
+    created() {
+      this.fetchData()
+    },
+    methods: {
+      async fetchData() {
+        let res
+        try {
+          res = await api.invoice.getList('received', this.offset, this.limit)
+        } catch(e) {
+          console.log('Get received invoice list error', e)
+            this.$notify({
+              timeout: 3000,
+              group: 'foo',
+              type: 'error',
+              title: '&#10005; Error',
+              text: e.message          
+            })        
+          return          
+        }
+        if (res.err_code === 4002) {
+          this.$router.push({name: 'Login'})
+          return
+        }
+        if (res.errors) {
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: '&#10005; Error',
+            text: res.errors[0].message          
+          })
+          return
+        }
+        if (res.data.invoices.err_code) {
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: '&#10005; Error',
+            text: ''             
+          })
+          return
+        }
+        this.receivedInvoices = res.data.invoices.docs
+        this.offset = res.data.invoices.offset
+        this.total = res.data.invoices.total
       }
     }
   }

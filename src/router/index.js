@@ -14,6 +14,8 @@ import companyCreatedGuard from './CompanyCreatedGuard.js'
 
 import Received from '../components/dash/Received/Received.vue'
 import Sent from '../components/dash/Sent/Sent.vue'
+import SentInvoiceDetail from '../components/dash/Sent/SentInvoiceDetail.vue'
+import ReceivedInvoiceDetail from '../components/dash/Received/ReceivedInvoiceDetail.vue'
 
 import Create from '../components/dash/CreateInvoice/Create.vue'
 import PreviewInvoice from '../components/dash/CreateInvoice/PreviewInvoice.vue'
@@ -79,6 +81,16 @@ let theRouter = new Router({
       component: MaintainTemplate
 
     }, {
+      path:'/sent/invoice/:id',
+      name:'Dash.Sent.Detail',
+      component: SentInvoiceDetail,
+      beforeEach: companyCreatedGuard
+    }, {
+      path:'/received/invoice/:id',
+      name:'Dash.Received.Detail',
+      component: ReceivedInvoiceDetail,
+      beforeEach: companyCreatedGuard      
+    }, {
       path: '/dash',
       components: {
         nav: Navigation,
@@ -87,7 +99,6 @@ let theRouter = new Router({
       children: [
         {
           path: '',
-          
           component: Received
         }, {
           path: 'createMyCompany',
@@ -101,7 +112,8 @@ let theRouter = new Router({
           path: 'sent',
           name: 'Dash.Sent',
           component: Sent
-        }, {
+        }, 
+        {
           path: 'create', 
           name: 'Dash.Create',
           component: Create,

@@ -1,10 +1,10 @@
 <template>
-  <div class="sent-list">
-    <table class="uk-table uk-table-hover uk-table-striped sent-list-table">
+  <div class="received-list">
+    <table class="uk-table uk-table-hover uk-table-striped received-list-table">
       <thead>
         <tr>
           <th>Inv#</th>
-          <th>To</th>
+          <th>From</th>
           <th>Invoice Date</th>
           <th>Due On</th>
           <th>Status</th>
@@ -13,27 +13,25 @@
         </tr>
       </thead>
       <tbody>
-        <SentListItem 
-        v-for="(invoice, index) in sentInvoices"
+        <ReceivedListItem 
+        v-for="(invoice, index) in receivedInvoices"
         :invoice="invoice"
         :key="index"
         :invoiceIndex="index"
-        ></SentListItem>
+        ></ReceivedListItem>
       </tbody>
-    </table>
-
-
-
+    </table>    
   </div>
+
 </template>
 
 <script>
-  import SentListItem from './SentListItem.vue'
+  import ReceivedListItem from './ReceivedListItem.vue'
 
   export default {
-    name: 'SentList',
-    components: {SentListItem},
-    props: ['sentInvoices'],
+    name: 'ReceivedList',
+    components: {ReceivedListItem},
+    props: ['receivedInvoices'],
     data() {
       return {
 
@@ -42,12 +40,14 @@
     methods: {
 
     }
+
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
   @import '../../../scss/reusable.scss';
-  .sent-list {
+  .received-list {
 
   }
+
 </style>

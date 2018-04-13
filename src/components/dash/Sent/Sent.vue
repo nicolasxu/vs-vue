@@ -43,9 +43,61 @@
     components: {Notification, SentList},
     data() {
       return {
-        sentInvoices: [{},{}]
+        sentInvoices: [],
+        offset: 0,
+        limit: 50,
+        total: 0
+      }
+    },
+    created() {
+      this.fetchData()
+    },
+    methods: {
+      async fetchData() {
+        let res
+        try {
+          res = await api.invoice.getList('sent', this.offset, this.limit)
+        } catch (e) {
+          console.log('Get sent invoice list error', e)
+            this.$notify({
+              timeout: 3000,
+              group: 'foo',
+              type: 'error',
+              title: '&#10005; Error',
+              text: e.message          
+            })        
+          return
+        }
+        if (res.err_code === 4002) {
+          this.$router.push({name: 'Login'})
+          return
+        }
+        if (res.errors) {
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: '&#10005; Error',
+            text: res.errors[0].message          
+          })
+          return
+        }
+        if (res.data.invoices.err_code) {
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: '&#10005; Error',
+            text: ''             
+          })
+          return
+        }
+        this.sentInvoices = res.data.invoices.docs
+        this.offset = res.data.invoices.offset
+        this.total = res.data.invoices.total
       }
     }
+
   }
 </script>
 

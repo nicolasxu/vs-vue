@@ -1,15 +1,14 @@
 <template>
-  <tr class="sent-list-item" @click="toSentInvoiceDetail">
-   
+  <tr class="received-list-item" @click="toReceivedInvoiceDetail">
     <td class="inv-num">
-      {{invoice.number}} 
+      11 {{invoice.number}} 
     </td>
-    <td>{{invoice.toCompany && invoice.toCompany.name}}</td>
+    <td>{{invoice.fromCompany && invoice.fromCompany.name}}</td>
     <td>{{invoiceDateStr}}</td>
     <td>{{dueDateStr}}</td>
     <td>{{invoice.status}}</td>
     <td>{{invoice.total}}</td>
-    <td>{{invoice.paymentStatus}}</td>
+    <td>{{invoice.paymentStatus}}</td>    
   </tr>
 
 </template>
@@ -17,11 +16,13 @@
 <script>
   import parseDate from '../../../util/parseDate.js'
   export default {
-    name: 'SentListItem',
+    name: 'ReceivedListItem',
     components: {},
     props: ['invoice'],
     data() {
-      return {}
+      return {
+
+      }
     },
     computed: {
       invoiceDateStr() {
@@ -32,32 +33,20 @@
       }
     },
     methods: {
-      toSentInvoiceDetail() {
-        console.log('toSentDetail...')
-        this.$router.push({name: 'Dash.Sent.Detail', params: { id: this.invoice._id }})
+      toReceivedInvoiceDetail() {
+        this.$router.push({name: 'Dash.Received.Detail', params: { id: this.invoice._id }})
       }
     }
+
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
   @import '../../../scss/reusable.scss';
-  .sent-list-item {
-    
-    .inv-num {
-      position: relative;
-      .view-invoice {
-
-        display: none;
-        position: absolute;
-        // top: 2px;
-      }
-    }
-
+  .received-list-item {
     &:hover {
       cursor: pointer;
-    }
-
-
+    }    
   }
+
 </style>

@@ -45,11 +45,12 @@
     }
 
     #vs-invoice .invoice-label-block {
-
+      line-height: 1em;
     }
 
     #vs-invoice .invoice-label-block .inv-text {
       font-size: 30px;
+      line-height: 1em;
       font-weight: bold;
     }
 
@@ -60,12 +61,17 @@
     #vs-invoice .invoice-label-block .inv-date {
       font-size: 12px;
     }
+    #vs-invoice .invoice-label-block .inv-duedate
+    { display: inline-block;
+      font-size: 12px;
+      color: white;
+      background-color: black;
+    }
 
     #vs-invoice .invoice-label-block .inv-term {
       display: inline-block;
       font-size: 12px;
-      color: white;
-      background-color: black;
+     
 
     }        
 
@@ -226,8 +232,9 @@
         <div class="invoice-label-block">
           <div class="inv-text">INVOICE</div>
           <div class="inv-number">#INV-${ number }</div>
-          <div class="inv-date"> ${invoiceDate}</div>
           <div class="inv-term">${term.desc}</div>
+          <div class="inv-date"> ${invoiceDate}</div>
+          <div class="inv-duedate"><span>Due On:</span> ${invoiceDate}</div>
         </div>
       </div>
       <div class="invoice-row">
