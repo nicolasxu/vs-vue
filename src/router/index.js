@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import ResetPassword from '@/components/ResetPassword'
+import VerifyEmail from '../components/VerifyEmail.vue'
 import CreateMyCompany from '@/components/CreateMyCompany'
 
 import Navigation from '@/components/dash/Navigation'
@@ -64,7 +65,10 @@ let theRouter = new Router({
       path: '/resetPassword',
       name: 'ResetPassword',
       component: ResetPassword,
-
+    }, {
+      path: '/verifyemail/:hash',
+      name: 'VerifyEmail',
+      component: VerifyEmail
     }, {
       path: '/createInvoice',
       name: 'CreateInvoice',

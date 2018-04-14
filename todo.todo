@@ -5,8 +5,18 @@
  ✔ 2. when token is invalid, handle the api error @done (18-04-08 21:43)
 
 
- ☐ 3. research javascript floating round error for financial calculation
+ ✔ 3. research javascript floating round error for financial calculation @done (18-04-13 21:30)
       The problem that can be solved by decimal module in Py thon
 
 
- ☐ 4. Invoice related graphql API
+ ✔ 4. Invoice related graphql API @done (18-04-13 21:30)
+
+
+
+ ✔ 5. sending email @done (18-04-14 16:46)
+ ☐ 6  email account verification
+ ☐ 7. password recover
+ ☐ 8. genrate & download pdf
+ ☐ 9. plan data structure
+
+
