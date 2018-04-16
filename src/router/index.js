@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
-import ResetPassword from '@/components/ResetPassword'
+import ResetPasswordRequest from '@/components/ResetPasswordRequest.vue'
+import ResetPassword from '../components/ResetPassword.vue'
+
 import VerifyEmail from '../components/VerifyEmail.vue'
 import CreateMyCompany from '@/components/CreateMyCompany'
 
@@ -62,10 +64,15 @@ let theRouter = new Router({
       name: 'Register',
       component: Register
     }, {
-      path: '/resetPassword',
-      name: 'ResetPassword',
-      component: ResetPassword,
+      path: '/resetPasswordRequest',
+      name: 'ResetPasswordRequest',
+      component: ResetPasswordRequest,
     }, {
+      path: '/resetPassword/:hash',
+      name: 'ResetPassword',
+      component: ResetPassword
+    },
+    {
       path: '/verifyemail/:hash',
       name: 'VerifyEmail',
       component: VerifyEmail

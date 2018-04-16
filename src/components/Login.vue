@@ -7,13 +7,13 @@
       <div class="uk-form-row">
         <label class="uk-form-label" for="form-email">Email</label>
         <div class="uk-form-controls">
-            <input class="uk-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
+            <input class="uk-input email-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
         </div>
       </div>
       <div class="uk-form-row">
         <label class="uk-form-label" for="form-password">Password</label>
         <div class="uk-form-controls">
-            <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="password">
+            <input class="uk-input pwd-input" id="form-password" type="password" placeholder="password" v-model="password">
         </div>
       </div>
       <div class="uk-margin">
@@ -27,7 +27,7 @@
       <div class="uk-form-row">
         <div class="uk-form-controls">
           <button class="uk-button uk-button-primary" @click.prevent="login">Login</button>
-          <router-link class="reset-link" :to="{ name: 'ResetPassword', params: { userId: 123 }}">
+          <router-link class="reset-link" :to="{ name: 'ResetPasswordRequest', params: { userId: 123 }}">
             Reset Password
           </router-link>
         </div>
@@ -103,13 +103,17 @@ export default {
 @import '../scss/reusable.scss';
 .login {
   @extend %login-register-container;
+  .email-input, .pwd-input {
+    width: 100%;
+  }
   .reset-link {
-    margin-left: 6%;
+    // margin-left: 6%;
+    float: right;
   }
   .uk-alert-danger {
     p {
       margin: 0;
-      padding: 15px 29px 15px 15px;
+      padding: 1em;
     }
   }
 }

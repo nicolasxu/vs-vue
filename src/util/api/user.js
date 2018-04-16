@@ -9,7 +9,8 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  register, createToken, getDetail, verifyEmail
+  register, createToken, getDetail, verifyEmail,
+  sendResetPwdLink, resetPwd
 }
 
 function getDetail () {
@@ -50,5 +51,15 @@ function createToken(user) {
 function verifyEmail(hash, email) {
   const url = baseUrl + '/user/verifyemail'
   return request.post(url, {hash: hash, email: email})
+}
+
+function sendResetPwdLink(email) {
+  const url = baseUrl + '/user/resetpwdlink'
+  return request.post(url, {email: email})
+}
+
+function resetPwd(email, hash, pwd) {
+  const url = baseUrl + '/user/resetpwd'
+  return request.post(url, {email: email, hash: hash, pwd: pwd})
 }
 
