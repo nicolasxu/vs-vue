@@ -9,7 +9,7 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  register, createToken, getDetail
+  register, createToken, getDetail, verifyEmail
 }
 
 function getDetail () {
@@ -45,6 +45,10 @@ function createToken(user) {
   const url = baseUrl + '/user/token'
   console.log('user', user)
   return request.post(url, user)
+}
 
+function verifyEmail(hash, email) {
+  const url = baseUrl + '/user/verifyemail'
+  return request.post(url, {hash: hash, email: email})
 }
 
