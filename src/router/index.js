@@ -115,10 +115,12 @@ let theRouter = new Router({
           path: 'createMyCompany',
           name: 'Dash.CreateMyCompany',
           component: CreateMyCompany
+
         }, {
           path: 'received',
           name:'Dash.Received',
-          component: Received
+          component: Received,
+          beforeEnter: companyCreatedGuard
         }, {
           path: 'sent',
           name: 'Dash.Sent',

@@ -78,6 +78,10 @@
           })
           return
         }
+        if (res.data.invoices.err_code === 4000) {
+          // company not created
+          this.$router.push({name: 'Dash.CreateMyCompany'})
+        }
         if (res.data.invoices.err_code) {
           this.$notify({
             timeout: 3000,
