@@ -28,7 +28,7 @@ function send(invoice) {
           name
         }
         templateId
-        invoiceNumber
+        number
         total
         invoiceDate
         dueDate
