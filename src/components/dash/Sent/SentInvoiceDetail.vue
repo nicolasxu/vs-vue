@@ -4,13 +4,16 @@
     <div class="detail-header">
       <div class="cmd-group">
         <button class="uk-button uk-button-small uk-button-default" @click="goBack">back</button>
+        
+        <a :href="pdfUrl" target="_blank" class="uk-button uk-button-small uk-button-primary" >PDF</a>
+        
         <button class="uk-button uk-button-small uk-button-danger" @click="voidInvoice">void</button>
       </div>
       <div class="title">Sent: {{'ABC Company'}}</div>
     </div>
     <div class="preview-area">
       <div class="invoice-positioner" >
-        <div v-html="invoice.renderedInvoice">fdsfd</div>
+        <div v-html="invoice.renderedInvoice"></div>
       </div>
       <div class="status-positioner">
         <div class="inv-status">
@@ -32,7 +35,13 @@
     data() {
       return {
         invoice: {},
-        invoiceId: ''
+        invoiceId: '',
+
+      }
+    },
+    computed: {
+      pdfUrl() {
+        return 'http://localhost:3000/api/invoicepdf/' + this.invoice.viewId
       }
     },
     created() {
@@ -97,6 +106,16 @@
         }
         // todo: go on voiding...
         console.log('voiding... invoice')
+      },
+      getPdf() {
+        // console.log('pdf...')
+        try {
+          //api.invoice.getPdf(this.invoice.viewId)
+
+        } catch (e) {
+          console.log('get pdf error:', e)
+          return
+        }
       }
 
     }

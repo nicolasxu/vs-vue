@@ -8,7 +8,8 @@ const baseUrl = base.baseUrl
 
 
 export {
-  send, getList, getById, voidById
+  send, getList, getById, 
+  voidById, getPdf
 }
 
 function send(invoice) {
@@ -195,4 +196,9 @@ function voidById(id) {
   }
 
   return request.post(graphqlEndpoint, payload)
+}
+
+function getPdf(viewId) {
+  const url = baseUrl + '/invoicepdf/' + viewId
+  return request.get(url)
 }
