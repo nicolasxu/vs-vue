@@ -18,7 +18,7 @@
     <div class="command-bar">
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="newClient">Create</button>
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="goToConnect">Connect</button>
-
+      <button type="button" class="uk-button uk-button-primary uk-button-small" @click="addClient">Add</button>
       <ul class="list-pagination">
         <li class="prev">
           <a href="#"><i class="uk-icon-angle-double-left"></i> Prev</a>
@@ -57,6 +57,9 @@
       },
       goToConnect() {
         this.$router.push({name: 'Dash.Client.Connect', query:{q1: 'q1'}, params: {email: 'abc'} })
+      },
+      addClient () {
+        this.$router.push({name: 'Dash.Client.Add'})
       },
       prev() {
        

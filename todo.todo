@@ -16,9 +16,21 @@
  ✔ 5. sending email @done (18-04-14 16:46)
  ✔ 6  email account verification @done (18-04-15 20:43)
  ✔ 7. password recover @done (18-04-16 16:05)
- ☐ 8. genrate & download pdf
- ☐ 9. plan data structure
+ ✔ 8. genrate & download pdf @done (18-04-17 11:36)
+ ✔ 9. plan data structure @done (18-04-17 14:35)
+ ☐ 14. thoughly test add client/vendor, refactoring
+ ☐ 15. pay invoice and create new account procedure 
  ☐ 10. outer web page
- ☐ 11. integrate ACH portal
+ ☐ 11. back-end service/db architecture, Nginx
+ ☐ 12. bank transaction
+ ☐ 13. integrate ACH portal
+ ☐ 14. new template: invoice with attachment
+
+
+ ☐ 16. log
+ ☐ 17. quickbook connector
+ ☐ 18. Microsoft Dynamics connector
+ ☐ 19. NetSuite connector
+ ☐ 20. Sage connector
  
 

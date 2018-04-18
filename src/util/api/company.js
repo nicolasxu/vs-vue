@@ -8,7 +8,7 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  getDetail, create, update
+  getDetail, create, update, findLiveByEmail
 }
 
 function getDetail() {
@@ -81,6 +81,52 @@ function create(myCompany) {
 
 function update() {
 
+}
+
+function findLiveByEmail(email) {
+  // find live company by email
+  // return null or company
+
+  let query = `
+
+    query myQuery ($email: String) {
+      getCompanyByEmail(email: $email ) {
+        _id
+        name
+        creator
+        isActive
+        invoicePersonName
+        addressLine1
+        addressLine2
+        city
+        state
+        zip
+        country
+        tel
+        website
+        serviceDesc
+        createdAt
+        updatedAt
+        creatorCompanyId
+        err_code
+        err_msg
+      }
+    }
+
+
+  `
+
+  let variables = {
+    email: email
+  }
+
+  let payload = {
+    query : query,
+    variables: variables
+  }
+
+  return request.post(graphqlEndpoint, payload)
+  
 }
 
 

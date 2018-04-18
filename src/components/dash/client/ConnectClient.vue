@@ -7,7 +7,7 @@
           Client Email
           <span class="required-sign">*</span>
         </label>
-        {{this.fields.email.valid}}
+        
         <div class="uk-form-controls">
             <input type="text" id="client-email" 
             placeholder="enter client email" 
@@ -23,7 +23,8 @@
         <h4>Search Result</h4>
       </div>
       <div class="uk-form-row">
-        <button type="button" class="uk-button uk-button-primary" @click="connect" :disabled="fields.email.valid? null:true">Connect</button>
+        <button type="button" class="uk-button uk-button-primary" 
+        @click="connect" :disabled="fields.email && fields.email.valid? null:true">Connect</button>
         <button type="button" class="uk-button" @click="cancel">Cancel</button>        
       </div>
 

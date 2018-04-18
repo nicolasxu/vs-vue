@@ -24,9 +24,11 @@ import Create from '../components/dash/CreateInvoice/Create.vue'
 import PreviewInvoice from '../components/dash/CreateInvoice/PreviewInvoice.vue'
 
 import Client from '../components/dash/Client/Client.vue'
+import AddClient from '../components/dash/Client/AddClient.vue'
 import NewClient from '../components/dash/Client/NewClient.vue'
 import ClientDetail from '../components/dash/Client/ClientDetail.vue'
 import ConnectClient from '../components/dash/Client/ConnectClient.vue'
+
 
 import Vendor from '../components/dash/Vendor/vendor.vue'
 import VendorDetail from '../components/dash/Vendor/VendorDetail.vue'
@@ -135,6 +137,11 @@ let theRouter = new Router({
           path: 'client',
           name: 'Dash.Client',
           component: Client,
+          beforeEnter: companyCreatedGuard
+        }, {
+          path: 'client/add',
+          name: 'Dash.Client.Add',
+          component: AddClient,
           beforeEnter: companyCreatedGuard
         }, {
           path: 'client/new',
