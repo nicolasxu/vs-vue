@@ -16,8 +16,6 @@
       </div>      
     </div>
     <div class="command-bar">
-      <button type="button" class="uk-button uk-button-primary uk-button-small" @click="newClient">Create</button>
-      <button type="button" class="uk-button uk-button-primary uk-button-small" @click="goToConnect">Connect</button>
       <button type="button" class="uk-button uk-button-primary uk-button-small" @click="addClient">Add</button>
       <ul class="list-pagination">
         <li class="prev">

@@ -20,6 +20,38 @@ function create(newClient) {
       createMyClient(input: $input) {
         _id
         name
+
+        creator
+        isActive
+        invoiceEmails
+        invoicePersonName
+        members {
+          _id
+        }
+        clients
+        vendors 
+        templates 
+
+        addressLine1
+        addressLine2
+        city
+        state
+        zip
+        country
+        tel
+        website
+        serviceDesc
+        
+        createdAt
+        updatedAt
+        
+        creatorCompanyId
+
+        err_code
+        err_msg
+
+
+
       }
     }
 
