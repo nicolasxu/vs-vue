@@ -19,9 +19,12 @@
  ✔ 8. genrate & download pdf @done (18-04-17 11:36)
  ✔ 9. plan data structure @done (18-04-17 14:35)
  ☐ 14. thoughly test add client/vendor, refactoring
-   ☐ - Remove privite client
-   ☐ - Disconnect live client
+   ✔ - Remove privite client @done (18-04-20 11:48)
+   ✔ - Disconnect live client @done (18-04-20 11:48)
+   ☐ - Add client
+   ☐ - Add vendor
    ☐ - Disconnect live vendor
+   ☐ - refactor client/vendor detail layout 
 
    
  ☐ 15. pay invoice and create new account procedure 

@@ -8,7 +8,9 @@ const graphqlEndpoint = base.graphqlEndpoint
 const baseUrl = base.baseUrl
 
 export {
-  create, approve, reject, deleteRequest, getReceived, getSent, getDetail
+  create, approve, reject, 
+  deleteRequest, getReceived, 
+  getSent, getDetail
 }
 
 

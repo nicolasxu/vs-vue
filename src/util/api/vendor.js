@@ -122,6 +122,4 @@ function sever(vendorId) {
   }
 
   return request.post(graphqlEndpoint, payload)
-
-
 }

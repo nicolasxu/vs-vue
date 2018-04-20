@@ -20,7 +20,7 @@
         </router-link> 
       </menuitem>
     </menu>
-    <h2 class="section-title">My network</h2>
+    <h2 class="section-title">Connections</h2>
     <menu class="menu">
       <menuitem>
         <router-link class="nav-link" :to="{ name: 'Dash.Client', params: { userId: 123 }}" active-class="active">
@@ -32,9 +32,23 @@
           Vendor
         </router-link>         
       </menuitem>
+    
+    </menu>
+    <h2 class="section-title">Basic Data</h2>
+    <menu class="menu">
       <menuitem>
         <router-link class="nav-link" :to="{ name: 'Dash.Product', params: { userId: 123 }}" active-class="active">
-          Product
+          Invoice Item
+        </router-link>         
+      </menuitem>
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Product', params: { userId: 123 }}" active-class="active">
+          Discount
+        </router-link>         
+      </menuitem>      
+      <menuitem>
+        <router-link class="nav-link" :to="{ name: 'Dash.Requests', params: { userId: 123 }}" active-class="active">
+          Request
         </router-link>         
       </menuitem>      
     </menu>
