@@ -19,6 +19,11 @@
  ✔ 8. genrate & download pdf @done (18-04-17 11:36)
  ✔ 9. plan data structure @done (18-04-17 14:35)
  ☐ 14. thoughly test add client/vendor, refactoring
+   ☐ - Remove privite client
+   ☐ - Disconnect live client
+   ☐ - Disconnect live vendor
+
+   
  ☐ 15. pay invoice and create new account procedure 
  ☐ 10. outer web page
  ☐ 11. back-end service/db architecture, Nginx

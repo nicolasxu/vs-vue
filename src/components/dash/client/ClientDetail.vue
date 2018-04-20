@@ -3,6 +3,8 @@
     <h3 class="title">Client: {{client.name}}</h3>
     <div class="button-container">
       <button class="uk-button" @click="goBack">Back</button>
+      <button class="uk-button uk-button-danger" @click="deleteClient" v-show="client.creatorCompanyId">Delete</button>
+      <button class="uk-button uk-button-danger" @click="disconnectClient" v-show="!client.creatorCompanyId">Disconnect</button>
     </div>
     <form class="uk-form uk-form-horizontal uk-margin-large client-detail-form">
 
@@ -74,18 +76,147 @@
     data() {
       return {
         client: {}
+        
       }
+    },
+    watch: {
+   
     },
     async created() {
       let clientId = this.$route.params.id
 
-      let res = await api.client.getDetail(clientId)
-     
-      this.client = res.data.clientDetail
+      let clientDetailRes 
+      try {
+        clientDetailRes = await api.client.getDetail(clientId)
+      } catch (e) {
+        console.log('Request error', e)
+        return
+      }
+      
+      let shouldContinue = this.processResError(clientDetailRes, 'clientDetail')
+      if (!shouldContinue) {
+        return
+      }
+
+      this.client = clientDetailRes.data.clientDetail
     },
     methods: {
+      processResError(res, name) {
+
+        if (!res) {
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: 'Error',
+            text: ''            
+          })
+          return false
+        }
+
+        if (res.err_code === 4002) {
+          this.$router.push({name: 'Login'})
+          return false
+        }
+
+        if (res.errors && res.errors.length > 0) {
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: 'Error',
+            text: res.errors[0]
+          })     
+          return false
+        }
+
+        if (!res.data[name]) {
+          this.$notify({
+              timeout: 3000,
+              group: 'foo',
+              type: 'error',
+              title: 'Error',
+              text: name + ' is empty'
+            })   
+          return false
+        }
+
+        if (res.data[name].err_code) {
+          this.$notify({
+            timeout: 3000,
+            group: 'foo',
+            type: 'error',
+            title: 'Error',
+            text: res.data[name].err_msg
+          })     
+          return false  
+        }
+
+        return true
+      },
       goBack() {
         this.$router.go(-1)
+      },
+      async deleteClient() {
+        let confirmed = confirm('Are you sure you want to delete this client? ')
+        if (!confirmed) {
+          return
+        }
+
+        let deleteRes
+
+        try {
+          deleteRes = await api.client.deletePrivateClient(this.client._id)
+        } catch (e) {
+          console.log('Request error', e)
+          return 
+        }
+
+        let shouldContinue = this.processResError(deleteRes, 'deleteMyClient')
+        if (!shouldContinue) {
+          return
+        }
+
+        this.$notify({
+          timeout: 3000,
+          group: 'foo',
+          type: 'success',
+          title: '&#10003; Success',
+          text: 'Client deleted...'          
+        })
+
+        this.$router.push({name: 'Dash.Client'})
+
+      },
+      async disconnectClient() {
+        let confirmed = confirm('Are you sure you want to disconnect this client?')
+        if (!confirmed) {
+          return
+        }
+
+        let disconnectRes
+        try {
+          disconnectRes = await api.client.disconnect(this.client._id)
+        } catch (e) {
+          console.log('Request error', e)
+          return
+        }
+
+        let shouldContinue = this.processResError(disconnectRes, 'severClientRelationship')
+
+        if (!shouldContinue) {
+          return
+        }
+        this.$notify({
+          timeout: 3000,
+          group: 'foo',
+          type: 'success',
+          title: '&#10003; Success',
+          text: 'Client disconnected...'          
+        })
+
+        this.$router.push({name:'Dash.Client'})
+
       }
     }
   }
@@ -98,11 +229,9 @@
  
     .client-detail-form {
       label {
-        // text-align: right;
       }
       .text {
-        // line-height: 31px;
-        // min-height: 31px;
+    
       }
     }
   }

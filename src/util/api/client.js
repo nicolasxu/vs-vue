@@ -11,7 +11,7 @@ export {
   create, connect, update, 
   deleteExisting, getList, 
   getDetail, searchMock,
-  search
+  search, deletePrivateClient, disconnect
 }
 
 function create(newClient) {
@@ -264,7 +264,6 @@ function searchMock(query ) {
   })
 
   return promise
-
 }
 
 function search(queryStr = '') {
@@ -314,7 +313,91 @@ function search(queryStr = '') {
   }
 
   return request.post(graphqlEndpoint, payload)
+}
 
+function deletePrivateClient(clientId) {
+  if (!clientId) {
+    return
+  }
+  let query = `
+    mutation myMutation ($id: String) {
+      deleteMyClient (id: $id) {
+
+        _id
+        count
+        message
+        err_code
+        err_msg
+
+      }
+    }
+  `
+  let variables = {
+    id: clientId
+  }
+
+  let payload = {
+    query: query,
+    variables: variables
+  }
+
+  return request.post(graphqlEndpoint, payload)
+}
+
+function disconnect(clientId) {
+  if (!clientId) {
+    return
+  }
+  let query = `
+  
+    mutation myMutation($id: String) {
+      severClientRelationship (id: $id) {
+
+        _id
+        name
+
+        creator
+        isActive
+        invoiceEmails
+        invoicePersonName
+        members {
+          _id
+        }
+        clients
+        vendors 
+        templates 
+
+        addressLine1
+        addressLine2
+        city
+        state
+        zip
+        country
+        tel
+        website
+        serviceDesc
+        
+        createdAt
+        updatedAt
+        
+        creatorCompanyId
+
+        err_code
+        err_msg
+      }
+    }
+
+  `
+  let variables = {
+    id: clientId
+  }
+
+  let payload = {
+    query: query,
+    variables: variables
+  }
+
+  return request.post(graphqlEndpoint, payload)
 
 }
 
