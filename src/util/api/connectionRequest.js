@@ -9,8 +9,8 @@ const baseUrl = base.baseUrl
 
 export {
   create, approve, reject, 
-  deleteRequest, getReceived, 
-  getSent, getDetail
+  deleteRequest, getReceivedList, 
+  getSentList, getDetail
 }
 
 
@@ -130,7 +130,7 @@ function deleteRequest(requestId) {
   return request.post(graphqlEndpoint, payload)
 }
 
-function getReceived(offset = 0, limit = 50) {
+function getReceivedList(offset = 0, limit = 50) {
   let query = `
     query myQuery ($offset: Int, $limit: Int ) {
       receivedRequests(offset: $offset, limit: $limit) {
@@ -172,7 +172,7 @@ function getReceived(offset = 0, limit = 50) {
   return request.post(graphqlEndpoint, payload)
 }
 
-function getSent(offset = 0, limit = 50) {
+function getSentList(offset = 0, limit = 50) {
   let query = `
     query myQuery ($offset: Int, $limit: Int ) {
       sentRequests(offset: $offset, limit: $limit) {

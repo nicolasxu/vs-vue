@@ -41,13 +41,15 @@ import MyCompany from '../components/dash/Setting/MyCompany'
 import Plan from '../components/dash/Setting/Plan'
 import RolePrivilege from '../components/dash/Setting/RolePrivilege'
 
-import Requests from '../components/dash/Requests/Requests.vue'
+import Request from '../components/dash/Request/Request.vue'
 
 import MaintainTemplate from '../components/maintain-template/maintain-template.vue'
 
 import Product from '../components/dash/Product/Product.vue'
 import NewProduct from '../components/dash/Product/NewProduct.vue'
 import ProductDetail from '../components/dash/Product/ProductDetail.vue'
+
+import Discount from '../components/dash/Discount/Discount.vue'
 
 Vue.use(Router)
 
@@ -114,7 +116,7 @@ let theRouter = new Router({
           path: '',
           component: Received
         }, {
-          path: 'createMyCompany',
+          path: '/createMyCompany',
           name: 'Dash.CreateMyCompany',
           component: CreateMyCompany
 
@@ -175,11 +177,17 @@ let theRouter = new Router({
           name: 'Dash.Setting',
           component: Setting,
           beforeEnter: companyCreatedGuard
+        }, 
+        {
+          path: 'request',
+          name: 'Dash.Request',
+          component: Request,
+          beforeEnter: companyCreatedGuard
         },
         {
-          path: 'requests',
-          name: 'Dash.Requests',
-          component: Requests,
+          path: 'request/:id',
+          name: 'Dash.Request.Detail',
+          component: Request,
           beforeEnter: companyCreatedGuard
         }, {
           path: 'product',
@@ -195,6 +203,11 @@ let theRouter = new Router({
           path: 'product/detail/:id',
           name: 'Dash.Product.Detail',
           component: ProductDetail,
+          beforeEnter: companyCreatedGuard
+        }, {
+          path: 'discount',
+          name: 'Dash.Discount',
+          component: Discount,
           beforeEnter: companyCreatedGuard
         }
       ]

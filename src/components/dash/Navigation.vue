@@ -34,7 +34,7 @@
       </menuitem>
     
     </menu>
-    <h2 class="section-title">Basic Data</h2>
+    <h2 class="section-title">Maintenance</h2>
     <menu class="menu">
       <menuitem>
         <router-link class="nav-link" :to="{ name: 'Dash.Product', params: { userId: 123 }}" active-class="active">
@@ -42,12 +42,12 @@
         </router-link>         
       </menuitem>
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Product', params: { userId: 123 }}" active-class="active">
+        <router-link class="nav-link" :to="{ name: 'Dash.Discount', params: { userId: 123 }}" active-class="active">
           Discount
         </router-link>         
       </menuitem>      
       <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Requests', params: { userId: 123 }}" active-class="active">
+        <router-link class="nav-link" :to="{ name: 'Dash.Request', query: { direction: 'received' }}" active-class="active">
           Request
         </router-link>         
       </menuitem>      
