@@ -5,8 +5,6 @@
     </div>
     
     <div class="command-bar">
-      <button type="button" class="uk-button uk-button-primary uk-button-small" 
-      @click="goBack">Back</button>
       <ul class="list-pagination">
         <li class="prev">
           <a href="javascript:void(0)"><i class="uk-icon-angle-double-left"></i> Prev</a>
