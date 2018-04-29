@@ -70,14 +70,47 @@
         this.$router.go(-1)
       },
       received() {
+        console.log('received tab triggered...')
         this.selectedTab = 'received'
+        this.total = 0
+        this.offset = 0
+        // If same route, no new route request is made,
+        // so we don't have to detect duplicated routing
+        // request here. 
         this.$router.push({name: 'Dash.Request', query: {direction: 'received'}})
+        this.fetch(this.selectedTab)
       },
       sent() {
+        console.log('sent tab triggered...')
         this.selectedTab = 'sent'
+        this.total = 0
+        this.offset = 0
         this.$router.push({name: 'Dash.Request', query: {direction: 'sent'}})
+        this.fetch(this.selectedTab)
       },
-      fetch() {
+      async fetch(direction) {
+        let getListRes
+        
+        try {
+
+          if (direction === 'sent') {
+            getListRes = await api.request.getSentList(this.offset, this.limit)
+          } else {
+            getListRes = await api.request.getReceivedList(this.offset, this.limit)
+          }
+
+        } catch (e) {
+          console.log('Making request error')
+          return
+        }
+
+        if (direction === 'sent') {
+          this.processResError(getListRes, 'sentRequests')
+        } else {
+          this.processResError(getListRes, 'receivedRequests')
+        }
+
+        console.log('getListRes', getListRes)
 
       }
     }

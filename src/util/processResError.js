@@ -34,7 +34,7 @@ let processResErrorMixin = {
 
       if (!res.data[name]) {
         this.$notify({
-            timeout: 3000,
+            timeout: 4000,
             group: 'foo',
             type: 'error',
             title: 'Error',

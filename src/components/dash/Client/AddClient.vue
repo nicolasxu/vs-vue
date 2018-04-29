@@ -31,11 +31,17 @@
         <div class="uk-form">
           <div class="uk-form-row found-company" v-show="!err_code">
             <legend>Result: </legend>
-            <div class="checkmark-positioner"> <div class="checkmark">&#10003;</div> </div>
+            <div class="checkmark-positioner">
+              <div class="checkmark">&#10003;</div> 
+            </div>
             <div class="company-info-positioner">
               <div class="name">Law Offices Of Meridith Gregory Gallant LLC</div>
               <div class="address"><span>Address: </span> 451 Andover St, North Andover, MA 01845</div>
               <div class="tel"><span>Tel: </span>619-204-2004</div>              
+            </div>
+            <div class="connect-positioner">
+              <button class="uk-button uk-button-primary uk-button-small" @click="connect">Connect</button>
+              <div class="btn-note">As your client</div>
             </div>
           </div>          
         </div>
@@ -184,7 +190,6 @@
           </div>
         </div>      
       </div>
-
     </div>
   </div>
 </template>
@@ -192,8 +197,11 @@
 
 <script>
   import api from '../../../util/api'
+  import processResErrorMixin from '../../../util/processResError.js'
+
   export default {
     name: 'AddClient',
+    mixins: [processResErrorMixin],
     data() {
       return {
         email: '',
@@ -227,7 +235,7 @@
     },
     methods: {
       async searchByEmail() {
-        console.log('focus out...')
+        
         let emailValid = this.fields.email && this.fields.email.valid
         if (!emailValid) {
           return
@@ -239,12 +247,7 @@
           console.log('find company error', e)
           return
         }
-
-        if (findRes.err_code === 4002) {
-          // token expired
-          this.$router.push({name:'Login'})
-          return
-        }
+        this.processResError(findRes, 'getCompanyByEmail')
         
         this.err_msg = findRes.data.getCompanyByEmail.err_msg
         this.err_code = findRes.data.getCompanyByEmail.err_code
@@ -252,13 +255,20 @@
         this.foundCompany = findRes.data.getCompanyByEmail
         this.state = 'search-result' 
       },
-      connect() {
+      async connect() {
         let confirmed = confirm('Are you sure you want to send client request to this company? ')
         if (!confirmed) {
           return
         }
 
         // TODO: ...
+        let connectRes 
+        try {
+          connectRes = await api.request.create(this.foundCompany._id, 'client')
+        } catch (e) {
+
+        }
+
       },
       create() {
         this.state = 'create-client'
@@ -274,58 +284,16 @@
         }
         this.clientErrCode = ''
         this.cleintErrMsg = ''
-        // api.client.create(this.client)
         let createRes
 
         try {
           createRes = await api.client.create(this.client)
         } catch (e) {
           console.log('create client error', e)
-          this.$notify({
-            timeout: 3000,
-            group: 'foo',
-            type: 'error',
-            title: 'Error',
-            text: e.message
-          })
-          return
-        }
-        if (createRes.err_code === 4002) {
-          this.$router.push({name: 'Login'})
           return
         }
 
-        if (createRes.errors && createRes.errors.length > 0) {
-          this.$notify({
-                timeout: 3000,
-                group: 'foo',
-                type: 'error',
-                title: 'Error',
-                text: createRes.errors[0].message
-              })          
-          return
-        }
-
-        if (createRes.data.createMyClient.err_code) {
-          this.cleintErrMsg = createRes.data.createMyClient.err_msg
-          this.$notify({
-            timeout: 3000,
-            group: 'foo',
-            type: 'error',
-            title: 'Error',
-            text: createRes.data.err_msg
-          })          
-        } else {
-          this.$notify({
-            timeout: 3000,
-            group: 'foo',
-            type: 'success',
-            title: '&#10003; Success',
-            text: 'Create client success'          
-          })
-          this.$router.push({name: 'Dash.Client'})
-
-        }
+        this.processResError(createRes, 'createMyClient')
 
       }
 
@@ -366,7 +334,7 @@
 
         }
 
-        .checkmark-positioner, .company-info-positioner {
+        .checkmark-positioner, .company-info-positioner, .connect-positioner {
           display: inline-block;
               vertical-align: middle;
         }
@@ -375,6 +343,13 @@
             padding: 0.5em;
             font-size: 25px;
             color: green;
+          }
+        }
+        .connect-positioner {
+          padding-left: 3em;
+          .btn-note {
+            font-size: 12px;
+            text-align: center;
           }
         }
       }
