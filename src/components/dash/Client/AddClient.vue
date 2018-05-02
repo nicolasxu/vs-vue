@@ -29,13 +29,13 @@
     <div class="search-result" v-show="state==='search-result'">
       <div class="search-result" >
         <div class="uk-form">
-          <div class="uk-form-row found-company" v-show="!err_code">
+          <div class="uk-form-row found-company" v-show="foundCompany._id">
             <legend>Result: </legend>
             <div class="checkmark-positioner">
               <div class="checkmark">&#10003;</div> 
             </div>
             <div class="company-info-positioner">
-              <div class="name">Law Offices Of Meridith Gregory Gallant LLC</div>
+              <div class="name">{{foundCompany.name}} </div>
               <div class="address"><span>Address: </span> 451 Andover St, North Andover, MA 01845</div>
               <div class="tel"><span>Tel: </span>619-204-2004</div>              
             </div>
@@ -46,14 +46,13 @@
           </div>          
         </div>
 
-        <div class="uk-form-row"> 
-          {{err_code}} <br/>
-          {{err_msg}}            
+        <div class="uk-form-row" v-show="!foundCompany._id"> 
+          <h3>No company found with this email: {{email}}</h3>
         </div>
         <div class="uk-form-row">
-          <button class="uk-button uk-button-default uk-button-small" @click="backToSearch">Back</button>
           <button class="uk-button uk-button-primary uk-button-small" @click="connect" v-show="foundCompany._id">Connect</button>
-          <button class="uk-button uk-button-primary uk-button-small" @click="create" v-show="err_code===4002">Create</button>
+          <button class="uk-button uk-button-default uk-button-small" @click="backToSearch">Back</button>
+          <button class="uk-button uk-button-primary uk-button-small" @click="create" v-show="!foundCompany._id">Create</button>
 
         </div>
       </div>      
@@ -247,13 +246,19 @@
           console.log('find company error', e)
           return
         }
-        this.processResError(findRes, 'getCompanyByEmail')
+        let isSuccess = this.processResError(findRes, 'getCompanyByEmail')
+
+        if (!isSuccess) {
+          return
+        }
         
-        this.err_msg = findRes.data.getCompanyByEmail.err_msg
-        this.err_code = findRes.data.getCompanyByEmail.err_code
+        if (findRes.data.getCompanyByEmail._id) {
+          this.foundCompany = findRes.data.getCompanyByEmail
+          this.state = 'search-result' 
+        } else {
+          this.state = 'search-result'
+        }
         
-        this.foundCompany = findRes.data.getCompanyByEmail
-        this.state = 'search-result' 
       },
       async connect() {
         let confirmed = confirm('Are you sure you want to send client request to this company? ')
@@ -264,9 +269,14 @@
         // TODO: ...
         let connectRes 
         try {
-          connectRes = await api.request.create(this.foundCompany._id, 'client')
+          connectRes = await api.request.create(this.email, 'client')
         } catch (e) {
-
+          console.log('Connect request error')
+          return
+        }
+        let isSuccess = this.processResError(connectRes, 'createRequest')
+        if (isSuccess) {
+          this.$router.push({name: 'Dash.Request', query: {direction: 'sent'}})
         }
 
       },
