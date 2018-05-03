@@ -25,8 +25,12 @@
       </ul>
       
       <ul class="uk-switcher">
-        <li :class="{'uk-active': selectedTab == 'received'}"><request-list type="received"></request-list></li>
-        <li :class="{'uk-active': selectedTab == 'sent'}"><request-list type="sent"></request-list></li>
+        <li :class="{'uk-active': selectedTab == 'received'}">
+          <request-list type="received"></request-list>
+        </li>
+        <li :class="{'uk-active': selectedTab == 'sent'}">
+          <request-list type="sent" :requests="requests"></request-list>
+        </li>
       </ul>
       
     </div>    
@@ -103,11 +107,17 @@
           console.log('Making request error')
           return
         }
-
+        let isSuccess = false
         if (direction === 'sent') {
-          this.processResError(getListRes, 'sentRequests')
+          isSuccess = this.processResError(getListRes, 'sentRequests')
+          if (isSuccess) {
+            this.requests = getListRes.data.sentRequests.docs
+          }
         } else {
-          this.processResError(getListRes, 'receivedRequests')
+          isSuccess = this.processResError(getListRes, 'receivedRequests')
+          if (isSuccess) {
+            this.requests = getListRes.data.receivedRequests.docs
+          }
         }
 
         console.log('getListRes', getListRes)

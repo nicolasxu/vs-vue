@@ -33,9 +33,9 @@
     computed: {
       toBeYour() {
         if (this.to_company_id === this.client_company_id) {
-          return 'vendor'
-        } else {
           return 'client'
+        } else {
+          return 'vendor'
         }
       },
       showDelete() {

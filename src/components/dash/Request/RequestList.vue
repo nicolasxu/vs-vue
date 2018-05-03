@@ -13,8 +13,7 @@
         </thead>
      
         <tbody>
-          {{type}}
-          <request-item v-for="(request, index) in requests" :key="index" :request="request" @refresh="refreshItem" @delete="deleteitem"></request-item>                
+          <request-item v-for="(request, index) in requests" :key="index" :request="request"></request-item>                
         </tbody>
     </table>    
   </div>
@@ -25,12 +24,11 @@
   import RequestItem from './RequestItem.vue'
   export default {
     name: 'requestList',
-    props: ['type'],
+    props: ['type', 'requests'],
     components: { RequestItem },
     data() {
       return {
-        requests: []
-       
+        
       }
     },
     async created() {
