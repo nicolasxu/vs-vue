@@ -21,11 +21,12 @@
  ☐ 14. thoughly test add client/vendor, refactoring
    ✔ - Remove privite client @done (18-04-20 11:48)
    ✔ - Disconnect live client @done (18-04-20 11:48)
-   ☐ - Add client
+   ☐ - Add client  
    ☐ - Add vendor
    ☐ - Disconnect live vendor
    ☐ - refactor client/vendor detail layout 
 
+ ☐ 15. Improve create invoice page   UI style
    
  ☐ 15. pay invoice and create new account procedure 
  ☐ 10. outer web page

@@ -26,7 +26,7 @@
       
       <ul class="uk-switcher">
         <li :class="{'uk-active': selectedTab == 'received'}">
-          <request-list type="received"></request-list>
+          <request-list type="received" :requests="requests"></request-list>
         </li>
         <li :class="{'uk-active': selectedTab == 'sent'}">
           <request-list type="sent" :requests="requests"></request-list>
@@ -42,6 +42,8 @@
   import RequestList from './RequestList.vue'
   import api from '../../../util/api'
   import processResErrorMixin from '../../../util/processResError.js'
+  import requestBus from './requestBus.js'
+
   export default {
     name: 'Request',
     components: { RequestList },
@@ -64,8 +66,19 @@
 
         this.sent()
       }
+      window.testThis = this
+      requestBus.$on('status', this.updateStatus)
+
     },
     methods: {
+      updateStatus(payload) {
+        for(let i = 0; i < this.requests.length; i++) {
+          if (this.requests[i]._id === payload._id) {
+            this.requests[i].status = payload.status
+            return
+          }
+        }
+      },
       getRequests() {
         let direction = this.selectedTab
 
@@ -74,7 +87,7 @@
         this.$router.go(-1)
       },
       received() {
-        console.log('received tab triggered...')
+        
         this.selectedTab = 'received'
         this.total = 0
         this.offset = 0
@@ -85,7 +98,7 @@
         this.fetch(this.selectedTab)
       },
       sent() {
-        console.log('sent tab triggered...')
+        
         this.selectedTab = 'sent'
         this.total = 0
         this.offset = 0

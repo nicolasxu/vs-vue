@@ -8,11 +8,10 @@
     <td>{{request.status}}</td>
     <td>
       <div v-show="request.status=='pending'">
-        <button class="uk-button uk-button-mini uk-button-danger btn-delete" v-show="showDelete" @click="deleteRequest">Widthdraw</button>
+        <button class="uk-button uk-button-mini uk-button-danger btn-delete" v-show="showDelete" @click="widthdraw">Widthdraw</button>
         <button class="uk-button uk-button-mini uk-button-success btn-accept" v-show="showAcceptReject" @click="accept">Accept</button> 
-        <a href="javascript:void(0)" @click.prevent="reject" class="reject-link" v-show="showAcceptReject">Reject</a>         
+        <a href="javascript:void(0)" @click.prevent="reject" class="reject-link" v-show="showAcceptReject">Decline</a>         
       </div>
-      <div v-show="request.status!='pending'">{{request.status}}</div>
     </td>
 
   </tr>
@@ -22,9 +21,12 @@
 <script>
   import api from '../../../util/api'
   import store from '../../store.js'
+  import processResErrorMixin from '../../../util/processResError.js'
+  import bus from './requestBus.js'
   export default {
     name: 'requestItem',
     props: ['request'],
+    mixins: [processResErrorMixin],
     data() {
       return {
 
@@ -32,10 +34,10 @@
     },
     computed: {
       toBeYour() {
-        if (this.to_company_id === this.client_company_id) {
-          return 'client'
+        if (store.company._id === this.request.client_company_id) {
+          return 'Vendor'
         } else {
-          return 'vendor'
+          return 'Client'
         }
       },
       showDelete() {
@@ -54,17 +56,22 @@
       }
     },
     created() {
-      console.log('store', store)
+      
     },
     methods: {
       async accept() {
-        console.log('accept')
+        
+        let confirmed = confirm('Are you sure you want to confirm this request?') 
+        if (!confirmed) {
+          return
+        }
+
         let res
         try {
           res = await api.request.approve(this.request._id)
           if (!res.data.approveRequest.err_code) {
             
-            this.$emit('refresh', this.request._id)
+          
           } else {
             console.log(res.data.approveRequest.err_msg)
           }
@@ -72,18 +79,21 @@
           console.error(e)
         }
         
-
-        console.log('accept res', res)
       },
       async reject() {
-        console.log('reject')
+
+        let confirmed = confirm('Are you sure you want to reject this request?') 
+        if (!confirmed) {
+          return
+        }       
+
         let res
         try {
           res = await api.request.reject(this.request._id)
           if (!res.data.rejectRequest.err_code) {
-            this.$emit('refresh', this.request._id)
+            
           } else {
-            console.log(res.data.rejectRequest.err_msg)
+
           }
         } catch (e) {
           console.error(e)
@@ -91,23 +101,33 @@
        
         console.log('reject res', res)
       },
-      async deleteRequest() {
-        console.log('delete')
-        let res
-        try {
-          res = await api.request.deleteRequest(this.request._id)
-          if (!res.data.deleteRequest.err_code) {
-            this.$emit('delete', this.request._id)
-          } else {
-            console.log(res.data.deleteRequest.err_msg)
-          }
-        } catch(e) {
-          console.error(e)
+      async widthdraw() {
+        console.log('widthdraw...')
+        let confirmed = confirm('Do you want to widthdraw this request?') 
+        if (!confirmed) {
+          return
         }
-        console.log('delete request', res)
+        let widthdrawRes
+        try {
+          widthdrawRes = await api.request.widthdraw(this.request._id)
+        } catch (e) {
+          console.log('widthdraw request error: ', e)
+          return
+        }
+        let isSuccess = this.processResError(widthdrawRes, 'withdrawRequest')
+
+        if (isSuccess) {
+          this.$notify({
+            group: 'foo',
+            type: 'success', // 'warning', 'success', 'info', 'warning'
+            title: '&#10003; Success',
+            text: 'Request withdrawn'
+          })
+          
+          bus.$emit('status', {_id: this.request._id, status: 'widthdraw'})
+        }
       }
     }
-
   }
 </script>
 

@@ -10,7 +10,7 @@ const baseUrl = base.baseUrl
 export {
   create, approve, reject, 
   deleteRequest, getReceivedList, 
-  getSentList, getDetail
+  getSentList, getDetail, widthdraw
 }
 
 
@@ -247,6 +247,38 @@ function getDetail(requestId) {
   return request.post(graphqlEndpoint, payload)
 }
 
+function widthdraw(requestId) {
+  let query = `
+    mutation myMutation ($requestId: String) {
+      withdrawRequest (requestId: $requestId) {
+        _id
+        from_company_id
+        from_company_name
+        from_user_name
+        to_company_id
+        to_company_name
+        client_company_id
+        vendor_company_id
+        count
+        status
+        createdAt
+        updatedAt
+        err_code
+        err_msg
+      }
+    }
+  `
+  let variables = {
+    requestId: requestId
+  }
+
+  let payload = {
+    query: query,
+    variables: variables
+  }
+
+  return request.post(graphqlEndpoint, payload)
+}
 
 
 
