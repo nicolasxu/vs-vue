@@ -11,7 +11,7 @@
         <label class="uk-form-label">Name: </label>
         <div class="uk-form-controls">
           <div class="text">
-            <span>{{vendor.name}} - test</span> 
+            <span>{{vendor.name}}</span> 
           </div>
         </div>
       </div>
@@ -23,82 +23,39 @@
 <script>
 
   import api from '../../../util/api'
+  import processResErrorMixin from '../../../util/processResError.js'
+
   export default {
     name: 'VendorDetail',
-
+    mixins: [processResErrorMixin],
     props: [],
     data() {
       return { 
-        vendor: {}
+        vendor: {},
+        vendorId: this.$route.params.id
       }
     },
     async created() {
-      let vendorId = this.$route.params.id
-      console.log('vendorId', vendorId)
-      let res
-      try {
-        res = await api.vendor.getDetail(vendorId)
-      } catch (e) {
-        console.log('Get vendor by id error', e)
-        res = {}
-      }
-      if (res.data && !res.data.vendor.err_code) {
-        this.vendor = res.data.vendor
-      }
+
+      this.fetch()
     },
     methods: {
-      processResError(res, name) {
+      async fetch() {
 
-        if (!res) {
-          this.$notify({
-            timeout: 3000,
-            group: 'foo',
-            type: 'error',
-            title: 'Error',
-            text: ''            
-          })
-          return false
+        let res
+        try {
+          res = await api.vendor.getDetail(this.vendorId)
+        } catch (e) {
+          console.log('Get vendor by id error', e)
+          return
+        }
+        let isSuccess = this.processResError(res, 'vendor')
+        if (!isSuccess) {
+          return
         }
 
-        if (res.err_code === 4002) {
-          this.$router.push({name: 'Login'})
-          return false
-        }
+        this.vendor = res.data.vendor
 
-        if (res.errors && res.errors.length > 0) {
-          this.$notify({
-            timeout: 3000,
-            group: 'foo',
-            type: 'error',
-            title: 'Error',
-            text: res.errors[0]
-          })     
-          return false
-        }
-
-        if (!res.data[name]) {
-          this.$notify({
-              timeout: 3000,
-              group: 'foo',
-              type: 'error',
-              title: 'Error',
-              text: name + ' is empty'
-            })   
-          return false
-        }
-
-        if (res.data[name].err_code) {
-          this.$notify({
-            timeout: 3000,
-            group: 'foo',
-            type: 'error',
-            title: 'Error',
-            text: res.data[name].err_msg
-          })     
-          return false  
-        }
-
-        return true
       },
       goBack() {
         this.$router.push({name: 'Dash.Vendor'})
@@ -118,9 +75,9 @@
           return
         }
 
-        let shouldContinue = this.processResError(disconnectRes, 'severVendorRelationship')
+        let isSuccess = this.processResError(disconnectRes, 'severVendorRelationship')
 
-        if (!shouldContinue) {
+        if (!isSuccess) {
           return
         }
         this.$notify({

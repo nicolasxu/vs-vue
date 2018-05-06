@@ -40,10 +40,11 @@
   import api from '../../../util/api'
   import Notification from '../Notification.vue'
   import VendorList from './VendorList.vue'
-
+  import processResErrMixin from '../../../util/processResError.js'
   export default {
     name: 'Vendor',
     components: {Notification, VendorList},
+    mixins: [processResErrMixin],
     props: [],
     data() {
       return {
@@ -62,19 +63,16 @@
         console.log('Get vendor list error', e)
         return
       }
-      if (res.err_code === 4002) {
-        // token not valid
-        this.$router.push({name:'Login'})
+      let isSuccess = this.processResError(res, 'vendors')
+      if (!isSuccess) {
         return
       }
 
-      if (res.data && !res.data.vendors.err_code) {
-        this.vendors = res.data.vendors.docs
-        this.vendors = [{name: 'vendor1', _id:'111'}, {name:'vendor 2', _id:'222'}]
-        this.total = res.data.vendors.total
-        this.offset = res.data.vendors.offset
-        this.limit = res.data.vendors.limit
-      }
+      this.vendors = res.data.vendors.docs
+      this.total = res.data.vendors.total
+      this.offset = res.data.vendors.offset
+      this.limit = res.data.vendors.limit
+      
     },
     methods: {
       goToConnect() {

@@ -167,8 +167,7 @@ function getReceivedList(offset = 0, limit = 50) {
     query: query,
     variables: variables
   }
-  console.log('offset', offset)
-  console.log('limit', limit)
+
   return request.post(graphqlEndpoint, payload)
 }
 

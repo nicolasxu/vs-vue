@@ -35,10 +35,12 @@
 <script>
   import api from '../../../util/api'
   import ProductList from './ProductList.vue'
+  import processResErrorMixin from '../../../util/processResError.js'
 
   export default {
     name: 'Product',
     components: {ProductList},
+    mixins: [processResErrorMixin],
     data() {
       return {
         products:[],
@@ -54,6 +56,11 @@
       } catch(e) {
         res = {}
         console.log('get product list error', e)
+        return
+      }
+      let isSuccess = this.processResError(res, 'products')
+      if (!isSuccess) {
+        return 
       }
 
       this.products = res.data.products.docs

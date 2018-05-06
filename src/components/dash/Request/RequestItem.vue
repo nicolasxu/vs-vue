@@ -66,19 +66,25 @@
           return
         }
 
-        let res
+        let approveRes
         try {
-          res = await api.request.approve(this.request._id)
-          if (!res.data.approveRequest.err_code) {
-            
-          
-          } else {
-            console.log(res.data.approveRequest.err_msg)
-          }
+          approveRes = await api.request.approve(this.request._id)
         } catch (e) {
           console.error(e)
+          return
         }
-        
+        let isSuccess = this.processResError(approveRes, 'approveRequest')
+        if (!isSuccess) {
+          return
+        }
+
+        this.$notify({
+          group: 'foo',
+          type: 'success', // 'warning', 'success', 'info', 'warning'
+          title: '&#10003; Success',
+          text: this.toBeYour + ' request approved!'
+        })
+
       },
       async reject() {
 
@@ -87,19 +93,24 @@
           return
         }       
 
-        let res
+        let rejectRes
         try {
-          res = await api.request.reject(this.request._id)
-          if (!res.data.rejectRequest.err_code) {
-            
-          } else {
-
-          }
+          rejectRes = await api.request.reject(this.request._id)
         } catch (e) {
           console.error(e)
+          return
         }
-       
-        console.log('reject res', res)
+        let isSuccess = this.processResError(rejectRes, 'rejectRequest')
+        if (!isSuccess) {
+          return
+        }
+        this.$notify({
+          group: 'foo',
+          type: 'success', // 'warning', 'success', 'info', 'warning'
+          title: '&#10003; Success',
+          text: this.toBeYour + ' ' + this.request.from_company_name + ' rejected!'
+        })        
+
       },
       async widthdraw() {
         console.log('widthdraw...')
