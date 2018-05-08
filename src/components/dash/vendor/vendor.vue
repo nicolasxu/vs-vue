@@ -76,8 +76,7 @@
     },
     methods: {
       goToConnect() {
-        // todo: connect can be used for both client and vendor, need refactor here
-        this.$router.push({name: 'Dash.Client.Connect', query:{q1: 'q1'}, params: {email: 'abc'} })
+        this.$router.push({name: 'Dash.Vendor.Add', query:{q1: 'q1'}, params: {email: 'abc'} })
 
       }
     }

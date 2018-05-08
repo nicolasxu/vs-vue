@@ -1,7 +1,6 @@
 <template>
   <div class="add-client">
     <h3>Add Client</h3>
-
     <div class="search" v-show="state==='search'"> 
       <form class="uk-form uk-form-stacked">
         <div class="uk-form-row">
@@ -27,25 +26,22 @@
       </form>
     </div>
     <div class="search-result" v-show="state==='search-result'">
-      <div class="search-result" >
-        <div class="uk-form">
-          <div class="uk-form-row found-company" v-show="foundCompany._id">
-            <legend>Result: </legend>
-            <div class="checkmark-positioner">
-              <div class="checkmark">&#10003;</div> 
-            </div>
-            <div class="company-info-positioner">
-              <div class="name">{{foundCompany.name}} </div>
-              <div class="address"><span>Address: </span> 451 Andover St, North Andover, MA 01845</div>
-              <div class="tel"><span>Tel: </span>619-204-2004</div>              
-            </div>
-            <div class="connect-positioner">
-              <button class="uk-button uk-button-primary uk-button-small" @click="connect">Connect</button>
-              <div class="btn-note">As your client</div>
-            </div>
-          </div>          
-        </div>
-
+      <div class="uk-form">
+        <div class="uk-form-row found-company" v-show="foundCompany._id">
+          <legend>Result: </legend>
+          <div class="checkmark-positioner">
+            <div class="checkmark">&#10003;</div> 
+          </div>
+          <div class="company-info-positioner">
+            <div class="name">{{foundCompany.name}} </div>
+            <div class="address"><span>Address: </span> 451 Andover St, North Andover, MA 01845</div>
+            <div class="tel"><span>Tel: </span>619-204-2004</div>              
+          </div>
+          <div class="connect-positioner">
+            <button class="uk-button uk-button-primary uk-button-small" @click="connect">Connect</button>
+            <div class="btn-note">As your client</div>
+          </div>
+        </div>          
         <div class="uk-form-row" v-show="!foundCompany._id"> 
           <h3>No company found with this email: {{email}}</h3>
         </div>
@@ -53,9 +49,8 @@
           <button class="uk-button uk-button-primary uk-button-small" @click="connect" v-show="foundCompany._id">Connect</button>
           <button class="uk-button uk-button-default uk-button-small" @click="backToSearch">Back</button>
           <button class="uk-button uk-button-primary uk-button-small" @click="create" v-show="!foundCompany._id">Create</button>
-
         </div>
-      </div>      
+      </div>
     </div>
     <div class="create-client" v-show="state==='create-client'">
       <div class="uk-form uk-form-stacked creat-company-form">
@@ -182,17 +177,11 @@
         <div class="uk-form-row">
           <button class="uk-button uk-button-default uk-button-small" @click.prevent="backToSearch">Back</button>
           <button class="uk-button uk-button-primary uk-button-small" @click.prevent="createClientSubmit">Submit</button>
-        </div>
-        <div class="uk-form-row" v-show="clientErrCode">
-          <div class="uk-alert">
-            {{cleintErrMsg}}
-          </div>
-        </div>      
+        </div>     
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
   import api from '../../../util/api'
@@ -207,7 +196,6 @@
         err_msg: '',
         err_code: null,
         foundCompany: {},
-        searchDone: false,
         createClient: false,
         state: 'search', // 'search-result', 'create-client'
         client: {
@@ -222,15 +210,11 @@
           tel: '',
           website: '',
           serviceDesc: ''
-        },
-        clientErrCode: '',
-        cleintErrMsg: ''
+        }
       }
     },
     watch: {
-      email(newEmail, oldEmail) {
-        this.searchDone = false
-      }
+    
     },
     methods: {
       async searchByEmail() {
@@ -253,11 +237,9 @@
         }
         
         if (findRes.data.getCompanyByEmail._id) {
-          this.foundCompany = findRes.data.getCompanyByEmail
-          this.state = 'search-result' 
-        } else {
-          this.state = 'search-result'
-        }
+          this.foundCompany = findRes.data.getCompanyByEmail 
+        } 
+        this.state = 'search-result'
         
       },
       async connect() {
@@ -266,7 +248,6 @@
           return
         }
 
-        // TODO: ...
         let connectRes 
         try {
           connectRes = await api.request.create(this.email, 'client')
@@ -292,8 +273,6 @@
         if (!confirmed) {
           return
         }
-        this.clientErrCode = ''
-        this.cleintErrMsg = ''
         let createRes
 
         try {
@@ -306,7 +285,6 @@
         this.processResError(createRes, 'createMyClient')
 
       }
-
     }
   }
 </script>
@@ -332,36 +310,7 @@
       display: inline-block;
       min-width: 70%;
       .found-company {
-        vertical-align: middle;
-        .name {
-          font-size: 20px;
-          font-weight: bold;
-        }
-        .address {
-
-        }
-        .tel {
-
-        }
-
-        .checkmark-positioner, .company-info-positioner, .connect-positioner {
-          display: inline-block;
-              vertical-align: middle;
-        }
-        .checkmark-positioner {
-          .checkmark {
-            padding: 0.5em;
-            font-size: 25px;
-            color: green;
-          }
-        }
-        .connect-positioner {
-          padding-left: 3em;
-          .btn-note {
-            font-size: 12px;
-            text-align: center;
-          }
-        }
+        @extend %found-company;
       }
     }
     .create-client {
@@ -398,5 +347,4 @@
 
 
   }
-
 </style>

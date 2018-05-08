@@ -39,7 +39,6 @@ $grey-text-color: rgba(127, 127, 127, 0.8);
 }
 
 %profile {
-
   float: right;
   .profile-box {
     display: inline-block;
@@ -87,5 +86,37 @@ $grey-text-color: rgba(127, 127, 127, 0.8);
     }
 
   }
+}
 
+%found-company {
+  vertical-align: middle;
+  .name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .address {
+
+  }
+  .tel {
+
+  }
+
+  .checkmark-positioner, .company-info-positioner, .connect-positioner {
+    display: inline-block;
+        vertical-align: middle;
+  }
+  .checkmark-positioner {
+    .checkmark {
+      padding: 0.5em;
+      font-size: 25px;
+      color: green;
+    }
+  }
+  .connect-positioner {
+    padding-left: 3em;
+    .btn-note {
+      font-size: 12px;
+      text-align: center;
+    }
+  }
 }

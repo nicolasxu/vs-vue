@@ -32,7 +32,7 @@ import ConnectClient from '../components/dash/Client/ConnectClient.vue'
 
 import Vendor from '../components/dash/Vendor/vendor.vue'
 import VendorDetail from '../components/dash/Vendor/VendorDetail.vue'
-
+import AddVendor from '../components/dash/Vendor/AddVendor.vue'
 
 
 import Setting from '../components/dash/Setting/Setting'
@@ -168,6 +168,11 @@ let theRouter = new Router({
           component: Vendor,
           beforeEnter: companyCreatedGuard
         }, {
+          path:'vendor/add',
+          name: 'Dash.Vendor.Add',
+          component: AddVendor,
+          beforeEnter: companyCreatedGuard
+        },{
           path: 'vendor/:id',
           name: 'Dash.Vendor.Detail',
           component: VendorDetail,
