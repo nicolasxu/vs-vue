@@ -24,9 +24,11 @@
   import api from '../../../util/api'
   import invoiceStore from './createInvoiceStore.js'
   import _ from 'lodash'
+  import processResErrorMixin from '../../../util/processResError.js'
 
   export default {
     name: 'PreviewInvoice',
+    mixins: [processResErrorMixin],
     components: {},
     data() {
       return {
@@ -81,46 +83,14 @@
           sendRes = await api.invoice.send(input)
         } catch (e) {
           console.log('Send invoice request error', e)
-          this.$notify({
-            timeout: 3000,
-            group: 'foo',
-            type: 'error',
-            title: 'Error',
-            text: e.message
-          })
-
           return
         }
-        if (sendRes.errors) {
-          this.$notify({
-            group: 'foo',
-            type: 'error',
-            title: 'Error',
-            text: sendRes.errors[0].message
-          })
-          return 
+
+        let isSuccess = this.processResError(sendRes, 'createInvoice')
+
+        if (isSuccess) {
+          this.$router.push({name: 'Dash.Sent'})          
         }
-
-        if (sendRes.data.err_code) {
-          this.$notify({
-            group: 'foo',
-            type: 'error',
-            title: 'Error ' + sendRes.data.err_code,
-            text: sendRes.data.err_msg          
-          })
-          return 
-        }
-
-        this.$notify({
-          group: 'foo',
-          type: 'success',
-          title: '&#10004 Success',
-          text: 'Send invoice success!'            
-        })
-
-        this.$router.push({name: 'Dash.Sent'})
-
-
       },
       back() {
         this.$router.push({name: 'CreateInvoice'})

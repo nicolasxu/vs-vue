@@ -2,7 +2,7 @@
 
   <tr class="request-item">
     <td>{{request.from_company_name}}</td>
-    <td>{{request.from_user_name}}</td>
+    <td>{{request.to_company_name}}</td>
     <td>{{this.toBeYour}}</td>
     <td>{{request.createdAt}}</td>
     <td>{{request.status}}</td>

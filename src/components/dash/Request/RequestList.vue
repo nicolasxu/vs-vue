@@ -4,7 +4,7 @@
         <thead>
           <tr>
             <th>From</th>
-            <th>Pserson</th>
+            <th>To</th>
             <th>To Be Your</th>
             <th>Sent Date</th>
             <th>Status</th>

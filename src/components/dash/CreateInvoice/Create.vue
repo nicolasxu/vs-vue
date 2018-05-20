@@ -98,11 +98,13 @@
   import Datepicker from 'vuejs-datepicker'
   import invoiceStore from './createInvoiceStore.js'
   import store from '../../../components/store.js'
+  import processResErrorMixin from '../../../util/processResError.js'
 
 
   export default {
     name: 'create',
     components: {Multiselect, InputTable, Datepicker}, 
+    mixins: [processResErrorMixin],
     data() {
       return {
         messageOri: 'Nick',
