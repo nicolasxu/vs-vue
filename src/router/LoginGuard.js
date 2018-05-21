@@ -13,7 +13,8 @@ async function beforeEachRouteCheckLogin(to, from, next) {
     to.name === 'Register' || 
     to.name === 'ResetPassword' || 
     to.name === 'VerifyEmail' ||
-    to.name === 'ResetPasswordRequest') {
+    to.name === 'ResetPasswordRequest' ||
+    to.name === 'ViewInvoice') {
     next()
     return
   }

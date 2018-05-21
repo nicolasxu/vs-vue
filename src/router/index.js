@@ -51,6 +51,8 @@ import ProductDetail from '../components/dash/Product/ProductDetail.vue'
 
 import Discount from '../components/dash/Discount/Discount.vue'
 
+import V from '../components/V/V.vue'
+
 Vue.use(Router)
 
 let theRouter = new Router({
@@ -59,7 +61,11 @@ let theRouter = new Router({
       path: '/',
       name: 'Hello',
       component: Hello
-    },{
+    }, {
+      path: '/v/:viewId',
+      name: 'ViewInvoice',
+      component: V
+    }, {
       path: '/login',
       name: 'Login',
       component: Login

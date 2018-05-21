@@ -12,7 +12,7 @@
       <div class="title">Sent: {{'ABC Company'}}</div>
     </div>
     <div class="preview-area">
-      <div class="invoice-positioner" >
+      <div class="invoice-positioner">
         <div v-html="invoice.renderedInvoice"></div>
       </div>
       <div class="status-positioner">
@@ -123,50 +123,10 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../../../scss/reusable.scss';
   .sent-invoice-detail {
-    position: relative;
-    min-height: 100vh;    
-    .detail-header {
-      height: 48px;
-      border-bottom:1px solid #efefef;
-      display: flex;
-      flex-direction: row;
-      align-items: center;      
-      .cmd-group {
-        display: inline-block;
-        margin-left: 1em;
-      }
-      .title {
-        display: inline-block;
-        margin-left: 1em;
-        font-size: 18px;
-        font-family: monospace;
-      }
-      @media print {
-        display: none;
-      }
-    }
-    .preview-area {
-      background: #e0e0e0;
-      width: 100%;
-      margin: 0;
-      vertical-align: top;
-      padding-left: 2em;
-      .invoice-positioner {
-        display: inline-block;
-        background: white;
-        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
-        margin: 5mm auto;
-      }
-      .status-positioner {
-        vertical-align: top;
-        display: inline-block;
-        background: white;
-        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
-        margin: 5mm auto; 
-        margin-left: 2em;       
-      }
-    }
+    @extend %invoice-view-page;
+
   }
 
 </style>
