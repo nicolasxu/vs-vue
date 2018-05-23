@@ -3,6 +3,7 @@
 import store from '../../src/components/store.js'
 
 window.store = store
+store.retrieveToken()
 
 export default {
   get: getFn,

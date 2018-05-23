@@ -70,30 +70,11 @@ export default {
       }
 
       store.token = tokenRes.data.token
+      store.saveToken(store.token)
       store.user = tokenRes.data.user
 
       this.$router.push({name: 'Dash.Received'})
 
-
-      /*
-      api.user.createToken({email: this.email, password: this.password})
-        .then(async (result) => {
-          if (result.code === 2000) {
-            store.token = result.data.token
-            // get user
-            store.user = (await api.user.getDetail()).data.user
-
-            // redirect to dash
-            this.$router.push({name: 'Dash.Received'})
-          } else {
-            // show err
-            this.errorCode = result.code
-          }
-        })
-        .catch((err)=> {
-          console.log('err', err)
-        })
-      */
     }
   }
 }

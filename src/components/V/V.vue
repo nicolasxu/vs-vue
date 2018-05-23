@@ -35,6 +35,8 @@
       }
     },
     created() {
+      let viewId = this.$route.params.viewId
+
       // 1. get viewId
       // 4. who is this viewer? get token from localstorage
       // 2. call api with token to fetch invoice by viewId
@@ -44,6 +46,7 @@
       //       if to_company alive? 
       //       yes: 'pay' will redirect to login
       //       no: no login shown, 'pay' will redirect to "pay and registration page", can not change email. 
+      //           re-enter the receive invoice mail required
       
     },
     methods: {

@@ -59,21 +59,27 @@
           Setting
         </router-link>         
       </menuitem>
-      <menuitem>
-        <router-link class="nav-link" :to="{ name: 'Dash.Create', params: { userId: 123 }}">
-          Logout
-        </router-link>         
+      <menuitem> 
+        <a href="javascript:void(0)" class="nav-link" @click="logout">Logout</a>
       </menuitem>
     </menu>
   </nav>
 </template>
 
 <script>
+  import store from '../../components/store.js'
+
   export default {
     name: 'navigation',
     data() {
       return {
         msg: 'This is Navigation component'
+      }
+    },
+    methods: {
+      logout() {
+        store.removeToken()
+        this.$router.push({name: 'Login'})
       }
     }
   }
