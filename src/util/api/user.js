@@ -38,8 +38,9 @@ function getDetail () {
   return request.post(graphqlEndpoint, payload)
 }
 
-function register() {
-
+function register(user) {
+  const url = baseUrl + '/user'
+  return request.post(url, user)
 }
 
 function createToken(user) {

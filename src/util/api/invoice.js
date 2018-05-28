@@ -9,7 +9,7 @@ const baseUrl = base.baseUrl
 
 export {
   send, getList, getById, 
-  voidById, getPdf
+  voidById, getPdf, getByViewId
 }
 
 function send(invoice) {
@@ -200,5 +200,10 @@ function voidById(id) {
 
 function getPdf(viewId) {
   const url = baseUrl + '/invoicepdf/' + viewId
+  return request.get(url)
+}
+
+function getByViewId(viewId) {
+  const url = baseUrl + '/invoice/' + viewId
   return request.get(url)
 }

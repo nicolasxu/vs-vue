@@ -82,7 +82,7 @@
   @import '../scss/reusable.scss';
 
   .reset-password {
-    @extend %login-register-container;
+    @extend %login-register-position;
     .email-input {
       width: 100%;
     }

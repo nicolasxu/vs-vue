@@ -1,31 +1,64 @@
 <template>
   <div class="register">
 
-    <form class="uk-form-stacked">
+    <form class="uk-form uk-form-stacked uk-width-medium-2-3 ">
       <legend class="uk-legend">Register</legend>
 
-      <div class="uk-margin">
+      <div class="uk-form-row">
         <label class="uk-form-label" for="form-email">Email</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
-        </div>
+          <input class="uk-input" id="form-email" 
+          type="text" placeholder="your@email.com" 
+          v-model="email"
+          name="email"
+          v-validate="{required: true, email: true}">
+        </div>        
       </div>
-      <div class="uk-margin">
+
+      <div class="uk-form-row">
+        <label class="uk-form-label" for="form-email">Your Company Name</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="form-company-name" 
+          type="text" placeholder="Company Name" 
+          v-model="companyName"
+          name="companyName"
+          v-validate="{required: true}">
+        </div>        
+      </div>
+      
+      <div class="uk-form-row">
         <label class="uk-form-label" for="form-password">Password</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="password">
+          <input class="uk-input" id="form-password" type="password" 
+          placeholder="password" 
+          v-model="password"
+          name="password"
+          v-validate="{required: true, min: 8}">
         </div>
       </div>
-      <div class="uk-margin">
+
+      <div class="uk-form-row">
         <label class="uk-form-label" for="form-password">Password Repeat</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="form-password" type="password" placeholder="password" v-model="passwordRepeat">
+          <input class="uk-input" id="form-password-repeat" 
+          type="password" placeholder="password" 
+          v-model="passwordRepeat"
+          name="passwordRepeat"
+          v-validate="{required: true, is: password }">
         </div>
-      </div>       
-      <div class="uk-margin">
+      </div>
+      
+
+      <div class="uk-form-row">
         <div class="uk-form-controls">
-          <button class="uk-button uk-button-primary" @click.prevent="register">Register</button>
-          <router-link class="reset-link" :to="{ name: 'Login', params: { userId: 123 }}">Login</router-link>
+          <button class="uk-button uk-button-primary" 
+          @click.prevent="register"
+          :disabled="!isFormValid ||loading? true: false"
+          >
+            <span v-show="!loading">Register</span>
+            <span v-show="loading">Loading...</span>
+          </button>
+          <router-link class="login-link" :to="{ name: 'Login', params: { userId: 123 }}">Login</router-link>
         </div>
       </div>
     </form>
@@ -35,39 +68,49 @@
 <script>
 import api from '@/util/api'
 import store from './store.js'
+import processResErrorMixin  from '../util/processResError.js'
 
 export default {
   name: 'login',
+  mixins: [processResErrorMixin],
   data () {
     return {
-      msg: 'this is Register component',
       email: '',
+      companyName: '',
       password: '',
-      passwordRepeat: ''
+      passwordRepeat: '',
+      loading: false
+    }
+  },
+  computed: {
+    isFormValid() {
+      return !Object.keys(this.fields).some(key=> !this.fields[key].valid)
     }
   },
   methods: {
-    register: function (e) {
-      if (this.password !== this.passwordRepeat) {
-        console.log('password repeat is not the same')
+    register: async function (e) {
+      this.loading = true
+      
+      let res 
+      try {
+        res = await api.user.register({
+          email: this.email, 
+          password: this.password, 
+          companyName: this.companyName
+        })
+      } catch (e) {
+        console.log('register error')
+        return 
+      }
+
+      let isSuccess = this.processResError(res, 'register')
+      if (!isSuccess) {
         return
       }
 
-      if(this.email === '') {
-        console.log('email is empty')
-        return
-      }
-      let thisComponent = this
-      console.log('registering user...')
-      api.user.register({email: this.email, password: this.password})
-        .then((result) => {
-          if (result.code === 2000) {
-            // register succeed
-            store.user = result.data.user
-            console.log("store.user: ", store.user)
-            thisComponent.$router.push({name: 'Dash.Received'})
-          }
-        })
+      store.user = res.data.register.user
+      console.log("store.user: ", store.user)
+      this.$router.push({name: 'Login'})
     }
   }
 }
@@ -76,12 +119,14 @@ export default {
 <style scoped lang="sass">
   @import '../scss/reusable.scss';
   .register {
-    // margin-top: 10%;
-    // margin-left: auto;
-    // margin-right: auto;
-    // width: 100%;
-    // max-width: 400px;
-    @extend %login-register-container;
 
+    @extend %login-register-position;
+    input {
+      width: 100%;
+    }
+    .login-link {
+      float: right;
+      line-height: 2em;
+    }
   }
 </style>

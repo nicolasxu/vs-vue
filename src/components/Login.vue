@@ -1,19 +1,25 @@
 <template>
   <div class="login">
   
-    <form class="uk-form uk-width-medium-2-3">
+    <form class="uk-form uk-form-stacked uk-width-medium-2-3">
       <legend class="uk-legend">Login</legend>
 
       <div class="uk-form-row">
         <label class="uk-form-label" for="form-email">Email</label>
         <div class="uk-form-controls">
-            <input class="uk-input email-input" id="form-email" type="text" placeholder="your@email.com" v-model="email">
+            <input class="uk-input email-input" id="form-email" type="text" 
+            placeholder="your@email.com" 
+            v-model="email"
+            v-validate="{required: true, email: true}">
         </div>
       </div>
       <div class="uk-form-row">
         <label class="uk-form-label" for="form-password">Password</label>
         <div class="uk-form-controls">
-            <input class="uk-input pwd-input" id="form-password" type="password" placeholder="password" v-model="password">
+            <input class="uk-input pwd-input" id="form-password" type="password" 
+            placeholder="password" 
+            v-model="password"
+            v-validate="{required: true}">
         </div>
       </div>
       <div class="uk-margin">
@@ -83,12 +89,12 @@ export default {
 <style scoped lang="sass">
 @import '../scss/reusable.scss';
 .login {
-  @extend %login-register-container;
+  @extend %login-register-position;
   .email-input, .pwd-input {
     width: 100%;
   }
   .reset-link {
-    // margin-left: 6%;
+    
     float: right;
   }
   .uk-alert-danger {

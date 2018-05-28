@@ -106,7 +106,7 @@
 <style lang="scss" scoped>
   @import '../scss/reusable.scss';
   .reset-password {
-    @extend %login-register-container;
+    @extend %login-register-position;
     #form-pwd, #form-pwd-repeat {
       width: 100%;
     }

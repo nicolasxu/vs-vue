@@ -6,6 +6,8 @@ import App from './App'
 import router from './router'
 import VeeValidate from 'vee-validate'
 import Notifications from 'vue-notification'
+import {default as Vuedals, Component as Vuedal, Bus as VuedalsBus} from 'vuedals';
+
 
 
 Vue.config.productionTip = false
@@ -33,7 +35,7 @@ const veeValidateConfig = {
 };
 
 Vue.use(Notifications)
-
+Vue.use(Vuedals)
 Vue.use(VeeValidate, veeValidateConfig)
 /* eslint-disable no-new */
 new Vue({

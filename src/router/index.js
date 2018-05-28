@@ -102,16 +102,6 @@ let theRouter = new Router({
       component: MaintainTemplate
 
     }, {
-      path:'/sent/invoice/:id',
-      name:'Dash.Sent.Detail',
-      component: SentInvoiceDetail,
-      beforeEach: companyCreatedGuard
-    }, {
-      path:'/received/invoice/:id',
-      name:'Dash.Received.Detail',
-      component: ReceivedInvoiceDetail,
-      beforeEach: companyCreatedGuard      
-    }, {
       path: '/dash',
       components: {
         nav: Navigation,
@@ -132,11 +122,20 @@ let theRouter = new Router({
           component: Received,
           beforeEnter: companyCreatedGuard
         }, {
+          path:'received/:id',
+          name:'Dash.Received.Detail',
+          component: ReceivedInvoiceDetail,
+          beforeEach: companyCreatedGuard      
+        }, {
           path: 'sent',
           name: 'Dash.Sent',
           component: Sent
-        }, 
-        {
+        }, {
+          path:'sent/:id',
+          name:'Dash.Sent.Detail',
+          component: SentInvoiceDetail,
+          beforeEach: companyCreatedGuard
+        }, {
           path: 'create', 
           name: 'Dash.Create',
           component: Create,
