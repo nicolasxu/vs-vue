@@ -24,6 +24,8 @@
    ✔ - Add client @done (18-05-15 22:34)  
    ✔ - Add vendor @done (18-05-15 22:33)
    ✔ - Disconnect live vendor @done (18-05-15 22:34)
+   ☐ 15. implement and test covnert private company & invoice based on new company created with same email 
+
    ☐ - refactor client/vendor detail layout 
  ☐ 15. pay invoice and create new account procedure 
      - send email when send invoice
